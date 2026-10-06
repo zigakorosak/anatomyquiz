@@ -2,6 +2,21 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: first deploy, live at zigakorosak.com/anatomyquiz/
+
+The user created the cPanel FTP account `ftpaccanatomyquiz@zigakorosak.com`
+(its own account, not GeoQuiz's, which is locked to `public_html/geoquiz`;
+reusing it with `server-dir: ./` would have overwritten GeoQuiz) and set
+the three repo secrets. cPanel's truncated path column didn't show whether
+the account's folder was inside `public_html`. The deploy settled it: the
+workflow passed, and fetching the live URL (via the www redirect) returned
+the app's page, with its JS and CSS assets both 200. GeoQuiz still returned
+200 afterwards.
+
+Annotation on the run: `actions/checkout@v4` and `actions/setup-node@v4`
+target the deprecated Node 20 runtime (GitHub forces Node 24). Harmless
+for now.
+
 ## 2026-10-06: pushed to GitHub
 
 Remote: `https://github.com/zigakorosak/anatomyquiz` (public, like

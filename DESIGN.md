@@ -116,11 +116,13 @@ on GitHub's runner and FTPS-uploads `dist/`. It is **manual only**
 `vite.config.js` sets `base: "/anatomyquiz/"`. If the deploy path changes,
 that line must change to match.
 
-**One-time setup, not done yet:**
+**One-time setup (done 2026-10-06):**
 
 1. ~~Create the GitHub repo and push.~~ Done: `github.com/zigakorosak/anatomyquiz`.
-2. In cPanel, create an FTP account scoped to `public_html/anatomyquiz`.
-3. Add repo secrets `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
+2. cPanel FTP account `ftpaccanatomyquiz@zigakorosak.com`, scoped to
+   `public_html/anatomyquiz`.
+3. Repo secrets `FTP_SERVER` (`zigakorosak.com`), `FTP_USERNAME`,
+   `FTP_PASSWORD`.
 
 Gotchas from GeoQuiz's setup:
 
