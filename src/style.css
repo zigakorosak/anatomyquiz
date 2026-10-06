@@ -1,0 +1,40 @@
+:root {
+  --bg: #f6f5f2;
+  --fg: #1d1d1f;
+  --muted: #6b6b70;
+  --accent: #b03a48;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 16px;
+}
+
+.home h1 {
+  margin: 0 0 8px;
+}
+
+.home p {
+  color: var(--muted);
+}

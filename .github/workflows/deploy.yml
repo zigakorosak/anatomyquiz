@@ -1,0 +1,32 @@
+name: Deploy to Namecheap
+
+# Manual only — pushing to main does not deploy. Run from the Actions tab or
+# `gh workflow run "Deploy to Namecheap"` (scripts/deploy.sh).
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Upload dist/ via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          # Relative to the FTP account's own login root — if that account is
+          # already scoped to public_html/anatomyquiz, this must stay ./
+          server-dir: ./

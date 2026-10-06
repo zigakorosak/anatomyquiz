@@ -1,0 +1,8 @@
+node_modules
+dist
+archive
+# Z-Anatomy source material (~2.3 GB, CC-BY-SA) — local input to scripts/, never committed
+reference
+scratch-*.mjs
+.env
+.env.*
