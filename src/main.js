@@ -1,17 +1,28 @@
 import "./style.css";
 import { renderHome } from "./ui/home.js";
+import { renderWizard } from "./ui/gameWizard.js";
+import { renderGame } from "./ui/game.js";
+import { renderExplore } from "./ui/explore.js";
 
-// Top-level screen router. Each screen is a function (root, navigate) that
-// fills `root`; navigate(name) swaps to another registered screen.
+// Top-level screen router. Each screen is a function (root, navigate, ...args)
+// that fills `root` and may return a cleanup function, run when the next
+// screen replaces it (timers, document-level listeners).
 const screens = {
   home: renderHome,
+  wizard: renderWizard,
+  game: renderGame,
+  explore: renderExplore,
 };
 
 const root = document.getElementById("app");
+let cleanup = null;
 
 function navigate(name, ...args) {
+  cleanup?.();
+  cleanup = null;
   root.replaceChildren();
-  screens[name](root, navigate, ...args);
+  const result = screens[name](root, navigate, ...args);
+  if (typeof result === "function") cleanup = result;
 }
 
 navigate("home");

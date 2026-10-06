@@ -1,0 +1,4108 @@
+[
+ {
+  "name": "Arytenoid cartilage.l",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3780,
+  "merged": [],
+  "tris": 944,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Arytenoid cartilage.r",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3780,
+  "merged": [],
+  "tris": 944,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Atlas (C1)",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2194,
+  "merged": [],
+  "tris": 548,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Axis (C2)",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2334,
+  "merged": [],
+  "tris": 582,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Body of sternum",
+  "groups": [
+   "Sternum.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4466,
+  "merged": [],
+  "tris": 1116,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Calcaneus.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1448,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Calcaneus.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1448,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Capitate bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 472,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Capitate bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 472,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Clavicle.l",
+  "groups": [
+   "Bones of pectoral girdle.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1550,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Clavicle.r",
+  "groups": [
+   "Bones of pectoral girdle.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1550,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Coccyx",
+  "groups": [
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1166,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Corniculate cartilage.l",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 136,
+  "merged": [],
+  "tris": 136,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Corniculate cartilage.r",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 136,
+  "merged": [],
+  "tris": 136,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of eighth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2624,
+  "merged": [],
+  "tris": 656,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of eighth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2624,
+  "merged": [],
+  "tris": 656,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of fifth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6492,
+  "merged": [],
+  "tris": 1622,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of fifth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6492,
+  "merged": [],
+  "tris": 1622,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of first rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2772,
+  "merged": [],
+  "tris": 692,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of first rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2772,
+  "merged": [],
+  "tris": 692,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of fourth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4472,
+  "merged": [],
+  "tris": 1118,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of fourth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4472,
+  "merged": [],
+  "tris": 1118,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of ninth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1964,
+  "merged": [],
+  "tris": 490,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of ninth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1964,
+  "merged": [],
+  "tris": 490,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of second rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3408,
+  "merged": [],
+  "tris": 852,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of second rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3408,
+  "merged": [],
+  "tris": 852,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of seventh rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 13764,
+  "merged": [],
+  "tris": 3440,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of seventh rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 13764,
+  "merged": [],
+  "tris": 3440,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of sixth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8120,
+  "merged": [],
+  "tris": 2030,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of sixth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8120,
+  "merged": [],
+  "tris": 2030,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of tenth rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1524,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of tenth rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1524,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of third rib.l",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3600,
+  "merged": [],
+  "tris": 900,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Costal cartilage of third rib.r",
+  "groups": [
+   "Costal cartilages.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3600,
+  "merged": [],
+  "tris": 900,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Cricoid cartilage",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1882,
+  "merged": [],
+  "tris": 470,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Cuboid bone.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 998,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Cuboid bone.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 998,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fifth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 236,
+  "merged": [],
+  "tris": 236,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fifth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 236,
+  "merged": [],
+  "tris": 236,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fifth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 192,
+  "merged": [],
+  "tris": 192,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fifth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 192,
+  "merged": [],
+  "tris": 192,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of first finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 466,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of first finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 466,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of first finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 222,
+  "merged": [],
+  "tris": 222,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of first finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 222,
+  "merged": [],
+  "tris": 222,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fourth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 278,
+  "merged": [],
+  "tris": 278,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fourth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 278,
+  "merged": [],
+  "tris": 278,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fourth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 134,
+  "merged": [],
+  "tris": 134,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of fourth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 134,
+  "merged": [],
+  "tris": 134,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of second finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 236,
+  "merged": [],
+  "tris": 236,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of second finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 236,
+  "merged": [],
+  "tris": 236,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of second finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 250,
+  "merged": [],
+  "tris": 250,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of second finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 250,
+  "merged": [],
+  "tris": 250,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of third finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 318,
+  "merged": [],
+  "tris": 318,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of third finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 318,
+  "merged": [],
+  "tris": 318,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of third finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 192,
+  "merged": [],
+  "tris": 192,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Distal phalanx of third finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 192,
+  "merged": [],
+  "tris": 192,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Eighth rib.l",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8270,
+  "merged": [],
+  "tris": 2066,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Eighth rib.r",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8270,
+  "merged": [],
+  "tris": 2066,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Eleventh rib.l",
+  "groups": [
+   "Floating ribs.g",
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 5034,
+  "merged": [],
+  "tris": 1258,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Eleventh rib.r",
+  "groups": [
+   "Floating ribs.g",
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 5034,
+  "merged": [],
+  "tris": 1258,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Ethmoid bone",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 15954,
+  "merged": [
+   "Anterior cells of ethmoid bone.l",
+   "Anterior cells of ethmoid bone.r",
+   "Middle cells of ethmoid bone.l",
+   "Middle cells of ethmoid bone.r",
+   "Posterior cells of ethmoid bone.l",
+   "Posterior cells of ethmoid bone.r"
+  ],
+  "tris": 3988,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Femur.l",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3794,
+  "merged": [],
+  "tris": 948,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Femur.r",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3794,
+  "merged": [],
+  "tris": 948,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fibula.l",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1264,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fibula.r",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1264,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth metacarpal bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 512,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth metacarpal bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 512,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth metatarsal bone.l",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 894,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth metatarsal bone.r",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 894,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 9376,
+  "merged": [],
+  "tris": 2344,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fifth rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 9376,
+  "merged": [],
+  "tris": 2344,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First metacarpal bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 682,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First metacarpal bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 682,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First metatarsal bone.l",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1088,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First metatarsal bone.r",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1088,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3210,
+  "merged": [],
+  "tris": 802,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "First rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3210,
+  "merged": [],
+  "tris": 802,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth metacarpal bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 642,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth metacarpal bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 642,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth metatarsal bone.l",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 834,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth metatarsal bone.r",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 834,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8646,
+  "merged": [],
+  "tris": 2160,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Fourth rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 8646,
+  "merged": [],
+  "tris": 2160,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Frontal bone",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7776,
+  "merged": [],
+  "tris": 1944,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Hamate bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 536,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Hamate bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 536,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Hip bone.l",
+  "groups": [
+   "Bones of pelvic girdle.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3788,
+  "merged": [],
+  "tris": 946,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Hip bone.r",
+  "groups": [
+   "Bones of pelvic girdle.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3788,
+  "merged": [],
+  "tris": 946,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Humerus.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4280,
+  "merged": [],
+  "tris": 1070,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Humerus.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4280,
+  "merged": [],
+  "tris": 1070,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Hyoid bone",
+  "groups": [
+   "Extracranial bones of head.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1324,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Incus.l",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2532,
+  "merged": [],
+  "tris": 632,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Incus.r",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2532,
+  "merged": [],
+  "tris": 632,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Inferior nasal concha bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 476,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Inferior nasal concha bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 476,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Intermediate cuneiform bone.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 444,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Intermediate cuneiform bone.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 444,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lacrimal bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 588,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Lacrimal bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 588,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Lateral cuneiform bone.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 638,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lateral cuneiform bone.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 638,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lateral process of nasal septal cartilage.l",
+  "groups": [
+   "Nasal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 347,
+  "merged": [],
+  "tris": 347,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lateral process of nasal septal cartilage.r",
+  "groups": [
+   "Nasal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 347,
+  "merged": [],
+  "tris": 347,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lower canine.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1276,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower canine.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1276,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower first molar tooth.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4508,
+  "merged": [],
+  "tris": 1126,
+  "materials": [
+   "bone",
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower first molar tooth.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4508,
+  "merged": [],
+  "tris": 1126,
+  "materials": [
+   "bone",
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower first premolar.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1222,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower first premolar.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1222,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower lateral incisor.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1040,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower lateral incisor.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1040,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower medial incisor.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 984,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower medial incisor.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 984,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower second molar tooth.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1676,
+  "merged": [],
+  "tris": 418,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower second molar tooth.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1676,
+  "merged": [],
+  "tris": 418,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower second premolar.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1180,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lower second premolar.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1180,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Lunate bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2088,
+  "merged": [],
+  "tris": 522,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Lunate bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2088,
+  "merged": [],
+  "tris": 522,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Major alar cartilage.l",
+  "groups": [
+   "Nasal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 344,
+  "merged": [],
+  "tris": 344,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Major alar cartilage.r",
+  "groups": [
+   "Nasal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 344,
+  "merged": [],
+  "tris": 344,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Malleus.l",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3982,
+  "merged": [],
+  "tris": 994,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Malleus.r",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3982,
+  "merged": [],
+  "tris": 994,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Mandible",
+  "groups": [
+   "Extracranial bones of head.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 18838,
+  "merged": [],
+  "tris": 4708,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Manubrium of sternum",
+  "groups": [
+   "Sternum.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2662,
+  "merged": [],
+  "tris": 664,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Maxilla.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4798,
+  "merged": [],
+  "tris": 1198,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Maxilla.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4798,
+  "merged": [],
+  "tris": 1198,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Medial cuneiform bone.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 992,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Medial cuneiform bone.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 992,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fifth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 216,
+  "merged": [],
+  "tris": 216,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fifth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 216,
+  "merged": [],
+  "tris": 216,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fifth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 292,
+  "merged": [],
+  "tris": 292,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fifth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 292,
+  "merged": [],
+  "tris": 292,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fourth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 448,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fourth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 448,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fourth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 446,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of fourth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 446,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of second finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 382,
+  "merged": [],
+  "tris": 382,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of second finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 382,
+  "merged": [],
+  "tris": 382,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of second finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 314,
+  "merged": [],
+  "tris": 314,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of second finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 314,
+  "merged": [],
+  "tris": 314,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of third finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 400,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of third finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 400,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of third finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 360,
+  "merged": [],
+  "tris": 360,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Middle phalanx of third finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 360,
+  "merged": [],
+  "tris": 360,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Nasal bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 292,
+  "merged": [],
+  "tris": 292,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Nasal bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 292,
+  "merged": [],
+  "tris": 292,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Nasal septal cartilage",
+  "groups": [
+   "Nasal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 360,
+  "merged": [],
+  "tris": 360,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Navicular bone.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 732,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Navicular bone.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 732,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Ninth rib.l",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7778,
+  "merged": [],
+  "tris": 1944,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Ninth rib.r",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7778,
+  "merged": [],
+  "tris": 1944,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Occipital bone",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7531,
+  "merged": [],
+  "tris": 1881,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Palatine bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Palatine bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Parietal bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6886,
+  "merged": [],
+  "tris": 1720,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Parietal bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6780,
+  "merged": [],
+  "tris": 1694,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Patella.l",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 276,
+  "merged": [],
+  "tris": 276,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Patella.r",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 276,
+  "merged": [],
+  "tris": 276,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Pisiform bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1668,
+  "merged": [],
+  "tris": 416,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Pisiform bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1668,
+  "merged": [],
+  "tris": 416,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fifth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 516,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fifth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 516,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fifth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 560,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fifth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 560,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of first finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 532,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of first finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 532,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of first finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 328,
+  "merged": [],
+  "tris": 328,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of first finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 328,
+  "merged": [],
+  "tris": 328,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fourth finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fourth finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fourth finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 368,
+  "merged": [],
+  "tris": 368,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of fourth finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 368,
+  "merged": [],
+  "tris": 368,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of second finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 426,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of second finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 426,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of second finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 414,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of second finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 414,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of third finger of foot.l",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of third finger of foot.r",
+  "groups": [
+   "Phalanges of foot.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 460,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of third finger of hand.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 440,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Proximal phalanx of third finger of hand.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 440,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Radius.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 784,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Radius.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 784,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sacrum",
+  "groups": [
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 11676,
+  "merged": [],
+  "tris": 2919,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Scaphoid bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 390,
+  "merged": [],
+  "tris": 390,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Scaphoid bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 390,
+  "merged": [],
+  "tris": 390,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Scapula.l",
+  "groups": [
+   "Bones of pectoral girdle.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 25326,
+  "merged": [],
+  "tris": 6330,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Scapula.r",
+  "groups": [
+   "Bones of pectoral girdle.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 25326,
+  "merged": [],
+  "tris": 6330,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second metacarpal bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 764,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second metacarpal bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 764,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second metatarsal bone.l",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 690,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second metatarsal bone.r",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 690,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 5364,
+  "merged": [],
+  "tris": 1340,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Second rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 5364,
+  "merged": [],
+  "tris": 1340,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sesamoid bones of foot.l",
+  "groups": [
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 290,
+  "merged": [],
+  "tris": 290,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sesamoid bones of foot.r",
+  "groups": [
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 290,
+  "merged": [],
+  "tris": 290,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Seventh rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 9776,
+  "merged": [],
+  "tris": 2444,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Seventh rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 9776,
+  "merged": [],
+  "tris": 2444,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sixth rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 10132,
+  "merged": [],
+  "tris": 2532,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sixth rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 10132,
+  "merged": [],
+  "tris": 2532,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Sphenoid bone",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7308,
+  "merged": [],
+  "tris": 1826,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Stapes.l",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4342,
+  "merged": [],
+  "tris": 1084,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Stapes.r",
+  "groups": [
+   "Auditory ossicles.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4342,
+  "merged": [],
+  "tris": 1084,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Talus.l",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1350,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Talus.r",
+  "groups": [
+   "Tarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1350,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Temporal bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 14094,
+  "merged": [],
+  "tris": 3522,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Temporal bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 14094,
+  "merged": [],
+  "tris": 3522,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Tenth rib.l",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7026,
+  "merged": [],
+  "tris": 1756,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Tenth rib.r",
+  "groups": [
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 7026,
+  "merged": [],
+  "tris": 1756,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third metacarpal bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 708,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third metacarpal bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 708,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third metatarsal bone.l",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 814,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third metatarsal bone.r",
+  "groups": [
+   "Metatarsal bones.g",
+   "Bones of foot.g",
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 814,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third rib.l",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6980,
+  "merged": [],
+  "tris": 1744,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Third rib.r",
+  "groups": [
+   "True ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 6980,
+  "merged": [],
+  "tris": 1744,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Thyroid cartilage",
+  "groups": [
+   "Laryngeal cartilages.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4488,
+  "merged": [],
+  "tris": 1122,
+  "materials": [
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Tibia.l",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1670,
+  "merged": [],
+  "tris": 416,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Tibia.r",
+  "groups": [
+   "Bones of free part of lower limb.g",
+   "Bones of lower limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1670,
+  "merged": [],
+  "tris": 416,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Trapezium bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 500,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Trapezium bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 500,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Trapezoid bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 364,
+  "merged": [],
+  "tris": 364,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Trapezoid bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 364,
+  "merged": [],
+  "tris": 364,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Triquetrum bone.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 176,
+  "merged": [],
+  "tris": 176,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Triquetrum bone.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 176,
+  "merged": [],
+  "tris": 176,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Twelfth rib.l",
+  "groups": [
+   "Floating ribs.g",
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3002,
+  "merged": [],
+  "tris": 750,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Twelfth rib.r",
+  "groups": [
+   "Floating ribs.g",
+   "False ribs.g",
+   "Ribs.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3002,
+  "merged": [],
+  "tris": 750,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Ulna.l",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 904,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Ulna.r",
+  "groups": [
+   "Bones of free part of upper limb.g",
+   "Bones of upper limb.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 904,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Upper canine.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1470,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper canine.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1470,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper first molar tooth.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2176,
+  "merged": [],
+  "tris": 544,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper first molar tooth.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2176,
+  "merged": [],
+  "tris": 544,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper first premolar.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1684,
+  "merged": [],
+  "tris": 420,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper first premolar.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1684,
+  "merged": [],
+  "tris": 420,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper lateral incisor.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1454,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper lateral incisor.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1454,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper medial incisor.l",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1368,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper medial incisor.r",
+  "groups": [
+   "Anterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1368,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper second molar tooth.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1844,
+  "merged": [],
+  "tris": 460,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper second molar tooth.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1844,
+  "merged": [],
+  "tris": 460,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper second premolar.l",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1554,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Upper second premolar.r",
+  "groups": [
+   "Posterior teeth.g",
+   "Teeth.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1554,
+  "merged": [],
+  "tris": 398,
+  "materials": [
+   "tooth"
+  ]
+ },
+ {
+  "name": "Vertebra C3",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2440,
+  "merged": [],
+  "tris": 610,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra C4",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1940,
+  "merged": [],
+  "tris": 484,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra C5",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2336,
+  "merged": [],
+  "tris": 584,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra C6",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2304,
+  "merged": [],
+  "tris": 576,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra C7",
+  "groups": [
+   "Cervical vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2164,
+  "merged": [],
+  "tris": 540,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra L1",
+  "groups": [
+   "Lumbar vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3162,
+  "merged": [],
+  "tris": 790,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra L2",
+  "groups": [
+   "Lumbar vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2688,
+  "merged": [],
+  "tris": 672,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra L3",
+  "groups": [
+   "Lumbar vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3160,
+  "merged": [],
+  "tris": 790,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra L4",
+  "groups": [
+   "Lumbar vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3804,
+  "merged": [],
+  "tris": 950,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra L5",
+  "groups": [
+   "Lumbar vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 4032,
+  "merged": [],
+  "tris": 1008,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T1",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1946,
+  "merged": [],
+  "tris": 486,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T10",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 3058,
+  "merged": [],
+  "tris": 764,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T11",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1798,
+  "merged": [],
+  "tris": 448,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T12",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2586,
+  "merged": [],
+  "tris": 646,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T2",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2142,
+  "merged": [],
+  "tris": 534,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T3",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2344,
+  "merged": [],
+  "tris": 586,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T4",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2216,
+  "merged": [],
+  "tris": 554,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T5",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2152,
+  "merged": [],
+  "tris": 538,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T6",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1780,
+  "merged": [],
+  "tris": 444,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T7",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2794,
+  "merged": [],
+  "tris": 698,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T8",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1733,
+  "merged": [],
+  "tris": 432,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vertebra T9",
+  "groups": [
+   "Thoracic vertebrae.g",
+   "Vertebral column.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 2978,
+  "merged": [],
+  "tris": 744,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Vomer",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1022,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Xiphoid process",
+  "groups": [
+   "Sternum.g",
+   "Bones of thorax.g",
+   "Thoracic skeleton.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 913,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone",
+   "cartilage"
+  ]
+ },
+ {
+  "name": "Zygomatic bone.l",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1328,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ },
+ {
+  "name": "Zygomatic bone.r",
+  "groups": [
+   "Bones of cranium.g",
+   "Cranium.g",
+   "Skeletal system.g"
+  ],
+  "sourceTris": 1328,
+  "merged": [],
+  "tris": 400,
+  "materials": [
+   "bone"
+  ]
+ }
+]

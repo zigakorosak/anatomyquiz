@@ -85,4 +85,40 @@ next action is building observation tooling, not another fix.
 
 ## Project-specific traps
 
-(None yet.)
+- **Never `pkill -f` / `pgrep -f … | xargs kill` with a pattern from your
+  own command line.** The shell running the command matches too and gets
+  killed (exit 144), skipping everything after it, including cleanup.
+  This happened twice in one session. Kill by exact PID from
+  `ps -eo pid,args | grep "[v]ite preview"` instead (the `[v]` keeps
+  grep from matching itself).
+- **"Off" switches in a DOM helper.** A helper that skips `false` props
+  silently drops `spellcheck: false`, `disabled: false` and similar.
+- **A quiz prompt can give itself away.** Check whether the shown value is
+  among the accepted answers (identical English/Latin names, synonyms).
+  Filter in one shared place, so counts and games agree.
+
+- **Check the PATH yourself before declaring a tool missing, and recheck
+  when told.** Blender was reported as not installed, based on one
+  `which` at the start. The user had installed it minutes later
+  (`~/.local/bin/blender`), and had to point it out. On "I think I have X",
+  search properly (`which`, `~/.local/bin`, `~/Applications`, flatpak).
+- **Blender `objects.new(name)` silently renames on collision** (adds
+  `.001`). Any export that recreates objects must free the name first,
+  and should assert the result. The `.001` suffix broke every click and
+  only showed up in the browser.
+- **The `hidden` attribute loses to any class that sets `display`.** Keep
+  the global `[hidden] { display: none !important }` in style.css.
+- **`el.replaceChildren(a, null, b)` renders the text "null".** Use `h()`
+  or filter the arguments first.
+- **Size-dependent constants must scale with the region.** A 12 cm camera
+  margin suits a femur and is 40× too big for a stapes. Same lesson as
+  GeoQuiz #6/#7, in 3D.
+- **Test the camera's resting state, not mid-animation.** A Playwright
+  click computed while the camera was still gliding missed. Wait out the
+  450 ms `frame()`/`setView()` animation before measuring screen points.
+- **Resolve clicks at the press point.** At 3 mm targets, the 1–2 px
+  between press and release decides whether you hit the bone.
+- **Testing picks:** `viewer.findClickPoint(id)` (via `window.__anatomy`
+  in dev) returns a point that the real raycast confirms. Drive real
+  jittered mouse clicks there; never call the pick handler directly
+  (GeoQuiz #10).
