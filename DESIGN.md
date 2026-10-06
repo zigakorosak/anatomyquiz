@@ -246,8 +246,10 @@ As in GeoQuiz: **select → confirm → result → next**.
   **red**, including in text modes. A wrong multiple-choice option or
   click shows the bone you actually chose, in red. The feedback line
   always gives the English and Latin names.
-- **Next**: the header button, Enter, or a click (not a drag) on the
-  skeleton.
+- **Next**: the header button, Enter, a click (not a drag) on the
+  skeleton, or a click on any multiple-choice option. Locked options use an
+  `is-locked` class, not `disabled`, because browsers fire no click on
+  disabled buttons.
 
 **Camera.** A `highlight` prompt frames the target from outside, with
 context. For other prompts the player controls the view. On result the

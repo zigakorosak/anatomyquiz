@@ -306,7 +306,9 @@ a {
   text-align: center;
 }
 
-.option:hover:not(:disabled) {
+/* Not on locked options: hovering the green/red result would recolor its
+   border. They stay clickable (a click advances). */
+.option:hover:not(.is-locked) {
   border-color: var(--accent);
 }
 
@@ -324,7 +326,7 @@ a {
   background: #fbe7e8;
 }
 
-.option:disabled {
+.option.is-locked {
   color: var(--fg);
 }
 

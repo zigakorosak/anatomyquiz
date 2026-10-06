@@ -2,7 +2,8 @@
 //   value()  — current selection, or null when nothing is selected yet
 //              (null disables Confirm; a wrong answer is never null)
 //   check()  — { correct, guessKey?, guessMeshIds?, message? }
-//   lock()   — freeze after confirming
+//   lock()   — freeze after confirming; clicks on a locked widget may call
+//              onNext() to advance
 //   pick?(meshId) — clicks on the skeleton, while answering
 //   focus?()
 
@@ -72,13 +73,16 @@ export const inputs = {
     };
   },
 
-  choice({ el, target, answer, pool, config, onChange, onConfirm }) {
+  choice({ el, target, answer, pool, config, onChange, onConfirm, onNext }) {
     const options = pickChoices(target, pool, config.choices, answer.display);
     let selected = null;
+    let locked = false;
     const buttons = options.map((item) => {
       const b = h("button.option", {
         onclick: () => {
-          if (b.disabled) return;
+          // Locked, not disabled: browsers don't fire clicks on disabled
+          // buttons, and a click on any option after the result advances.
+          if (locked) return onNext();
           if (selected === item) return onConfirm();
           selected = item;
           for (const x of buttons) x.classList.toggle("is-selected", x === b);
@@ -101,8 +105,9 @@ export const inputs = {
         };
       },
       lock() {
+        locked = true;
         for (const b of buttons) {
-          b.disabled = true;
+          b.classList.add("is-locked"); // still clickable: a click advances
           if (b.item.key === target.key) b.classList.add("is-correct");
           else if (b.item === selected) b.classList.add("is-wrong");
         }

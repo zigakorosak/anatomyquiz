@@ -2,6 +2,19 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: clicking an option after the result advances
+
+User request: in multiple choice, once the result is showing, clicking the
+option buttons should go to the next round, like clicking the skeleton.
+They were `disabled` after confirming, and browsers fire no click on
+disabled buttons. Options now lock with an `is-locked` class and call the
+game's new `onNext` widget callback. The hover accent is skipped on locked
+options, so it doesn't recolour the green/red result borders. I first also
+set `aria-disabled`, then removed it: the button isn't disabled any more,
+and Playwright (rightly) refused to click it. Checked in Firefox: clicking
+the green, red or a neutral option advances, Enter on the focused option
+advances, and the confirming re-click never skips ahead.
+
 ## 2026-10-06: full read-through, 13 fixes
 
 User asked for a couple of complete read-throughs checking for errors.

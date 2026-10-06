@@ -4,7 +4,8 @@
 // Round flow (same as GeoQuiz): select → confirm → result → next.
 // - Select: click a bone, pick an option, or type.
 // - Confirm: the header button, Enter, or re-selecting the same thing.
-// - Next: the header button, Enter, or a click (not a drag) on the skeleton.
+// - Next: the header button, Enter, a click (not a drag) on the skeleton, or
+//   a click on a locked multiple-choice option.
 
 import { attributes } from "../core/attributes.js";
 import { displayLatin, displayName, loadSkeletonData } from "../core/dataset.js";
@@ -138,6 +139,11 @@ export function renderGame(root, navigate, config) {
       config,
       onChange: () => setAction("Confirm", widget.value() != null),
       onConfirm: () => confirm(),
+      // Clicks on a widget after the result (e.g. a locked multiple-choice
+      // option) advance, like a click on the skeleton.
+      onNext: () => {
+        if (phase === "result") next();
+      },
     });
     setAction("Confirm", false);
     widget.focus?.();
