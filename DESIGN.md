@@ -118,7 +118,7 @@ that line must change to match.
 
 **One-time setup, not done yet:**
 
-1. Create the GitHub repo and push.
+1. ~~Create the GitHub repo and push.~~ Done: `github.com/zigakorosak/anatomyquiz`.
 2. In cPanel, create an FTP account scoped to `public_html/anatomyquiz`.
 3. Add repo secrets `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
 

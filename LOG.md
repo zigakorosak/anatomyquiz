@@ -2,6 +2,14 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: pushed to GitHub
+
+Remote: `https://github.com/zigakorosak/anatomyquiz` (public, like
+GeoQuiz). The repo already existed, empty, created earlier the same day;
+checked that it had no commits before pushing to it. Set a repo-local git
+identity matching GeoQuiz's commits (`Ziga Korosak
+<ziga.korosak@gmail.com>`), since none was configured on this machine.
+
 ## 2026-10-06 — project scaffolded from the GeoQuiz setup
 
 Set up the environment to mirror GeoQuiz, based on its docs in
@@ -22,6 +30,6 @@ Set up the environment to mirror GeoQuiz, based on its docs in
   secrets first (see DESIGN.md "Deployment").
 - `.gitignore` covers `node_modules`, `dist`, `archive`, `reference`
   (2.3 GB of CC-BY-SA source data), scratch scripts and `.env*`.
-- `git init` on `main`. No commits or remote yet.
+- `git init` on `main`.
 - Surveyed the Z-Anatomy data and documented it in DESIGN.md "Data &
   license". The main open decision is 3D vs. 2D vs. text-first.
