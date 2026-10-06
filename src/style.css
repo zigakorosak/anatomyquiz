@@ -572,6 +572,12 @@ button:disabled {
   align-self: center;
 }
 
+/* Briefly inert right after the report appears (game.js REPORT_GUARD_MS),
+   without dimming: a stray second click on "See Results" passes through. */
+.game-summary--guarded button {
+  pointer-events: none;
+}
+
 @media (max-width: 520px) {
   .game-header {
     gap: 0.6rem;

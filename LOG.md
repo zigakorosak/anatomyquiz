@@ -2,6 +2,21 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: report buttons ignore clicks for 0.5 s
+
+User report: after clicking Next on the map at the end, a quick second
+click seemed to press something on the report. That's very likely the
+"ear ossicles has no report screen" report too. A short game has a short
+round list, so the report's buttons sit across the middle of the screen
+(at 1000×800: Play Again y297–340, Back y356–399, Home y415–459), right
+where you click the 3D view to advance. A second click there started a new
+game or left before the report was seen. The report's buttons now ignore
+clicks for 500 ms (`REPORT_GUARD_MS`, via `pointer-events: none` on a
+class, so they don't dim or flicker). Checked in Firefox at 1000 px and
+390 px: a double click on "See Results", and a double click on the middle
+of the 3D view, both leave the report up; Play Again works after the
+window.
+
 ## 2026-10-06: Back button on the report screen
 
 User request. The report now has Play Again / Back / Home. Back returns to

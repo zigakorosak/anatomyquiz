@@ -37,6 +37,11 @@ const CONTEXT_MAX = 0.12;
 // The result's green, for the x-ray copy of the target (viewer's "correct").
 const CORRECT_COLOR = 0x34c77b;
 
+// After the last round, the report's buttons ignore clicks this long (ms):
+// a quick second click on "See Results" (or the 3D view) otherwise landed on
+// Play Again / Back / Home and skipped the report entirely.
+const REPORT_GUARD_MS = 500;
+
 const seconds = (ms) => `${(ms / 1000).toFixed(1)}s`;
 
 export function renderGame(root, navigate, config, backState) {
@@ -103,6 +108,7 @@ export function renderGame(root, navigate, config, backState) {
   let timerId = null;
   let contextRadius = CONTEXT_MAX;
   let viewBeforeResult = null; // the player's own view, restored next round
+  let reportGuard = null;
 
   function updateHeader() {
     progress.textContent = `Round ${Math.min(session.index + 1, pool.length)} / ${pool.length}`;
@@ -251,24 +257,26 @@ export function renderGame(root, navigate, config, backState) {
         );
       }),
     );
-    screen.replaceChildren(
+    // Buttons look normal but ignore clicks for REPORT_GUARD_MS, so a
+    // double click on the last "See Results" doesn't press one of them.
+    const summary = h(
+      "div.game-summary.game-summary--guarded",
+      {},
+      h("h2", {}, "Game Over"),
+      h("p.summary-score", {}, `You scored ${session.correctCount} / ${total}`),
       h(
-        "div.game-summary",
+        "p.summary-time",
         {},
-        h("h2", {}, "Game Over"),
-        h("p.summary-score", {}, `You scored ${session.correctCount} / ${total}`),
-        h(
-          "p.summary-time",
-          {},
-          `Total time: ${seconds(session.totalMs)} — average ${seconds(session.totalMs / Math.max(1, total))} / round`,
-        ),
-        list,
-        h("button", { type: "button", onclick: () => navigate("game", config, backState) }, "Play Again"),
-        // Same as ☰ → Back: the wizard's last step, every choice kept.
-        h("button", { type: "button", onclick: () => navigate("wizard", backState) }, "Back"),
-        h("button", { type: "button", onclick: () => navigate("home") }, "Home"),
+        `Total time: ${seconds(session.totalMs)} — average ${seconds(session.totalMs / Math.max(1, total))} / round`,
       ),
-    );
+      list,
+      h("button", { type: "button", onclick: () => navigate("game", config, backState) }, "Play Again"),
+      // Same as ☰ → Back: the wizard's last step, every choice kept.
+      h("button", { type: "button", onclick: () => navigate("wizard", backState) }, "Back"),
+      h("button", { type: "button", onclick: () => navigate("home") }, "Home"),
+      );
+    screen.replaceChildren(summary);
+    reportGuard = setTimeout(() => summary.classList.remove("game-summary--guarded"), REPORT_GUARD_MS);
   }
 
   (async () => {
@@ -308,6 +316,7 @@ export function renderGame(root, navigate, config, backState) {
   return () => {
     left = true;
     stopTimer();
+    clearTimeout(reportGuard);
     document.removeEventListener("keydown", onKey);
     viewer?.reset();
   };

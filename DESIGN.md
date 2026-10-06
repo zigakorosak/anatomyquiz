@@ -288,7 +288,9 @@ names where a rule exists in both), its screens and its wording.
   in the other language.
 - **Summary**: "Game Over", "You scored X / N", total and average time,
   and every round listed green or red ("Label: wrong (was X) (1.2s)"),
-  then Play Again / Home.
+  then Play Again / Back / Home. The buttons ignore clicks for the first
+  500 ms (`REPORT_GUARD_MS`). They sit where you just clicked to finish the
+  last round, and a quick second click used to skip the report.
 - **Explore**: "Tap a bone", a Random button, ☰ (Reset view / Home), and
   an info card over the top of the view (name, group, Latin, synonyms,
   side). Random skips the ossicles (hidden inside the temporal bone).
