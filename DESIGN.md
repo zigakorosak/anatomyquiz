@@ -174,13 +174,28 @@ items outside the region are **muted** and **not raycast**, so they
 neither take clicks nor block clicks on what's behind them.
 
 Muted bones are a very pale, nearly flat ghost: near-white (`#f4f1ea`),
-7% opacity, emissive to wash out the shading. They keep `depthWrite` on,
-and the renderer sorts transparent objects **front-to-back**
-(`setTransparentSort`; three's default is back-to-front). So at any pixel
-only the nearest muted surface is drawn. Without that, overlapping ghosts
-(ribs over spine, both legs) stacked into muddy grey patches. Playable
-bones are opaque and drawn first, so they always show through, including
-the ossicles inside the muted temporal bone. The camera frames the region. This is GeoQuiz's "one map,
+7% opacity, emissive to wash out the shading, and exactly **one layer per
+pixel** everywhere, so the head fades exactly like the pelvis. They're
+drawn in two passes, both after the opaque pass:
+
+1. A depth-only copy of every muted mesh (shared `colorWrite: false`
+   material, `renderOrder` 1) writes the nearest muted surface's depth.
+2. The ghost colour (`depthWrite: false`, `renderOrder` 2) passes the
+   default LessEqual depth test only where its surface is that nearest one.
+
+Two earlier versions stacked layers. The first used plain transparency.
+The second sorted ghosts front-to-back by object, but sorting is per
+object (by centre), not per pixel, so it still stacked wherever bones
+interleave in depth. The head was the worst: skull plates, jaw, teeth.
+Measured on a side view, the 95th-percentile ghost brightness dropped from
+31.8 to 16.9 (= the median, so one layer) and the max from 73 to 20.
+Playable bones are opaque and drawn before both passes, so they always
+show through ghosts, including the ossicles inside the muted temporal bone
+and the vertebrae behind a muted ribcage.
+
+What's drawn solid is the **whole region**, even items the pool leaves out
+as give-aways (Humerus, Radius, Ulna in Upper limb, English↔Latin). Muting
+those made the chosen region look partly missing. The camera frames the region. This is GeoQuiz's "one map,
 regions are framing + muting".
 
 Tree: Whole skeleton · Head & neck (Skull, Teeth, Nasal & laryngeal

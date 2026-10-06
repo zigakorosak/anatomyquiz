@@ -85,12 +85,27 @@ next action is building observation tooling, not another fix.
 
 ## Project-specific traps
 
+- **Sorting transparent objects is per object, not per pixel.** "Draw the
+  nearest ghost first" by object centre looked right on a front view and
+  failed wherever meshes interleave in depth (the whole skull). For
+  "exactly one translucent layer", use a depth pre-pass, then colour at
+  equal depth. Measure ghost brightness percentiles across the image
+  instead of eyeballing one view: stacking shows as a 95th percentile near
+  twice the median.
+- **Don't add children inside `traverse()`.** three's traverse walks into
+  children added during the walk. Adding a mesh to each mesh recursed
+  forever. Collect first, then modify.
+
 - **Never `pkill -f` / `pgrep -f … | xargs kill` with a pattern from your
   own command line.** The shell running the command matches too and gets
   killed (exit 144), skipping everything after it, including cleanup.
-  This happened twice in one session. Kill by exact PID from
-  `ps -eo pid,args | grep "[v]ite preview"` instead (the `[v]` keeps
-  grep from matching itself).
+  The `grep "[v]ite"` trick is NOT enough: it only stops grep matching
+  itself. The parent `bash -c` still contains the full text whenever the
+  same command mentions it elsewhere (a third time this happened). Match
+  on the argv fields instead, e.g.
+  `ps -eo pid,args | awk '$2=="node" && $3=="scratch-x.mjs" {print $1}'`
+  (the shell's own `$2` is never `node`), and do the kill in its own
+  command.
 - **"Off" switches in a DOM helper.** A helper that skips `false` props
   silently drops `spellcheck: false`, `disabled: false` and similar.
 - **A quiz prompt can give itself away.** Check whether the shown value is

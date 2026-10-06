@@ -33,6 +33,13 @@ const STATE_COLORS = {
 const MUTED_COLOR = 0xf4f1ea;
 const MUTED_OPACITY = 0.07;
 
+// Muted bones draw in two passes, so every pixel gets exactly one faint
+// layer, the nearest muted surface, whatever the shape (see _apply):
+// first all their depths (no colour), then their colour where depth is
+// equal. Both run after the opaque pass, so playable bones show through.
+const GHOST_DEPTH_ORDER = 1;
+const GHOST_COLOR_ORDER = 2;
+
 // A press that moves further than this (px) is a rotate/pan drag, not a
 // click. Must be > 0: GeoQuiz lost clicks to d3-zoom's default of 0, since
 // real mouse presses drift a pixel or two.
@@ -67,13 +74,12 @@ export class SkeletonViewer {
     this.renderer.domElement.className = "viewer-canvas";
     container.append(this.renderer.domElement);
 
-    // Transparent objects front-to-back (three's default is back-to-front),
-    // so muted ghosts, which keep depthWrite, draw only their nearest
-    // surface instead of piling up. The x-ray copies ignore depth, so the
-    // order doesn't affect them.
-    this.renderer.setTransparentSort(
-      (a, b) => a.groupOrder - b.groupOrder || a.renderOrder - b.renderOrder || a.z - b.z,
-    );
+    // Depth-only copies of muted meshes (see _apply): one shared material.
+    this.ghostDepthMaterial = new THREE.MeshBasicMaterial({
+      colorWrite: false,
+      depthWrite: true,
+      transparent: true, // drawn after the opaque pass, so playable bones behind ghosts still show
+    });
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(35, 1, 0.01, 50);
@@ -117,14 +123,21 @@ export class SkeletonViewer {
 
     // GLTFLoader sanitizes node names ("Femur.l" -> "Femurl"), so recover the
     // original names from the glTF JSON via the parser's associations.
+    // Collect first, set up after: setup adds a child mesh (the ghost depth
+    // copy) to each mesh, and traverse() would walk into those new children
+    // and recurse forever (it did — a stack overflow on load).
     const { parser } = gltf;
+    const nodes = [];
     gltf.scene.traverse((obj) => {
       const assoc = parser.associations.get(obj);
       if (assoc?.nodes === undefined) return;
-      const id = parser.json.nodes[assoc.nodes].name;
+      const meshes = [];
+      obj.traverse((m) => m.isMesh && meshes.push(m));
+      if (meshes.length) nodes.push([parser.json.nodes[assoc.nodes].name, meshes]);
+    });
+    for (const [id, meshes] of nodes) {
       const list = [];
-      obj.traverse((m) => {
-        if (!m.isMesh) return;
+      for (const m of meshes) {
         const tissue = m.material?.name in TISSUE_COLORS ? m.material.name : "bone";
         m.material = new THREE.MeshStandardMaterial({
           color: TISSUE_COLORS[tissue],
@@ -133,10 +146,17 @@ export class SkeletonViewer {
         });
         m.userData.meshId = id;
         m.userData.baseColor = TISSUE_COLORS[tissue];
+        // Depth pre-pass for when this mesh is muted (see _apply).
+        const depth = new THREE.Mesh(m.geometry, this.ghostDepthMaterial);
+        depth.renderOrder = GHOST_DEPTH_ORDER;
+        depth.visible = false;
+        depth.raycast = () => {};
+        m.add(depth);
+        m.userData.ghostDepth = depth;
         list.push(m);
-      });
-      if (list.length) this.meshes.set(id, list);
-    });
+      }
+      this.meshes.set(id, list);
+    }
     this.root = gltf.scene;
     this.scene.add(this.root);
 
@@ -408,10 +428,13 @@ export class SkeletonViewer {
     for (const m of this.meshes.get(id) ?? []) {
       const mat = m.material;
       if (muted) {
-        // A pale, nearly flat ghost. depthWrite stays on: with the
-        // front-to-back transparent sort (constructor), only the nearest
-        // muted surface is drawn at any pixel, so overlapping bones don't
-        // stack into grey.
+        // A pale, nearly flat ghost. Its colour pass doesn't write depth;
+        // the depth-only copy (drawn earlier) has already written the
+        // nearest muted surface, and the default LessEqual depth test lets
+        // only that surface's colour through. Sorting by object instead
+        // (an earlier attempt) still stacked layers wherever bones
+        // interleave in depth: skull plates, jaw and teeth, a hand in front
+        // of the hip.
         mat.color.setHex(MUTED_COLOR);
         mat.emissive.setHex(MUTED_COLOR);
         mat.emissiveIntensity = 0.6;
@@ -422,8 +445,9 @@ export class SkeletonViewer {
       }
       mat.transparent = muted;
       mat.opacity = muted ? MUTED_OPACITY : 1;
-      mat.depthWrite = true;
-      m.renderOrder = muted ? 1 : 0;
+      mat.depthWrite = !muted;
+      m.renderOrder = muted ? GHOST_COLOR_ORDER : 0;
+      m.userData.ghostDepth.visible = muted;
     }
     this.dirty = true;
   }

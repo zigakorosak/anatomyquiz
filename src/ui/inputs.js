@@ -52,7 +52,12 @@ export const inputs = {
       autocomplete: "off",
       autocapitalize: "off",
       spellcheck: false,
-      placeholder: `Type the ${answer.label.toLowerCase()}...`,
+      // With "left and right separately" the side is part of the answer —
+      // say so, as multiple choice does by showing "(left)" on every option.
+      placeholder:
+        config.sides === "match" && target.side
+          ? `Type the ${answer.label.toLowerCase()}, with left or right...`
+          : `Type the ${answer.label.toLowerCase()}...`,
       oninput: () => onChange(),
     });
     input.setAttribute("list", listId);

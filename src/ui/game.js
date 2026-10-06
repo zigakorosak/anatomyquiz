@@ -47,10 +47,14 @@ export function renderGame(root, navigate, config, backState) {
   const { keepView, zoomToAnswer } = loadSettings();
 
   // The name the answer is given in, and the other language alongside it,
-  // so every result teaches both: "Femur (Os femoris)".
+  // so every result teaches both: "Femur · Os femoris". A middle dot, not
+  // brackets: with sides the names carry their own ("Femur (left)").
   const answerName = answer.id === "latin" ? displayLatin : displayName;
   const otherName = answer.id === "latin" ? displayName : displayLatin;
-  const named = (item) => `${answerName(item)} (${otherName(item)})`;
+  // Only when it differs: 15 bones have identical English and Latin names
+  // ("Tibia · Tibia" said nothing).
+  const named = (item) =>
+    answerName(item) === otherName(item) ? answerName(item) : `${answerName(item)} · ${otherName(item)}`;
 
   const screen = h("div.game-screen");
   const progress = h("span.game-progress");
@@ -260,6 +264,8 @@ export function renderGame(root, navigate, config, backState) {
         ),
         list,
         h("button", { type: "button", onclick: () => navigate("game", config, backState) }, "Play Again"),
+        // Same as ☰ → Back: the wizard's last step, every choice kept.
+        h("button", { type: "button", onclick: () => navigate("wizard", backState) }, "Back"),
         h("button", { type: "button", onclick: () => navigate("home") }, "Home"),
       ),
     );
@@ -279,7 +285,11 @@ export function renderGame(root, navigate, config, backState) {
     viewer = await getViewer(stage);
     if (left) return;
     loading.remove();
-    regionIds = [...itemByMesh.keys()];
+    // The whole region is drawn solid and framed, even items the pool
+    // leaves out (give-aways in English↔Latin modes: Humerus, Radius, Ulna
+    // in Upper limb). Muting them made the chosen region look partly
+    // missing. Only the pool is asked about.
+    regionIds = allItems.filter(region.test).flatMap((i) => i.meshIds);
     viewer.setPlayable(regionIds);
     viewer.frame(regionIds, { direction: SkeletonViewer.FRONT });
     const size = viewer.boxOf(regionIds).getSize(new THREE.Vector3()).length();

@@ -2,6 +2,55 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: Back button on the report screen
+
+User request. The report now has Play Again / Back / Home. Back returns to
+the wizard's last step with every choice kept, the same as ☰ → Back.
+
+The user also reported that the ear-ossicles game had no report screen.
+It didn't reproduce: the report appeared in every ossicles game tried
+(click with either side and with sides separate, typed on a highlighted
+bone; advancing via Next, Enter, a click on the 3D view, a click on the
+header, and touch taps). A full sweep of every mode × region × sides,
+played to the report through the real UI, was started and then stopped
+at the user's request. 16 complete games had passed, including Whole
+skeleton typed (151 rounds). Not yet investigated: an early version of
+the sweep, which only tried front and back views, found no clickable
+point on the hyoid or the palatine bone in some click rounds.
+
+## 2026-10-06: every faded body part fades the same; consistency fixes
+
+User report: when the head isn't being played it should go see-through
+like the other body parts. Measured first. A side view showed the head
+ghost full of brighter patches (stacked layers); the pelvis had a few too,
+where the hand overlaps the hip. The front-to-back sort from the earlier
+ghost change works per object, not per pixel, so wherever bones interleave
+in depth (skull plates, jaw, teeth) a farther surface still drew over a
+nearer one. Replaced with a two-pass ghost (depth-only pre-pass, then
+colour at equal depth): exactly one layer per pixel. Ghost brightness on
+the head: 95th percentile 31.8 → 16.9 (the median), max 73 → 20; pelvis
+31.7 → 16.9. Checked that playable bones still show through (T6 is
+clickable from the front through the ghost ribcage) and that the ossicles
+stay visible inside the ghost skull.
+
+Introduced and fixed along the way: adding the depth copy as a child
+inside `traverse()` made traverse walk into it and recurse forever (stack
+overflow; the game showed "Couldn't load the skeleton"). Now meshes are
+collected first, then set up.
+
+Similar inconsistencies found and fixed:
+- **Regions looked partly missing in English↔Latin modes**: give-away
+  items (Humerus, Radius, Ulna in Upper limb) were muted like out-of-region
+  bones. The whole region is drawn solid now; only the question pool skips
+  them.
+- **Typed answers with "left and right separately"** gave no hint that the
+  side is required (multiple choice shows "(left)" on every option). The
+  hint was lost in the GeoQuiz rebuild. The placeholder says "…, with left
+  or right…" again.
+- **Feedback brackets**: "Femur (left) (Os femoris (left))" →
+  "Femur (left) · Os femoris (left)", and the second name is left out when
+  it's identical ("Tibia (left) · Tibia (left)" → "Tibia (left)").
+
 ## 2026-10-06: setting to not zoom onto the correct answer
 
 User request. Settings gets a second section, "After answering": "Zoom to
