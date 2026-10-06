@@ -1,21 +1,27 @@
 // Answer-input widget registry, keyed by answer kind. Each widget returns:
-//   value()  — current selection, or null when nothing is selected yet
-//              (null disables Confirm; a wrong answer is never null)
-//   check()  — { correct, guessKey?, guessMeshIds?, message? }
-//   lock()   — freeze after confirming; clicks on a locked widget may call
-//              onNext() to advance
+//   value()   — current selection, or null when nothing is selected yet
+//               (null disables Confirm; a wrong answer is never null)
+//   check()   — { correct, guessItem? }
+//   lock(correct) — freeze after confirming. Locked widgets stay clickable
+//               (never `disabled` — browsers fire no click on a disabled
+//               control), so a click on them counts as the game's "click
+//               anywhere advances".
 //   pick?(meshId) — clicks on the skeleton, while answering
 //   focus?()
+//
+// A click that itself confirms (re-clicking the selected option) is marked
+// `e.confirmClick`, so the game's screen-wide click listener doesn't also
+// treat it as "advance" (GeoQuiz's suppressNextRootAdvance, scoped to the
+// one event instead of a flag that could outlive it).
 
 import { matchesTyped } from "../core/answers.js";
 import { pickChoices } from "../core/engine.js";
 import { h } from "./dom.js";
 
 export const inputs = {
-  click({ el, viewer, target, itemByMesh, onChange, onConfirm }) {
+  click({ viewer, target, itemByMesh, onChange, onConfirm }) {
     let selected = null;
     viewer.setHoverGroup((id) => itemByMesh.get(id)?.meshIds ?? [id]);
-    el.append(h("p.hint", {}, "Click a bone, then click it again or press Confirm."));
     return {
       value: () => selected,
       pick(meshId) {
@@ -27,91 +33,84 @@ export const inputs = {
         viewer.setState(item.meshIds, "selected");
         onChange();
       },
-      check() {
-        const correct = selected.key === target.key;
-        return {
-          correct,
-          guessKey: selected.key,
-          guessMeshIds: selected.meshIds,
-          message: correct ? null : "Your pick is in red, the right answer in green.",
-        };
-      },
+      check: () => ({ correct: selected.key === target.key, guessItem: selected }),
       lock() {
         viewer.setHoverGroup(null);
       },
     };
   },
 
-  type({ el, target, answer, config, onChange }) {
-    const input = h("input.type-input", {
+  type({ el, target, answer, allItems, config, onChange }) {
+    // Autocomplete from every answer value in this mode (GeoQuiz's
+    // datalist) — the whole skeleton, not just the region, so the list
+    // doesn't narrow down the answer.
+    const listId = `answer-options-${typeInstance++}`;
+    const values = [...new Set(allItems.map((i) => answer.display(i)))].sort();
+    const datalist = h("datalist", { id: listId }, values.map((v) => h("option", { value: v })));
+    const input = h("input", {
       type: "text",
       autocomplete: "off",
       autocapitalize: "off",
       spellcheck: false,
-      placeholder:
-        (answer.id === "latin" ? "Latin name" : "Name") +
-        (config.sides === "match" && target.side ? ", with left/right" : "") +
-        "…",
+      placeholder: `Type the ${answer.label.toLowerCase()}...`,
       oninput: () => onChange(),
     });
-    el.append(input);
+    input.setAttribute("list", listId);
+    el.append(h("div.answer-text-form", {}, input, datalist));
     const value = () => input.value.trim() || null;
     return {
       value,
       focus: () => input.focus({ preventScroll: true }),
       check() {
         const side = config.sides === "match" ? target.side : null;
-        const correct = matchesTyped(value(), answer.accepted(target), side);
-        return {
-          correct,
-          message: correct ? null : `You typed “${value()}”.`,
-        };
+        return { correct: matchesTyped(value(), answer.accepted(target), side) };
       },
-      lock() {
-        input.disabled = true;
+      lock(correct) {
+        input.readOnly = true;
+        input.classList.add(correct ? "input--correct" : "input--wrong");
       },
     };
   },
 
-  choice({ el, target, answer, pool, config, onChange, onConfirm, onNext }) {
+  choice({ el, target, answer, pool, config, onChange, onConfirm }) {
     const options = pickChoices(target, pool, config.choices, answer.display);
     let selected = null;
     let locked = false;
     const buttons = options.map((item) => {
-      const b = h("button.option", {
-        onclick: () => {
-          // Locked, not disabled: browsers don't fire clicks on disabled
-          // buttons, and a click on any option after the result advances.
-          if (locked) return onNext();
-          if (selected === item) return onConfirm();
-          selected = item;
-          for (const x of buttons) x.classList.toggle("is-selected", x === b);
-          onChange();
+      const b = h(
+        "button.menu-option",
+        {
+          type: "button",
+          onclick: (e) => {
+            if (locked) return; // bubbles to the game's "click anywhere advances"
+            if (selected === item) {
+              e.confirmClick = true;
+              return onConfirm();
+            }
+            selected = item;
+            for (const x of buttons) x.classList.toggle("menu-option--selected", x === b);
+            onChange();
+          },
         },
-      }, answer.display(item));
+        answer.display(item),
+      );
       b.item = item;
       return b;
     });
-    el.append(h("div.options", {}, buttons));
+    el.append(h("div.menu-options.multiple-choice-options", {}, buttons));
     return {
       value: () => selected,
-      check() {
-        const correct = selected.key === target.key;
-        return {
-          correct,
-          guessKey: selected.key,
-          guessMeshIds: selected.meshIds,
-          message: correct ? null : "Your choice is in red on the skeleton.",
-        };
-      },
+      check: () => ({ correct: selected.key === target.key, guessItem: selected }),
       lock() {
         locked = true;
         for (const b of buttons) {
-          b.classList.add("is-locked"); // still clickable: a click advances
-          if (b.item.key === target.key) b.classList.add("is-correct");
-          else if (b.item === selected) b.classList.add("is-wrong");
+          b.classList.add("menu-option--locked");
+          if (b.item.key === target.key) b.classList.add("menu-option--correct");
+          else if (b.item === selected) b.classList.add("menu-option--wrong");
         }
       },
     };
   },
 };
+
+let typeInstance = 0;

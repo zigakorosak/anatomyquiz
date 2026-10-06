@@ -17,13 +17,16 @@ const TISSUE_COLORS = {
   tooth: 0xf7f4ea,
 };
 
-// Visual states. `null` is the plain look.
+// Visual states, in GeoQuiz's palette (style.css --accent / --correct /
+// --wrong): the highlighted question and a selection are the accent blue,
+// as a highlighted or selected country is there; hover a lighter blue.
+// `null` is the plain look.
 const STATE_COLORS = {
-  hover: 0xf2c46b,
-  selected: 0x4f8fe0,
-  target: 0xd9603b,
-  correct: 0x3fa45b,
-  wrong: 0xd2404a,
+  hover: 0x8fb4ff,
+  selected: 0x4f8cff,
+  target: 0x4f8cff,
+  correct: 0x34c77b,
+  wrong: 0xe0546b,
 };
 
 // Bones outside the played region: very pale and see-through.

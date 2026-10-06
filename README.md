@@ -18,8 +18,10 @@ what's shown and what you have to answer, and play through rounds.
   ear ossicles. Bones outside the region fade out.
 - Every answer shows the right bone in green and your pick in red, with
   English and Latin names.
-- **Explore** mode: hover for names, click for Latin name, synonyms and
-  group.
+- **Explore** mode: hover for names, click (or Random) for an info card
+  with the Latin name, synonyms and group.
+- Same look and feel as GeoQuiz: dark theme, wizard of choice screens,
+  "Round / Score / timer" header with a ☰ menu, a Settings screen.
 
 ## Tech stack
 

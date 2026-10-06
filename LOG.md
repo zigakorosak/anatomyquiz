@@ -2,6 +2,72 @@
 
 Newest first. What changed and why.
 
+## 2026-10-06: setting to not zoom onto the correct answer
+
+User request. Settings gets a second section, "After answering": "Zoom to
+the answer" (default, the existing behaviour) or "Don't zoom" (new
+`zoomToAnswer` preference). With it off, confirming leaves the camera
+where it is; the answer is still coloured and x-rayed. The Settings screen
+became a list of sections instead of one hardcoded block. Checked in
+Firefox: both sections show; "Don't zoom" survives a reload alongside the
+Camera choice; with it off the camera position and target are unchanged
+after confirming (click and typed rounds) while the answer is still marked
+correct; with it on, the camera moves.
+
+## 2026-10-06: license line at the bottom of the main menu
+
+User request. Menu screens are now full height (`height: 100%`, scrolling
+internally when taller), so the credit line's existing `margin-top: auto`
+puts it at the bottom; home's bottom padding is trimmed via
+`.menu-screen:has(> .credits)`, and `text-wrap: balance` stops a lone
+"JP)." wrapping onto its own line. Measured in Firefox: 12 px from the
+bottom at 1280×800 and 390×844. A 260 px tall window scrolls inside the
+menu (the page itself still doesn't), and the wizard screens are
+unchanged.
+
+## 2026-10-06: menu buttons stacked in a centred column
+
+User request: menu buttons one under the other, in the middle of the
+screen. On the home, wizard and Settings screens the options are now a
+single column, all the same width (up to 22rem), centred; Settings'
+section heading is centred over them. This departs from GeoQuiz's
+wrapping row. In-game multiple-choice options keep the wrapping row.
+Measured in Firefox: buttons centred at x = 640 of 1280, and centred on a
+390 px phone.
+
+## 2026-10-06: interface rebuilt to match GeoQuiz
+
+User added GeoQuiz's source to `reference/geoquiz/` and asked for the
+interface to be more like it. Read its UI code (style.css, screenKit,
+home, gameWizard, game, inputs, prompts, mapExplore, hamburgerMenu,
+settings) and screenshotted the running GeoQuiz (home, wizard, map-click
+round, multiple-choice result, map explore) before changing anything.
+
+Now matching it: dark palette and button styles; Games / Explore /
+Settings home; GeoQuiz's wizard wording with counts and a final
+"Either side, or left and right separately?" step (its sovereignty
+step's role); "Round / Score / timer / action / ☰" header with Restart /
+Back / Home; the floating overlay for click rounds; answers below the view
+otherwise; green/red locked option buttons; autocomplete on typed answers;
+GeoQuiz's feedback wording (plus the other-language name); "Game Over"
+summary listing every round; Explore with "Tap a bone", Random and an info
+card; a Settings screen (keep or reset the view between rounds). Viewer
+highlight colours switched to GeoQuiz's accent blue, green and red. Details
+are in DESIGN.md, "Interface: GeoQuiz's, screen by screen".
+
+Behaviour carried over too: click anywhere to advance via one screen-wide
+listener (the earlier `onNext` widget callback is gone), and ☰ → Back
+returns to the wizard's last step with history intact (the wizard's steps
+became named objects to make that possible).
+
+Checked in Firefox at desktop and phone sizes: every screen above
+screenshotted; settings persist across reloads; ☰ → Back → Back → Back
+walks sides → sub-region → region; a drag on the 3D view doesn't advance
+but a click on the header does; opening or closing ☰ during a result
+doesn't advance; clicking a locked option or the read-only input
+advances; a typed game played through to the summary; no console errors.
+Fixed along the way: "Choose a upper limb region" → "an".
+
 ## 2026-10-06: clicking an option after the result advances
 
 User request: in multiple choice, once the result is showing, clicking the

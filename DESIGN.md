@@ -39,6 +39,7 @@ src/
     regions.js      — region filter registry, two-level tree of predicates
     answers.js      — typed-answer normalization and matching
     engine.js       — QuizSession (round/scoring), pickChoices() (multiple-choice distractors)
+    settings.js     — persistent preferences (localStorage), GeoQuiz's settings.js
     pool.js         — gamePool(): the items a game asks about (wizard counts + game share it)
   viewer/
     SkeletonViewer.js — three.js view: load, orbit, pick, visual states, muting, framing
@@ -46,7 +47,9 @@ src/
   ui/
     dom.js          — h() element helper
     screenKit.js    — shared full-screen "pick one of these" component
-    home.js         — Play / Explore, credits
+    hamburgerMenu.js — ☰ header menu (Restart / Back / Home), shared by game and explore
+    settingsScreen.js — Settings: one section per preference (camera between rounds, zoom to answer)
+    home.js         — Games / Explore / Settings, credits
     gameWizard.js   — the Play flow's sequence of choice screens
     game.js         — round loop, feedback, summary
     prompts.js      — prompt widget registry, keyed by attribute.promptKind
@@ -235,6 +238,54 @@ membership. Two exceptions:
   the mesh. It exists for tests: `shared.js` exposes the viewer as
   `window.__anatomy` in dev builds only.
 
+### Interface: GeoQuiz's, screen by screen
+
+The UI deliberately copies GeoQuiz (its source is in `reference/geoquiz/`):
+its dark palette and button styles (`style.css` keeps GeoQuiz's class
+names where a rule exists in both), its screens and its wording.
+
+- **Home**: Games / Explore / Settings. Unlike GeoQuiz's wrapping row,
+  menu-screen options (home, wizard, Settings) are a single centred column
+  of equal-width buttons, at the user's request.
+- **Wizard**: "What should we show you?" → "How do you want to answer?" →
+  "How do you want to answer with the name?" → "How many options?" →
+  "Choose a region" (with counts; parents open "Choose an upper limb
+  region") → "Either side, or left and right separately?", the counterpart
+  of GeoQuiz's sovereignty step, showing both counts. Steps are named
+  objects, not closures, so the game can hand the whole wizard position
+  back: ☰ → Back lands on the last step with every choice and the Back
+  chain intact.
+- **Game header**: "Round 3 / 27", "Score: 2", a live tenths timer, the
+  action button (Confirm → Next → See Results), and ☰ (Restart / Back /
+  Home).
+- **Click-the-bone rounds**: the 3D view fills the screen below the header,
+  and the action button, the question pill and the feedback pill float over
+  its top edge (GeoQuiz's map-answer overlay).
+- **Typed / multiple-choice rounds**: the action button sits in the header,
+  the 3D view fills the middle (a text question floats over it as a pill;
+  a highlighted bone needs no text, as GeoQuiz's map-highlight shows none),
+  and the answer widget and feedback line sit below.
+- **Answers**: options are `menu-option` buttons that turn solid green/red
+  and fade the rest. The typed box autocompletes from every answer in the
+  mode (a `<datalist>`, as GeoQuiz does) and turns read-only, not
+  disabled, after the result. Feedback uses GeoQuiz's wording ("Correct!",
+  "Correct answer: X", "You picked X — correct answer: Y") plus the name
+  in the other language.
+- **Summary**: "Game Over", "You scored X / N", total and average time,
+  and every round listed green or red ("Label: wrong (was X) (1.2s)"),
+  then Play Again / Home.
+- **Explore**: "Tap a bone", a Random button, ☰ (Reset view / Home), and
+  an info card over the top of the view (name, group, Latin, synonyms,
+  side). Random skips the ossicles (hidden inside the temporal bone).
+- **Settings**: two sections, saved in localStorage
+  (`anatomy-quiz-settings`). **Camera**: "Keep view between rounds"
+  (default) or "Reset view every round", GeoQuiz's zoom setting for a
+  camera. **After answering**: "Zoom to the answer" (default) or "Don't
+  zoom". With "Don't zoom" the camera stays where the player left it, and
+  the answer is still coloured green (and a wrong pick red) with the
+  x-ray copy. Highlight prompts still frame the target when the round
+  starts, because that framing is the question, not the result.
+
 ### Round flow (`ui/game.js`)
 
 As in GeoQuiz: **select → confirm → result → next**.
@@ -246,10 +297,13 @@ As in GeoQuiz: **select → confirm → result → next**.
   **red**, including in text modes. A wrong multiple-choice option or
   click shows the bone you actually chose, in red. The feedback line
   always gives the English and Latin names.
-- **Next**: the header button, Enter, a click (not a drag) on the
-  skeleton, or a click on any multiple-choice option. Locked options use an
-  `is-locked` class, not `disabled`, because browsers fire no click on
-  disabled buttons.
+- **Next**: the action button, Enter, or a click anywhere — GeoQuiz's
+  screen-wide click listener. It ignores the action button (own handler),
+  the ☰ menu (`e.menuClick`), the click that just confirmed
+  (`e.confirmClick`, set on that one event rather than a flag that could
+  outlive it), and the 3D canvas, whose pick handler advances on a click but
+  not on a drag, so turning the model to look at the answer doesn't skip
+  it. Locked options and the read-only input stay clickable for this.
 
 **Camera.** A `highlight` prompt frames the target from outside, with
 context. For other prompts the player controls the view. On result the
@@ -275,8 +329,8 @@ typo tolerance, because one character is often the whole answer
 ## Current scope (v1)
 
 - Skeleton only: 269 meshes, or 154 items with sides merged.
-- Home → Play (wizard) or Explore (hover for names; click for name,
-  Latin, synonyms and group path).
+- Home → Games (wizard), Explore (hover for names; click or Random for
+  the info card), or Settings.
 - Six question/answer modes. Typed or multiple choice (2–6) for names,
   click for location. Left/right "doesn't matter" or "must match".
   15 selectable regions in a two-level tree, with item counts.
@@ -292,7 +346,6 @@ typo tolerance, because one character is often the whole answer
   `Translations0.txt`).
 - Code-split three.js out of the home screen bundle (the JS is about
   169 KB gzipped, almost all three).
-- A settings screen (e.g. keep or reset the view between rounds).
 
 ## Data & license
 

@@ -1,33 +1,54 @@
-// Free-explore: the whole skeleton, no quiz mechanics. Hover shows a name,
-// click shows the details panel.
+// Free-explore, laid out like GeoQuiz's map explore: "Tap a bone" in the
+// header with Random and the ☰ menu, and an info card floating over the
+// top of the 3D view (name, group, Latin name, synonyms, side). Hover shows
+// a name tooltip; no quiz mechanics.
 
 import { buildQuizItems, displayLatin, displayName, loadSkeletonData } from "../core/dataset.js";
 import { SkeletonViewer } from "../viewer/SkeletonViewer.js";
 import { getViewer } from "../viewer/shared.js";
 import { credits } from "./credits.js";
 import { h } from "./dom.js";
+import { createHamburgerMenu } from "./hamburgerMenu.js";
+
+const SIDE = { left: "Left", right: "Right" };
 
 export function renderExplore(root, navigate) {
+  const screen = h("div.game-screen");
+  const randomButton = h("button.action-button", { type: "button", disabled: true }, "Random");
+  const menu = createHamburgerMenu(
+    screen,
+    [
+      h(
+        "button.exit-button",
+        { type: "button", onclick: () => viewer?.frame(null, { direction: SkeletonViewer.FRONT }) },
+        "Reset view",
+      ),
+      h("button.exit-button", { type: "button", onclick: () => navigate("home") }, "Home"),
+    ],
+    { label: "Explore menu" },
+  );
   const stage = h("div.stage");
-  const tooltip = h("div.tooltip", { hidden: true });
-  const panel = h("aside.info", { hidden: true });
   const loading = h("div.stage-loading", {}, "Loading skeleton…");
+  const card = h("div.explore-card", { hidden: true });
+  const tooltip = h("div.tooltip", { hidden: true });
 
-  root.append(
+  screen.append(
+    h("div.game-header", {}, h("span.explore-label", {}, "Tap a bone"), randomButton, menu),
     h(
-      "main.game.explore",
+      "div.round-area",
       {},
       h(
-        "header.game-header",
+        "div.viewer-area",
         {},
-        h("button.ghost", { onclick: () => navigate("home"), title: "Home" }, "✕"),
-        h("div.stats", {}, h("span", {}, "Explore")),
-        h("button.ghost", { onclick: () => viewer?.frame(null, { direction: SkeletonViewer.FRONT }) }, "Reset view"),
+        stage,
+        loading,
+        h("div.map-overlay", {}, card),
+        tooltip,
+        credits({ overlay: true }),
       ),
-      h("div.stage-wrap", {}, stage, loading, tooltip, panel),
-      credits(),
     ),
   );
+  root.append(screen);
 
   let left = false;
   let viewer;
@@ -37,27 +58,33 @@ export function renderExplore(root, navigate) {
   stage.addEventListener("pointermove", onMove);
 
   function showInfo(item) {
-    panel.hidden = false;
-    panel.replaceChildren(
-      h(
-        "div",
-        {},
-        h("button.ghost.close", { onclick: () => select(null), title: "Close" }, "✕"),
-        h("h2", {}, displayName(item)),
-        h("p.latin", {}, displayLatin(item)),
-        item.synonyms.length ? h("p.synonyms", {}, "Also: ", item.synonyms.join(", ")) : null,
-        h("p.groups", {}, [...item.groups].reverse().slice(1).join(" › ")),
-      ),
+    if (!item) {
+      card.hidden = true;
+      card.replaceChildren();
+      return;
+    }
+    // The broadest named group under "Skeletal system" and the nearest
+    // one, e.g. "Bones of upper limb · Bones of free part of upper limb".
+    const groups = item.groups.slice(0, -1);
+    const sub = [...new Set([groups.at(-1), groups[0]])].filter(Boolean).join(" · ");
+    const facts = [
+      ["Latin", displayLatin(item)],
+      ["Also", item.synonyms.join(", ")],
+      ["Side", SIDE[item.side]],
+    ].filter(([, v]) => v);
+    card.replaceChildren(
+      h("div.explore-card-title", {}, displayName(item)),
+      sub ? h("div.explore-card-sub", {}, sub) : null,
+      h("dl.explore-card-facts", {}, facts.flatMap(([t, v]) => [h("dt", {}, t), h("dd", {}, v)])),
     );
+    card.hidden = false;
   }
 
   function select(item) {
     if (selected) viewer.setState(selected.meshIds, null);
     selected = item;
-    if (item) {
-      viewer.setState(item.meshIds, "selected");
-      showInfo(item);
-    } else panel.hidden = true;
+    if (item) viewer.setState(item.meshIds, "selected");
+    showInfo(item);
   }
 
   (async () => {
@@ -77,6 +104,16 @@ export function renderExplore(root, navigate) {
       tooltip.textContent = displayName(byMesh.get(id));
       tooltip.style.left = `${mouse.x - rect.left + 14}px`;
       tooltip.style.top = `${mouse.y - rect.top + 14}px`;
+    });
+    randomButton.disabled = false;
+    randomButton.addEventListener("click", () => {
+      // The ossicles sit inside the temporal bone — a random pick there
+      // would frame a bone you can't see.
+      const visible = items.filter((i) => !i.groups.includes("Auditory ossicles"));
+      const item = visible[Math.floor(Math.random() * visible.length)];
+      select(item);
+      // Extra padding: the info card covers the top of the view.
+      viewer.frame(item.meshIds, { direction: "outward", minRadius: 0.12, padding: 1.8 });
     });
   })().catch((err) => {
     console.error(err);

@@ -1,23 +1,31 @@
-// Round loop: renders the prompt and answer widgets for the configured
-// question/answer attributes, scores, and shows the end-of-game summary.
+// Game screen, laid out like GeoQuiz's (reference/geoquiz/src/ui/game.js):
 //
-// Round flow (same as GeoQuiz): select → confirm → result → next.
-// - Select: click a bone, pick an option, or type.
-// - Confirm: the header button, Enter, or re-selecting the same thing.
-// - Next: the header button, Enter, a click (not a drag) on the skeleton, or
-//   a click on a locked multiple-choice option.
+//   header: "Round 3 / 27"  "Score: 2"  "4.1s"  [Confirm/Next]  [☰]
+//
+// - Click-the-bone rounds (answer = location): the 3D view fills everything
+//   below the header, and Confirm/Next, the question and the feedback float
+//   over its top edge — GeoQuiz's map-answer overlay.
+// - Typed / multiple-choice rounds: Confirm/Next sits in the header, the 3D
+//   view fills the middle (a text question floats over its top as a pill),
+//   and the answer widget and feedback line sit below it.
+//
+// Round flow: select → confirm → result → next. Confirm with the button,
+// Enter, or re-selecting the same thing. Advance with the button, Enter, or
+// a click anywhere (a click, not a drag, on the 3D view).
 
+import * as THREE from "three";
 import { attributes } from "../core/attributes.js";
-import { displayLatin, displayName, loadSkeletonData } from "../core/dataset.js";
+import { buildQuizItems, displayLatin, displayName, loadSkeletonData } from "../core/dataset.js";
 import { QuizSession } from "../core/engine.js";
 import { gamePool } from "../core/pool.js";
 import { findRegion } from "../core/regions.js";
-import * as THREE from "three";
+import { loadSettings } from "../core/settings.js";
 import { SkeletonViewer } from "../viewer/SkeletonViewer.js";
 import { getViewer } from "../viewer/shared.js";
 import { h } from "./dom.js";
-import { prompts } from "./prompts.js";
+import { createHamburgerMenu } from "./hamburgerMenu.js";
 import { inputs } from "./inputs.js";
+import { prompts } from "./prompts.js";
 
 // Context around a framed target: a phalanx alone fills the screen and says
 // nothing about where it is. Scaled to the region (a quarter of its size,
@@ -26,147 +34,172 @@ import { inputs } from "./inputs.js";
 const CONTEXT_MIN = 0.015;
 const CONTEXT_MAX = 0.12;
 
-export function formatTime(ms) {
-  const s = Math.round(ms / 1000);
-  const m = Math.floor(s / 60);
-  return m ? `${m}:${String(s % 60).padStart(2, "0")}` : `${s}s`;
-}
+// The result's green, for the x-ray copy of the target (viewer's "correct").
+const CORRECT_COLOR = 0x34c77b;
 
-export function renderGame(root, navigate, config) {
+const seconds = (ms) => `${(ms / 1000).toFixed(1)}s`;
+
+export function renderGame(root, navigate, config, backState) {
   const question = attributes[config.question];
   const answer = attributes[config.answer];
   const region = findRegion(config.region);
+  const clickAnswer = config.how === "click";
+  const { keepView, zoomToAnswer } = loadSettings();
 
-  const els = {
-    progress: h("span.progress"),
-    score: h("span.score"),
-    timer: h("span.timer"),
-    action: h("button.primary.action", { disabled: true }),
-    prompt: h("div.prompt"),
-    feedback: h("div.feedback", { hidden: true }),
-    stage: h("div.stage"),
-    answerArea: h("div.answer-area"),
-    loading: h("div.stage-loading", {}, "Loading skeleton…"),
-  };
+  // The name the answer is given in, and the other language alongside it,
+  // so every result teaches both: "Femur (Os femoris)".
+  const answerName = answer.id === "latin" ? displayLatin : displayName;
+  const otherName = answer.id === "latin" ? displayName : displayLatin;
+  const named = (item) => `${answerName(item)} (${otherName(item)})`;
 
-  const screen = h(
-    "main.game",
-    {},
-    h(
-      "header.game-header",
-      {},
-      h("button.ghost", { onclick: () => navigate("home"), title: "Home" }, "✕"),
-      h("button.ghost", { onclick: () => navigate("game", config), title: "Restart" }, "↻"),
-      h("div.stats", {}, els.progress, els.score, els.timer),
-      els.action,
-    ),
-    h("div.prompt-bar", {}, els.prompt, els.feedback),
-    h("div.stage-wrap", {}, els.stage, els.loading, els.answerArea),
+  const screen = h("div.game-screen");
+  const progress = h("span.game-progress");
+  const score = h("span.game-score");
+  const timerEl = h("span.game-timer");
+  const actionButton = h("button.action-button", { type: "button", disabled: true }, "Confirm");
+  const menu = createHamburgerMenu(
+    screen,
+    [
+      h("button.exit-button", { type: "button", onclick: () => navigate("game", config, backState) }, "Restart"),
+      h("button.exit-button", { type: "button", onclick: () => navigate("wizard", backState) }, "Back"),
+      h("button.exit-button", { type: "button", onclick: () => navigate("home") }, "Home"),
+    ],
+    { label: "Game menu" },
   );
+  const header = h(
+    "div.game-header",
+    {},
+    progress,
+    score,
+    timerEl,
+    clickAnswer ? null : actionButton,
+    menu,
+  );
+
+  const stage = h("div.stage");
+  const loading = h("div.stage-loading", {}, "Loading skeleton…");
+  const promptArea = h("div.prompt-area");
+  const feedbackArea = h("div.feedback-area");
+  const answerArea = h("div.answer-area");
+  const overlay = clickAnswer
+    ? h("div.map-overlay", {}, actionButton, promptArea, feedbackArea)
+    : h("div.map-overlay", {}, promptArea);
+  const viewerArea = h("div.viewer-area", {}, stage, loading, overlay);
+  const roundArea = clickAnswer
+    ? h("div.round-area", {}, viewerArea)
+    : h("div.round-area", {}, viewerArea, answerArea, feedbackArea);
+
+  screen.append(header, roundArea);
   root.append(screen);
 
   let left = false;
-  let session, pool, viewer, itemByMesh;
+  let session, pool, allItems, viewer, itemByMesh, regionIds;
   let phase = "loading"; // answering | result | summary
-  let widget = null; // current answer widget: { value(), focus?(), lock() }
+  let widget = null;
   let timerId = null;
   let contextRadius = CONTEXT_MAX;
   let viewBeforeResult = null; // the player's own view, restored next round
 
-  const onKey = (e) => {
-    if (e.key !== "Enter" || phase === "summary") return;
-    // An enabled button's own click handles Enter. A disabled one (a locked
-    // multiple-choice option that kept focus) doesn't, so act on it here.
-    if (e.target.tagName === "BUTTON" && !e.target.disabled) return;
-    e.preventDefault();
-    act();
-  };
-  document.addEventListener("keydown", onKey);
+  function updateHeader() {
+    progress.textContent = `Round ${Math.min(session.index + 1, pool.length)} / ${pool.length}`;
+    score.textContent = `Score: ${session.correctCount}`;
+  }
 
-  els.action.addEventListener("click", () => act());
+  function startTimer() {
+    session.roundStart = performance.now();
+    timerEl.textContent = "0.0s";
+    timerId = setInterval(() => (timerEl.textContent = seconds(performance.now() - session.roundStart)), 100);
+  }
+
+  function stopTimer() {
+    clearInterval(timerId);
+    timerId = null;
+  }
 
   function act() {
     if (phase === "answering" && widget?.value() != null) confirm();
     else if (phase === "result") next();
   }
+  actionButton.addEventListener("click", act);
 
-  function setAction(label, enabled) {
-    els.action.textContent = label;
-    els.action.disabled = !enabled;
-  }
+  // Enter confirms / advances. An enabled button's own click handles Enter;
+  // a locked option or read-only input doesn't, so act on those here.
+  const onKey = (e) => {
+    if (e.key !== "Enter" || (phase !== "answering" && phase !== "result")) return;
+    if (e.target.tagName === "BUTTON" && !e.target.disabled && !e.target.classList.contains("menu-option--locked")) return;
+    e.preventDefault();
+    act();
+  };
+  document.addEventListener("keydown", onKey);
 
-  function updateStats() {
-    els.progress.textContent = `${Math.min(session.index + 1, pool.length)} / ${pool.length}`;
-    els.score.textContent = `✓ ${session.correctCount}`;
-  }
-
-  function tick() {
-    if (phase === "answering") {
-      els.timer.textContent = formatTime(performance.now() - session.roundStart);
-    }
-  }
+  // After a result, a click anywhere advances (GeoQuiz's root listener) —
+  // except the action button (its own handler), the ☰ menu, the click that
+  // confirmed (e.confirmClick), and the 3D canvas, whose own pick handler
+  // advances on a click but not on a drag, so turning the model to look at
+  // the answer doesn't skip it.
+  screen.addEventListener("click", (e) => {
+    if (phase !== "result" || e.confirmClick || e.menuClick) return;
+    if (actionButton.contains(e.target) || e.target === viewer?.renderer.domElement) return;
+    next();
+  });
 
   function startRound() {
     phase = "answering";
     const target = session.current;
     viewer.clearStates();
-    if (viewBeforeResult) {
-      viewer.setView(viewBeforeResult);
-      viewBeforeResult = null;
+    // Highlight prompts frame the target themselves. Otherwise: keep the
+    // player's own view (restoring it after the result's zoom to the
+    // answer), or go back to the region's front view, per Settings.
+    if (question.promptKind !== "highlight") {
+      if (!keepView) viewer.frame(regionIds, { direction: SkeletonViewer.FRONT });
+      else if (viewBeforeResult) viewer.setView(viewBeforeResult);
     }
-    els.feedback.hidden = true;
-    els.feedback.className = "feedback";
-    els.answerArea.replaceChildren();
-    updateStats();
-    tick();
+    viewBeforeResult = null;
+    promptArea.replaceChildren();
+    feedbackArea.replaceChildren();
+    answerArea.replaceChildren();
+    actionButton.textContent = "Confirm";
+    actionButton.disabled = true;
+    updateHeader();
+    startTimer();
 
-    prompts[question.promptKind]({
-      el: els.prompt,
-      viewer,
-      target,
-      question,
-      answer,
-      contextRadius,
-    });
-
+    prompts[question.promptKind]({ el: promptArea, viewer, target, question, contextRadius });
     widget = inputs[config.how]({
-      el: els.answerArea,
+      el: answerArea,
       viewer,
       target,
       answer,
       pool,
+      allItems,
       itemByMesh,
       config,
-      onChange: () => setAction("Confirm", widget.value() != null),
+      onChange: () => (actionButton.disabled = phase !== "answering" || widget.value() == null),
       onConfirm: () => confirm(),
-      // Clicks on a widget after the result (e.g. a locked multiple-choice
-      // option) advance, like a click on the skeleton.
-      onNext: () => {
-        if (phase === "result") next();
-      },
     });
-    setAction("Confirm", false);
     widget.focus?.();
   }
 
   function confirm() {
     if (phase !== "answering") return;
     const target = session.current;
-    const verdict = widget.check();
-    session.answer(verdict.correct, verdict.guessKey);
-    widget.lock();
+    const { correct, guessItem } = widget.check();
+    session.answer(correct, guessItem?.key ?? null);
+    stopTimer();
+    timerEl.textContent = seconds(session.results.at(-1).ms);
+    widget.lock(correct);
     phase = "result";
-    updateStats();
+    updateHeader();
 
-    // Show where the target is, whatever the mode — every answer is a chance
-    // to learn the location. Green is always "the right answer is here", red
-    // always "what you picked instead".
-    const wrongIds = verdict.correct ? [] : (verdict.guessMeshIds ?? []);
+    // Show where the answer is, whatever the mode: green is always "the
+    // right answer is here", red "what you picked instead".
+    const wrongIds = correct ? [] : (guessItem?.meshIds ?? []);
     viewer.clearStates();
     viewer.setState(target.meshIds, "correct");
     viewer.setState(wrongIds, "wrong");
-    viewer.setXray(target.meshIds, 0x3fa45b);
-    if (question.promptKind !== "highlight") {
+    viewer.setXray(target.meshIds, CORRECT_COLOR);
+    // Highlight prompts are already framed on the target. Otherwise glide
+    // to the answer, unless Settings says not to.
+    if (question.promptKind !== "highlight" && zoomToAnswer) {
       viewBeforeResult = viewer.getView();
       viewer.frame([...target.meshIds, ...wrongIds], {
         direction: "outward",
@@ -175,19 +208,19 @@ export function renderGame(root, navigate, config) {
       });
     }
 
-    const name = displayName(target);
-    const latin = displayLatin(target);
-    els.feedback.hidden = false;
-    els.feedback.className = `feedback ${verdict.correct ? "is-correct" : "is-wrong"}`;
-    els.feedback.replaceChildren(
-      h("strong", {}, verdict.correct ? "Correct" : "Not quite"),
-      ...(verdict.message ? [h("span", {}, verdict.message)] : []),
-      h("span.answer-names", {}, h("b", {}, name), " · ", h("i", {}, latin)),
-    );
-    setAction(session.index + 1 >= pool.length ? "Results" : "Next", true);
+    // GeoQuiz's wording, plus the name in the other language.
+    let text;
+    if (correct) text = `Correct! ${named(target)}`;
+    else if (clickAnswer && guessItem) text = `You picked ${answerName(guessItem)} — correct answer: ${named(target)}`;
+    else text = `Correct answer: ${named(target)}`;
+    feedbackArea.replaceChildren(h("div.answer-feedback", {}, text));
+
+    actionButton.disabled = false;
+    actionButton.textContent = session.index + 1 >= pool.length ? "See Results" : "Next";
   }
 
   function next() {
+    if (phase !== "result") return;
     session.next();
     if (session.done) showSummary();
     else startRound();
@@ -195,41 +228,39 @@ export function renderGame(root, navigate, config) {
 
   function showSummary() {
     phase = "summary";
+    stopTimer();
     viewer.reset();
-    const missed = session.results.filter((r) => !r.correct);
     const total = session.results.length;
-    const pct = total ? Math.round((session.correctCount / total) * 100) : 0;
+    // Each round is labelled by what the player was shown; the correction
+    // is dropped when it would just repeat the label (GeoQuiz's rule).
+    const label = (item) => (question.display ?? displayName)(item);
+    const value = (item) => (answer.display ?? displayName)(item);
+    const list = h(
+      "ul.summary-list",
+      {},
+      session.results.map((r) => {
+        const correction = r.correct || value(r.item) === label(r.item) ? "" : ` (was ${value(r.item)})`;
+        return h(
+          `li.${r.correct ? "summary-correct" : "summary-wrong"}`,
+          {},
+          `${label(r.item)}: ${r.correct ? "correct" : "wrong"}${correction} (${seconds(r.ms)})`,
+        );
+      }),
+    );
     screen.replaceChildren(
       h(
-        "div.choice-screen.summary",
+        "div.game-summary",
         {},
-        h("h1", {}, `${session.correctCount} / ${total}`),
+        h("h2", {}, "Game Over"),
+        h("p.summary-score", {}, `You scored ${session.correctCount} / ${total}`),
         h(
-          "p.subtitle",
+          "p.summary-time",
           {},
-          `${pct}% · total ${formatTime(session.totalMs)} · average ${formatTime(session.totalMs / Math.max(1, total))}`,
+          `Total time: ${seconds(session.totalMs)} — average ${seconds(session.totalMs / Math.max(1, total))} / round`,
         ),
-        h(
-          "div.choices",
-          {},
-          h("button.choice", { onclick: () => navigate("game", config) }, "Play again"),
-          h("button.choice", { onclick: () => navigate("wizard") }, "New game"),
-          h("button.choice", { onclick: () => navigate("home") }, "Home"),
-        ),
-        missed.length
-          ? h(
-              "section.missed",
-              {},
-              h("h2", {}, `Missed (${missed.length})`),
-              h(
-                "ul",
-                {},
-                missed.map((r) =>
-                  h("li", {}, h("b", {}, displayName(r.item)), " · ", h("i", {}, displayLatin(r.item))),
-                ),
-              ),
-            )
-          : null,
+        list,
+        h("button", { type: "button", onclick: () => navigate("game", config, backState) }, "Play Again"),
+        h("button", { type: "button", onclick: () => navigate("home") }, "Home"),
       ),
     );
   }
@@ -238,37 +269,35 @@ export function renderGame(root, navigate, config) {
     const data = await loadSkeletonData();
     if (left) return;
     pool = gamePool(data.items, config, region);
+    allItems = buildQuizItems(data.items, config);
     if (!pool.length) {
       // The wizard disables empty regions; this covers anything else.
-      els.loading.textContent = "Nothing to ask in this mode and region.";
+      loading.textContent = "Nothing to ask in this mode and region.";
       return;
     }
     itemByMesh = new Map(pool.flatMap((i) => i.meshIds.map((m) => [m, i])));
-    viewer = await getViewer(els.stage);
+    viewer = await getViewer(stage);
     if (left) return;
-    els.loading.remove();
-    const regionIds = [...itemByMesh.keys()];
+    loading.remove();
+    regionIds = [...itemByMesh.keys()];
     viewer.setPlayable(regionIds);
     viewer.frame(regionIds, { direction: SkeletonViewer.FRONT });
     const size = viewer.boxOf(regionIds).getSize(new THREE.Vector3()).length();
     contextRadius = Math.min(CONTEXT_MAX, Math.max(CONTEXT_MIN, size / 4));
     viewer.onPick((meshId) => {
-      // A click on the skeleton advances past a result, like GeoQuiz's
-      // click-anywhere. Answer widgets get picks only while answering.
       if (phase === "result") next();
       else if (phase === "answering") widget?.pick?.(meshId);
     });
     session = new QuizSession(pool);
-    timerId = setInterval(tick, 250);
     startRound();
   })().catch((err) => {
     console.error(err);
-    els.loading.textContent = "Couldn't load the skeleton. Try reloading the page.";
+    loading.textContent = "Couldn't load the skeleton. Try reloading the page.";
   });
 
   return () => {
     left = true;
-    clearInterval(timerId);
+    stopTimer();
     document.removeEventListener("keydown", onKey);
     viewer?.reset();
   };

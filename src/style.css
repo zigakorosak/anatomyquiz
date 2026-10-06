@@ -1,19 +1,24 @@
+/* Visual language follows GeoQuiz (reference/geoquiz/src/style.css): the
+   same dark palette, button styles, menu screens, game header, overlay
+   pills and summary. Where a rule exists in both projects it keeps
+   GeoQuiz's class name, so the two stylesheets can be compared directly. */
+
 :root {
-  --bg: #f6f5f2;
-  --surface: #ffffff;
-  --fg: #1d1d1f;
-  --muted: #6b6b70;
-  --line: #dedbd4;
-  --accent: #b03a48;
-  --accent-fg: #ffffff;
-  --selected: #4f8fe0;
-  --correct: #3fa45b;
-  --wrong: #d2404a;
-  --stage: #26282c;
-  --header-h: 52px;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--fg);
-  background: var(--bg);
+  --bg: #10141c;
+  --surface: #1a2030;
+  --surface-raised: #232b40;
+  --text: #e8ecf4;
+  --text-dim: #9aa4bd;
+  --accent: #4f8cff;
+  --accent-dim: #2c3f66;
+  --correct: #34c77b;
+  --wrong: #e0546b;
+  --border: #2c3450;
+  /* The 3D stage — GeoQuiz's --map-ocean, so the skeleton sits where the
+     map would. */
+  --stage: #0a0e16;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
 }
 
 * {
@@ -29,214 +34,274 @@ html,
 body {
   margin: 0;
   height: 100%;
-  overflow: hidden; /* the page never scrolls; screens scroll internally */
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--bg);
+  color: var(--text);
 }
 
+/* Hard viewport cap — the page itself never scrolls (GeoQuiz's reasoning:
+   a fixed root gives mobile browsers no page scroll to react to, so the
+   URL bar doesn't resize the 3D view mid-gesture). Long menus and the
+   summary scroll internally. */
 #app {
-  height: 100%;
-}
-
-button {
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: default;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
   color: inherit;
 }
 
-/* --- choice screens (home, wizard, summary) --- */
-
-.choice-screen {
-  height: 100%;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 48px 16px 24px;
-  position: relative;
+button {
+  font: inherit;
+  cursor: pointer;
+  color: var(--text);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.choice-screen h1 {
-  margin: 0 0 8px;
-  text-align: center;
-}
-
-.subtitle {
-  color: var(--muted);
-  margin: 0 0 24px;
-  text-align: center;
-}
-
-.choices {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: min(420px, 100%);
-  margin-top: 8px;
-}
-
-.choice {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  padding: 14px 18px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  text-align: left;
-  transition: border-color 0.12s, transform 0.12s;
-}
-
-.choice:hover:not(:disabled) {
+button:hover:not(:disabled) {
   border-color: var(--accent);
 }
 
-.choice:active:not(:disabled) {
-  transform: scale(0.99);
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
-.choice-label {
-  font-weight: 600;
-}
+/* ---------- Menu screens (home, wizard, settings) ---------- */
 
-.choice-detail {
-  font-size: 0.875rem;
-  color: var(--muted);
-}
-
-.back {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: none;
-  border: none;
-  color: var(--muted);
-  padding: 8px;
-}
-
-.loading {
-  text-align: center;
-  color: var(--muted);
-  margin-top: 40vh;
-}
-
-.credits {
-  margin-top: auto;
-  padding-top: 32px;
-  font-size: 0.75rem;
-  color: var(--muted);
-  text-align: center;
-  max-width: 560px;
-}
-
-/* --- game / explore --- */
-
-.game {
-  height: 100%;
+.menu-screen {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
   display: flex;
   flex-direction: column;
+  gap: 1.75rem;
+  width: 100%;
+  /* Full height (scrolling internally when taller), so a footer can sit at
+     the bottom — see .credits. */
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Home's credit line sits at the very bottom, not 3rem above it. */
+.menu-screen:has(> .credits) {
+  padding-bottom: 0.75rem;
+}
+
+.menu-screen h1 {
+  text-align: center;
+  margin: 0;
+}
+
+.menu-step h2 {
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  margin: 0 0 0.75rem;
+  text-align: center; /* over the centred button column */
+}
+
+.menu-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* Menu screens (home, wizard, settings): one button under the other, all
+   the same width, centred. (In-game multiple choice keeps the wrapping
+   row above.) */
+.menu-screen .menu-options {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: min(22rem, 100%);
+  margin: 0 auto;
+}
+
+.menu-option--selected {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+}
+
+.multiple-choice-options {
+  justify-content: center;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.menu-option--correct {
+  background: var(--correct);
+  border-color: var(--correct);
+  color: #fff;
+}
+
+.menu-option--wrong {
+  background: var(--wrong);
+  border-color: var(--wrong);
+  color: #fff;
+}
+
+/* Visually inert after a result, but still a real (non-disabled) button,
+   so clicking it counts as "click anywhere advances" (inputs.js). */
+.menu-option--locked:not(.menu-option--correct):not(.menu-option--wrong) {
+  opacity: 0.5;
+}
+
+.menu-option--locked:hover {
+  border-color: var(--border);
+}
+
+.menu-option--locked.menu-option--correct:hover {
+  border-color: var(--correct);
+}
+
+.menu-option--locked.menu-option--wrong:hover {
+  border-color: var(--wrong);
+}
+
+.wizard-back {
+  align-self: flex-start;
+  font-size: 0.9rem;
+  padding: 0.4em 0.9em;
+}
+
+.wizard-subtitle {
+  text-align: center;
+  color: var(--text-dim);
+  margin: -1rem 0 0;
+}
+
+.wizard-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 8rem;
+}
+
+.wizard-option-desc {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.loading-text {
+  text-align: center;
+  color: var(--text-dim);
+}
+
+/* CC BY-SA attribution (ui/credits.js) — required, kept quiet. On the
+   home screen, margin-top: auto pushes it to the bottom of the
+   full-height .menu-screen. */
+.credits {
+  margin: auto 0 0;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  text-wrap: balance; /* even lines, not one stray word on the second */
+}
+
+/* ---------- Game / explore screens ---------- */
+
+.game-screen {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0 0;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .game-header {
-  height: var(--header-h);
-  flex: none;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 8px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-.stats {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-}
-
-.ghost {
-  background: none;
-  border: none;
-  padding: 8px 10px;
-  border-radius: 8px;
-  color: var(--muted);
-}
-
-.ghost:hover {
-  background: var(--bg);
-}
-
-.primary {
-  background: var(--accent);
-  color: var(--accent-fg);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
+  gap: 1rem;
   font-weight: 600;
-  min-width: 96px;
+  padding: 0 1rem;
+  min-height: 2.4rem;
 }
 
-.primary:disabled {
-  opacity: 0.4;
+.game-timer {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
 }
 
-.prompt-bar {
-  flex: none;
-  padding: 10px 16px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-  text-align: center;
+.game-header .action-button {
+  margin-left: auto;
+  padding: 0.4em 1.4em;
+  min-width: 0;
+  font-size: 0.9rem;
 }
 
-.prompt {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  gap: 6px 8px;
+.game-header .exit-button {
+  font-weight: 400;
+  font-size: 0.9rem;
 }
 
-.prompt-ask {
-  color: var(--muted);
-}
-
-.prompt-value {
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.feedback {
-  margin-top: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px 10px;
-  font-size: 0.95rem;
-}
-
-.feedback.is-correct strong {
-  color: var(--correct);
-}
-
-.feedback.is-wrong strong {
-  color: var(--wrong);
-}
-
-.stage-wrap {
-  flex: 1;
+.game-header .game-menu {
+  margin-left: auto;
   position: relative;
+}
+
+.game-menu-toggle {
+  padding: 0.4em 0.9em;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.game-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  z-index: 20;
+  min-width: 8.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.game-menu-dropdown button {
+  white-space: nowrap;
+  text-align: left;
+}
+
+.explore-label {
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Prompt, viewer, answer and feedback as one column. The viewer takes all
+   the height the answer widgets don't need. */
+.round-area {
+  flex: 1;
   min-height: 0;
-  background: radial-gradient(ellipse at 50% 40%, #3a3d43 0%, var(--stage) 75%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+/* The 3D view — GeoQuiz's map slot. Full-bleed to the screen's left,
+   right and (in click rounds) bottom edges. */
+.viewer-area {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  background: var(--stage);
 }
 
 .stage {
@@ -256,168 +321,264 @@ a {
   inset: 0;
   display: grid;
   place-items: center;
-  color: #c9c6bf;
+  color: var(--text-dim);
 }
 
-.answer-area {
+/* Controls floating over the top of the 3D view: Confirm/Next, question
+   and feedback in click rounds, the question alone otherwise. The overlay
+   ignores pointer events so drags on the text still reach the model; only
+   the button takes them. */
+.map-overlay {
   position: absolute;
+  top: 0.5rem;
   left: 0;
   right: 0;
-  bottom: 0;
-  padding: 12px 16px 16px;
+  padding: 0 1rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
   pointer-events: none;
+  z-index: 5;
 }
 
-.answer-area > * {
+.map-overlay .action-button {
   pointer-events: auto;
+  padding: 0.4em 1.4em;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 
-.hint {
-  margin: 0;
-  color: #c9c6bf;
-  font-size: 0.85rem;
-  pointer-events: none;
-}
-
-.type-input {
-  width: min(420px, 100%);
-  padding: 12px 14px;
-  font: inherit;
-  font-size: 1.05rem;
-  border: 1px solid var(--line);
+.map-overlay .prompt-text,
+.map-overlay .answer-feedback {
+  background: rgba(10, 14, 22, 0.78);
   border-radius: 10px;
-  background: var(--surface);
+  padding: 0.15em 0.6em;
+  max-width: 100%;
 }
 
-.options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 8px;
-  width: min(720px, 100%);
+.map-overlay .answer-feedback {
+  color: var(--text);
 }
 
-.option {
-  padding: 10px 12px;
-  background: var(--surface);
-  border: 2px solid var(--line);
-  border-radius: 10px;
+.map-overlay .prompt-text {
+  font-size: clamp(1.25rem, 6vw, 2rem);
+}
+
+.prompt-area:empty,
+.feedback-area:empty {
+  display: none;
+}
+
+.prompt-text {
+  font-size: 2rem;
+  font-weight: 700;
   text-align: center;
 }
 
-/* Not on locked options: hovering the green/red result would recolor its
-   border. They stay clickable (a click advances). */
-.option:hover:not(.is-locked) {
-  border-color: var(--accent);
+.answer-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
 }
 
-.option.is-selected {
-  border-color: var(--selected);
+.answer-text-form {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
-.option.is-correct {
+.answer-text-form input {
+  font: inherit;
+  padding: 0.6em 0.8em;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  min-width: min(22rem, 100%);
+}
+
+.answer-text-form input.input--correct {
   border-color: var(--correct);
-  background: #e6f4ea;
 }
 
-.option.is-wrong {
+.answer-text-form input.input--wrong {
   border-color: var(--wrong);
-  background: #fbe7e8;
 }
 
-.option.is-locked {
-  color: var(--fg);
+.feedback-area {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 0.75rem;
 }
 
+.map-overlay .feedback-area {
+  padding: 0;
+}
+
+.answer-feedback {
+  text-align: center;
+  color: var(--text-dim);
+}
+
+.action-button {
+  align-self: center;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6em 2em;
+  min-width: 10rem;
+}
+
+/* Hover name in Explore. */
 .tooltip {
   position: absolute;
   pointer-events: none;
-  background: rgba(20, 20, 22, 0.85);
-  color: #fff;
-  padding: 4px 8px;
+  background: rgba(10, 14, 22, 0.85);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.2em 0.55em;
   border-radius: 6px;
   font-size: 0.85rem;
   white-space: nowrap;
+  z-index: 6;
 }
 
-.info {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: min(320px, calc(100% - 24px));
-  background: var(--surface);
+/* Explore's info card, GeoQuiz's .explore-card. */
+.explore-card {
+  background: rgba(10, 14, 22, 0.82);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  padding: 0.6rem 0.9rem;
+  max-width: min(100%, 26rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
-.info h2 {
-  margin: 0 28px 4px 0;
-  font-size: 1.1rem;
+.explore-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.info p {
-  margin: 4px 0;
-}
-
-.info .latin {
-  font-style: italic;
-}
-
-.info .synonyms,
-.info .groups {
-  color: var(--muted);
+.explore-card-sub {
   font-size: 0.85rem;
+  color: var(--text-dim);
 }
 
-.info .close {
+.explore-card-facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 0.6rem;
+  row-gap: 0.1rem;
+  font-size: 0.9rem;
+}
+
+.explore-card-facts dt {
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.explore-card-facts dd {
+  margin: 0;
+  text-align: left;
+}
+
+.credits-overlay {
   position: absolute;
-  top: 6px;
-  right: 6px;
-}
-
-.explore .credits {
+  left: 0.5rem;
+  bottom: 0.5rem;
+  max-width: calc(100% - 1rem);
   margin: 0;
-  padding: 6px 16px;
-  max-width: none;
-  background: var(--surface);
-  border-top: 1px solid var(--line);
+  padding: 0.15em 0.5em;
+  border-radius: 6px;
+  background: rgba(10, 14, 22, 0.78);
+  pointer-events: none;
+  text-align: left;
 }
 
-/* --- summary --- */
-
-.missed {
-  width: min(520px, 100%);
-  margin-top: 28px;
+.credits-overlay a {
+  pointer-events: auto;
 }
 
-.missed h2 {
-  font-size: 1rem;
-  color: var(--muted);
+/* ---------- Summary ---------- */
+
+.game-summary {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 100%;
+  overflow-y: auto;
+  width: 100%;
 }
 
-.missed ul {
-  padding-left: 18px;
+.game-summary h2 {
   margin: 0;
 }
 
-.missed li {
-  margin: 4px 0;
+.summary-score {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.summary-time {
+  color: var(--text-dim);
+  margin: -0.5rem 0 0;
+}
+
+.summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.summary-list li {
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.summary-list li:last-child {
+  border-bottom: none;
+}
+
+.summary-correct {
+  color: var(--correct);
+}
+
+.summary-wrong {
+  color: var(--wrong);
+}
+
+.game-summary button {
+  align-self: center;
 }
 
 @media (max-width: 520px) {
-  .stats {
-    gap: 10px;
-    font-size: 0.875rem;
+  .game-header {
+    gap: 0.6rem;
+    font-size: 0.9rem;
   }
 
-  .primary {
-    min-width: 0;
-    padding: 8px 12px;
-  }
-
-  .options {
-    grid-template-columns: 1fr 1fr;
+  .menu-screen {
+    padding: 2rem 1rem;
   }
 }
