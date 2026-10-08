@@ -17,6 +17,30 @@ const TISSUE_COLORS = {
   tooth: 0xf7f4ea,
 };
 
+// Muscle-attachment patches (public/data/insertions.glb): amber, apart from
+// every state colour below. Drawn with a polygon offset so they win the
+// depth test against the bone surface they lie on (they're 1 mm shells on
+// the full-resolution bone, and the bones are decimated).
+const PATCH_COLOR = 0xe0a83a;
+
+// Plane cut (setCut): one clipping plane shared by every material. Cut
+// bones show a flat "cap" where they're open: a back-face copy of the mesh
+// in a darker shade of its colour. Caps are always drawn (behind the front
+// faces they cost a depth test, nothing more), so the inside of any bone
+// looks solid however you see it: through a cut, or with the camera inside.
+const CAP_SHADE = 0.72;
+// Plane caps draw after the bones (opaque, renderOrder 0), before the ghosts.
+const PLANE_CAP_ORDER = 1000;
+// The cut's plane itself, drawn faintly so you can see where it is.
+const CUT_PLANE_COLOR = 0x4f8cff; // --accent
+const CUT_PLANE_OPACITY = 0.08;
+const CUT_PLANE_MARGIN = 1.1; // × the region's extent
+const CUT_AXES = {
+  sagittal: new THREE.Vector3(1, 0, 0), // + = the body's left
+  coronal: new THREE.Vector3(0, 0, 1), // + = front
+  transverse: new THREE.Vector3(0, 1, 0), // + = up
+};
+
 // Visual states, in GeoQuiz's palette (style.css --accent / --correct /
 // --wrong): the highlighted question and a selection are the accent blue,
 // as a highlighted or selected country is there; hover a lighter blue.
@@ -40,6 +64,103 @@ const MUTED_OPACITY = 0.07;
 const GHOST_DEPTH_ORDER = 1;
 const GHOST_COLOR_ORDER = 2;
 
+// Layer peeling (computeLayers): the set is rendered from these directions
+// (6 axes + 8 corners), depth-peeled up to PEEL_PASSES deep, at
+// PEEL_SIZE² px per view.
+const PEEL_DIRECTIONS = [
+  [1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1],
+  [1, 1, 1], [1, 1, -1], [1, -1, 1], [1, -1, -1],
+  [-1, 1, 1], [-1, 1, -1], [-1, -1, 1], [-1, -1, -1],
+].map((d) => new THREE.Vector3(...d).normalize());
+const PEEL_SIZE = 256;
+const PEEL_PASSES = 8;
+// Each peel round splits the remaining meshes into outer/inner at the
+// natural break in their exposures (Otsu's two-group split), but only when
+// the inner group is genuinely hidden: its mean exposure below
+// PEEL_INNER_MAX, and clearly apart from the outer group (means at least
+// PEEL_MIN_SEPARATION apart). Otherwise what's left is one layer. No fixed
+// exposure threshold works everywhere (the skull's break is near 0.25, the
+// trunk's ribs vs vertebrae near 0.5). Calibrated per round on skull, trunk,
+// hand, foot, teeth and the whole skeleton: real inner layers measured
+// 0.12–0.44; the spurious splits (a vertebral column peeling two vertebrae
+// at a time from its ends) had inner groups at 0.50–0.52, already easy
+// to click. See DESIGN.md "Layers slider".
+const PEEL_MIN_SEPARATION = 0.15;
+const PEEL_INNER_MAX = 0.45;
+// Every layer must hold at least this many different structures (left and
+// right count once); smaller ones merge into a neighbour (see
+// mergeSmallLayers). A layer of one or two bones — the ethmoid alone at
+// the end of the skull, two cuneiforms at the end of the foot — hid
+// nothing worth hiding: they were already easy to click a step earlier.
+const PEEL_MIN_STRUCTURES = 4;
+
+/**
+ * Merges every layer with fewer than PEEL_MIN_STRUCTURES distinct structures
+ * into the next layer inward, or outward if it's the innermost, then
+ * renumbers 0..n-1. levels: Map(meshId -> layer).
+ */
+function mergeSmallLayers(levels, count) {
+  const structure = (id) => id.replace(/\.[lr]$/, "");
+  const layers = Array.from({ length: count }, () => []);
+  for (const [id, l] of levels) layers[l].push(id);
+  const size = (ids) => new Set(ids.map(structure)).size;
+  let merged = layers.filter((ids) => ids.length);
+  for (let i = 0; i < merged.length - 1; ) {
+    if (size(merged[i]) < PEEL_MIN_STRUCTURES) {
+      merged[i + 1] = [...merged[i], ...merged[i + 1]];
+      merged.splice(i, 1);
+    } else i++;
+  }
+  while (merged.length > 1 && size(merged.at(-1)) < PEEL_MIN_STRUCTURES) {
+    const last = merged.pop();
+    merged[merged.length - 1].push(...last);
+  }
+  const out = new Map();
+  merged.forEach((ids, l) => ids.forEach((id) => out.set(id, l)));
+  return { levels: out, count: merged.length };
+}
+
+/** Otsu's split of `values`: the cut minimising within-group variance. */
+function naturalBreak(values) {
+  const v = [...values].sort((a, b) => a - b);
+  const n = v.length;
+  if (n < 2) return null;
+  const prefix = [0];
+  const prefixSq = [0];
+  for (const x of v) {
+    prefix.push(prefix.at(-1) + x);
+    prefixSq.push(prefixSq.at(-1) + x * x);
+  }
+  let best = null;
+  for (let i = 1; i < n; i++) {
+    const lowMean = prefix[i] / i;
+    const highMean = (prefix[n] - prefix[i]) / (n - i);
+    const within =
+      prefixSq[i] - i * lowMean * lowMean + (prefixSq[n] - prefixSq[i]) - (n - i) * highMean * highMean;
+    if (!best || within < best.within) best = { within, cut: v[i], lowMean, highMean };
+  }
+  return best;
+}
+
+// Draws each mesh in a flat id colour; with `peel` on, drops every fragment
+// at or in front of the previous pass's depth, so pass k shows the k-th
+// surface along each pixel's ray.
+const PEEL_VERTEX = /* glsl */ `
+  void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+const PEEL_FRAGMENT = /* glsl */ `
+  uniform vec3 idColor;
+  uniform sampler2D prevDepth;
+  uniform float peel;
+  uniform vec2 size;
+  void main() {
+    if (peel > 0.5 && gl_FragCoord.z <= texture2D(prevDepth, gl_FragCoord.xy / size).r + 2e-5) discard;
+    gl_FragColor = vec4(idColor, 1.0);
+  }
+`;
+
 // A press that moves further than this (px) is a rotate/pan drag, not a
 // click. Must be > 0: GeoQuiz lost clicks to d3-zoom's default of 0, since
 // real mouse presses drift a pixel or two.
@@ -58,7 +179,12 @@ export class SkeletonViewer {
     this.modelUrl = modelUrl;
 
     this.meshes = new Map(); // mesh id -> [THREE.Mesh] (one per material primitive)
+    this.patchIds = []; // muscle-attachment mesh ids, once loadInsertions() ran
+    this.patchesShown = false;
     this.playable = null; // Set of mesh ids, or null = everything
+    // Mesh ids drawn solid but never clickable or hoverable: the bones under
+    // muscle attachments. They still block clicks on what's behind them.
+    this.backdrop = new Set();
     this.states = new Map(); // mesh id -> state name
     this.hoverIds = [];
     this.hoverGroup = null; // (meshId) => mesh ids to hover together
@@ -69,20 +195,30 @@ export class SkeletonViewer {
     this.dirty = true;
 
     // Transparent, so the stage's CSS background shows through.
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    // stencil: for the cut caps (_updatePlaneCaps).
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, stencil: true });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.domElement.className = "viewer-canvas";
     container.append(this.renderer.domElement);
+
+    // The plane cut: every material shares this array, holding the plane
+    // while a cut is on and nothing otherwise (see setCut).
+    this.renderer.localClippingEnabled = true;
+    this.clipPlanes = [];
+    this.cutPlane = new THREE.Plane();
 
     // Depth-only copies of muted meshes (see _apply): one shared material.
     this.ghostDepthMaterial = new THREE.MeshBasicMaterial({
       colorWrite: false,
       depthWrite: true,
       transparent: true, // drawn after the opaque pass, so playable bones behind ghosts still show
+      clippingPlanes: this.clipPlanes,
     });
 
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(35, 1, 0.01, 50);
+    // near 2 mm (was 1 cm): close-up views clip less. 2 mm..20 m keeps
+    // depth precision ample for the whole skeleton.
+    this.camera = new THREE.PerspectiveCamera(35, 1, 0.002, 20);
     this.camera.position.set(0, 0.9, 4);
 
     // Lights ride along with the camera so the side being looked at is lit.
@@ -113,12 +249,46 @@ export class SkeletonViewer {
   }
 
   async load() {
+    this.boneIds = await this._loadModel(this.modelUrl, "bone");
+    this.bounds = new THREE.Box3();
+    this.bounds.copy(this.boxOf(this.boneIds));
+    this.frame(null, { animate: false });
+    this._applyAll();
+  }
+
+  /**
+   * Loads the muscle-attachment patches (once; later calls return the same
+   * promise). They start hidden: see showPatches().
+   */
+  loadInsertions(url) {
+    this.insertionsReady ??= this._loadModel(url, "patch").then((ids) => {
+      this.patchIds = ids;
+      this.showPatches(this.patchesShown);
+    });
+    return this.insertionsReady;
+  }
+
+  /** Patches only exist on screen in attachments mode. */
+  showPatches(shown) {
+    this.patchesShown = shown;
+    for (const id of this.patchIds) for (const m of this.meshes.get(id)) m.visible = shown;
+    if (this.clipPlanes) this._updatePlaneCaps();
+    this.dirty = true;
+  }
+
+  /** Bones drawn solid but not clickable (see this.backdrop). */
+  setBackdrop(ids) {
+    this.backdrop = new Set(ids ?? []);
+    this._applyAll();
+  }
+
+  async _loadModel(url, kind) {
     const draco = new DRACOLoader();
     // three's own glTF decoder build, bundled by Vite (hashed URLs, no copy step).
     draco.setDecoderPath(DRACO_GLTF_CONFIG);
     const loader = new GLTFLoader();
     loader.setDRACOLoader(draco);
-    const gltf = await loader.loadAsync(this.modelUrl);
+    const gltf = await loader.loadAsync(url);
     draco.dispose();
 
     // GLTFLoader sanitizes node names ("Femur.l" -> "Femurl"), so recover the
@@ -139,13 +309,17 @@ export class SkeletonViewer {
       const list = [];
       for (const m of meshes) {
         const tissue = m.material?.name in TISSUE_COLORS ? m.material.name : "bone";
+        const base = kind === "patch" ? PATCH_COLOR : TISSUE_COLORS[tissue];
         m.material = new THREE.MeshStandardMaterial({
-          color: TISSUE_COLORS[tissue],
+          color: base,
           roughness: 0.75,
           metalness: 0,
+          clippingPlanes: this.clipPlanes,
+          ...(kind === "patch" ? { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 } : {}),
         });
         m.userData.meshId = id;
-        m.userData.baseColor = TISSUE_COLORS[tissue];
+        m.userData.kind = kind;
+        m.userData.baseColor = base;
         // Depth pre-pass for when this mesh is muted (see _apply).
         const depth = new THREE.Mesh(m.geometry, this.ghostDepthMaterial);
         depth.renderOrder = GHOST_DEPTH_ORDER;
@@ -153,16 +327,23 @@ export class SkeletonViewer {
         depth.raycast = () => {};
         m.add(depth);
         m.userData.ghostDepth = depth;
+        // Cut cap (see CAP_SHADE), for bones and attachment patches alike.
+        // It fills the cross-section only because every mesh is exported
+        // closed with outward faces (export-models.py seal()).
+        {
+          const cap = new THREE.Mesh(m.geometry, this._capMaterial());
+          cap.visible = false;
+          cap.raycast = () => {};
+          m.add(cap);
+          m.userData.cap = cap;
+        }
         list.push(m);
       }
       this.meshes.set(id, list);
     }
-    this.root = gltf.scene;
-    this.scene.add(this.root);
-
-    this.bounds = new THREE.Box3().setFromObject(this.root);
-    this.frame(null, { animate: false });
-    this._applyAll();
+    this.scene.add(gltf.scene);
+    this.root ??= gltf.scene;
+    return nodes.map(([id]) => id);
   }
 
   /** Moves the viewer's canvas into another container (screens share one viewer). */
@@ -175,7 +356,71 @@ export class SkeletonViewer {
   }
 
   /** Clears everything a screen may have set, keeping the camera where it is. */
+  /**
+   * Cuts the model with a plane, hiding everything on one side.
+   * cut: { axis: "sagittal" | "coronal" | "transverse", flip, t, box } —
+   * the plane is perpendicular to the axis, at fraction t (0..1) of the way
+   * across `box` (a THREE.Box3; the region in play). Unflipped it keeps the
+   * left / front / upper side. null turns the cut off.
+   */
+  setCut(cut) {
+    if (!cut) {
+      this.clipPlanes.length = 0;
+    } else {
+      const n = CUT_AXES[cut.axis].clone().multiplyScalar(cut.flip ? -1 : 1);
+      const axis = CUT_AXES[cut.axis];
+      const lo = cut.box.min.dot(axis);
+      const hi = cut.box.max.dot(axis);
+      const point = cut.box.getCenter(new THREE.Vector3());
+      // Move the box centre along the axis to the slider's position.
+      point.addScaledVector(axis, lo + cut.t * (hi - lo) - point.dot(axis));
+      this.cutPlane.setFromNormalAndCoplanarPoint(n, point);
+      if (!this.clipPlanes.length) this.clipPlanes.push(this.cutPlane);
+      this._showCutPlane(axis, point, cut.box);
+    }
+    if (this.cutMarker) this.cutMarker.visible = Boolean(cut);
+    this._applyAll();
+  }
+
+  /**
+   * The faint plane through the cut: a quad spanning the region's other two
+   * axes, at `point`, facing along `axis`. Not clipped, not clickable,
+   * drawn after the bones without writing depth.
+   */
+  _showCutPlane(axis, point, box) {
+    if (!this.cutMarker) {
+      this.cutMarker = new THREE.Mesh(
+        new THREE.PlaneGeometry(1, 1),
+        new THREE.MeshBasicMaterial({
+          color: CUT_PLANE_COLOR,
+          transparent: true,
+          opacity: CUT_PLANE_OPACITY,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        }),
+      );
+      this.cutMarker.renderOrder = 5; // after the ghosts, before the x-ray
+      this.cutMarker.raycast = () => {};
+      this.scene.add(this.cutMarker);
+    }
+    const size = box.getSize(new THREE.Vector3()).multiplyScalar(CUT_PLANE_MARGIN);
+    // PlaneGeometry lies in x/y facing +z; turn it to face along the axis
+    // and stretch it over the box's extent in the two remaining axes.
+    const m = this.cutMarker;
+    m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), axis);
+    if (axis.x) m.scale.set(size.z, size.y, 1); // sagittal: plane in z/y
+    else if (axis.y) m.scale.set(size.x, size.z, 1); // transverse: plane in x/z
+    else m.scale.set(size.x, size.y, 1); // coronal: plane in x/y
+    m.position.copy(point);
+  }
+
   reset() {
+    this.clipPlanes.length = 0;
+    if (this.cutMarker) this.cutMarker.visible = false;
+    this.peelLevels = null;
+    this.peelDepth = 0;
+    this.backdrop = new Set();
+    this.showPatches(false);
     this.pickHandler = null;
     this.hoverHandler = null;
     this.hoverGroup = null;
@@ -187,8 +432,9 @@ export class SkeletonViewer {
     this._applyAll();
   }
 
+  /** Bone mesh ids (not the attachment patches). */
   get meshIds() {
-    return [...this.meshes.keys()];
+    return this.boneIds ?? [];
   }
 
   /** Called with a mesh id (or null for empty space) on a click that isn't a drag. */
@@ -223,6 +469,7 @@ export class SkeletonViewer {
       else this.states.delete(id);
       this._apply(id);
     }
+    this._updatePlaneCaps(); // cap colours, and states un-ghost meshes
   }
 
   clearStates() {
@@ -230,6 +477,7 @@ export class SkeletonViewer {
     this.states.clear();
     for (const id of ids) this._apply(id);
     this.setXray([]);
+    this._updatePlaneCaps();
   }
 
   /**
@@ -252,6 +500,7 @@ export class SkeletonViewer {
             opacity: 0.35,
             depthTest: false,
             depthWrite: false,
+            clippingPlanes: this.clipPlanes,
           }),
         );
         x.renderOrder = 10;
@@ -315,6 +564,7 @@ export class SkeletonViewer {
     const toPos = sphere.center.clone().addScaledVector(dir, dist);
 
     if (!animate) {
+      this.anim = null; // or a glide still running would carry on over this
       this.controls.target.copy(toTarget);
       this.camera.position.copy(toPos);
       this.controls.update();
@@ -403,28 +653,300 @@ export class SkeletonViewer {
 
   // --- internals ---
 
-  /** World-space bounding box of these meshes. */
+  /**
+   * How deep each mesh sits, as a layer number (0 = outermost), for the
+   * layers slider. Peels the set like an onion, in rounds: each round
+   * measures every remaining mesh's exposure (peelExposure) and takes off
+   * the clearly more exposed group (naturalBreak); what's left is measured
+   * again without them. When the rest is all alike, it's the last layer.
+   * Cached per id set.
+   */
+  computeLayers(ids) {
+    const key = [...ids].sort().join("|");
+    this.layerCache ??= new Map();
+    if (this.layerCache.has(key)) return this.layerCache.get(key);
+
+    let remaining = [...ids].filter((id) => this.meshes.has(id));
+    const levels = new Map();
+    let level = 0;
+    while (remaining.length) {
+      const exposure = this.peelExposure(remaining);
+      const split = naturalBreak(exposure.values());
+      const layered =
+        split && split.lowMean < PEEL_INNER_MAX && split.highMean - split.lowMean >= PEEL_MIN_SEPARATION;
+      const outer = layered ? remaining.filter((id) => exposure.get(id) >= split.cut) : remaining;
+      for (const id of outer) levels.set(id, level);
+      remaining = remaining.filter((id) => !levels.has(id));
+      level++;
+    }
+    const result = mergeSmallLayers(levels, level);
+    this.layerCache.set(key, result);
+    return result;
+  }
+
+  /**
+   * Exposure of each mesh in `list`: of all its surface seen from 14
+   * directions around the set (front faces only, every depth layer, via
+   * depth peeling), the share that's the first surface on its pixel, i.e.
+   * visible from outside. A skull-vault bone is about half (its outside
+   * from one side, its inside across the cavity from the other); the
+   * ethmoid, behind the face from every side, close to none. Measuring the
+   * median layer instead (an earlier attempt) put hollow shapes like the
+   * vault a layer too deep, because of that inside view.
+   */
+  peelExposure(list) {
+    const size = PEEL_SIZE;
+    const makeTarget = () => {
+      const rt = new THREE.WebGLRenderTarget(size, size, {
+        minFilter: THREE.NearestFilter,
+        magFilter: THREE.NearestFilter,
+      });
+      rt.depthTexture = new THREE.DepthTexture(size, size);
+      return rt;
+    };
+    const targets = [makeTarget(), makeTarget()];
+    const shared = {
+      prevDepth: { value: null },
+      peel: { value: 0 },
+      size: { value: new THREE.Vector2(size, size) },
+    };
+    const scene = new THREE.Scene();
+    const materials = [];
+    list.forEach((id, i) => {
+      const n = i + 1; // 0 = background
+      const material = new THREE.ShaderMaterial({
+        vertexShader: PEEL_VERTEX,
+        fragmentShader: PEEL_FRAGMENT,
+        uniforms: { ...shared, idColor: { value: new THREE.Vector3((n & 255) / 255, ((n >> 8) & 255) / 255, 0) } },
+      });
+      materials.push(material);
+      for (const m of this.meshes.get(id)) {
+        const copy = new THREE.Mesh(m.geometry, material);
+        copy.matrixAutoUpdate = false;
+        copy.matrix.copy(m.matrixWorld);
+        scene.add(copy);
+      }
+    });
+
+    const sphere = this.boxOf(list).getBoundingSphere(new THREE.Sphere());
+    const r = Math.max(sphere.radius, 1e-3);
+    const camera = new THREE.OrthographicCamera(-r, r, r, -r, r * 0.5, r * 3.5);
+    const first = new Array(list.length).fill(0);
+    const total = new Array(list.length).fill(0);
+    const pixels = new Uint8Array(size * size * 4);
+
+    const renderer = this.renderer;
+    const prevTarget = renderer.getRenderTarget();
+    const prevColor = renderer.getClearColor(new THREE.Color());
+    const prevAlpha = renderer.getClearAlpha();
+    renderer.setClearColor(0x000000, 0);
+    for (const dir of PEEL_DIRECTIONS) {
+      camera.position.copy(sphere.center).addScaledVector(dir, r * 2);
+      camera.up.set(0, Math.abs(dir.y) > 0.99 ? 0 : 1, Math.abs(dir.y) > 0.99 ? 1 : 0);
+      camera.lookAt(sphere.center);
+      camera.updateMatrixWorld();
+      for (let pass = 0; pass < PEEL_PASSES; pass++) {
+        const target = targets[pass % 2];
+        shared.peel.value = pass > 0 ? 1 : 0;
+        shared.prevDepth.value = pass > 0 ? targets[(pass + 1) % 2].depthTexture : null;
+        renderer.setRenderTarget(target);
+        renderer.clear();
+        renderer.render(scene, camera);
+        renderer.readRenderTargetPixels(target, 0, 0, size, size, pixels);
+        let any = false;
+        for (let p = 0; p < pixels.length; p += 4) {
+          const n = pixels[p] + (pixels[p + 1] << 8);
+          if (!n) continue;
+          any = true;
+          total[n - 1]++;
+          if (pass === 0) first[n - 1]++;
+        }
+        if (!any) break;
+      }
+    }
+    renderer.setRenderTarget(prevTarget);
+    renderer.setClearColor(prevColor, prevAlpha);
+    for (const t of targets) {
+      t.depthTexture.dispose();
+      t.dispose();
+    }
+    for (const m of materials) m.dispose();
+
+    return new Map(list.map((id, i) => [id, total[i] ? first[i] / total[i] : 0]));
+  }
+
+  /**
+   * Hides the outer `depth` layers of `levels` (from computeLayers): they
+   * draw as muted ghosts and can't be clicked or hovered, so what's inside
+   * can. 0 shows everything. A mesh with a state (target, correct, …)
+   * still draws in colour.
+   */
+  setPeel(levels, depth) {
+    this.peelLevels = levels;
+    this.peelDepth = depth;
+    this._setHover(null);
+    this._applyAll();
+  }
+
+  /**
+   * How to look at an attachment face-on: the meshes of `item`'s first side
+   * (its other side still shows through the x-ray), and the direction from
+   * the bone(s) under them out to the patch. For frame(ids, { direction }).
+   */
+  faceOn(item) {
+    const side = item.members.filter((m) => m.side === item.members[0].side);
+    const ids = side.map((m) => m.id);
+    const center = (list) => this.boxOf(list).getCenter(new THREE.Vector3());
+    const dir = center(ids).sub(center([...new Set(side.map((m) => m.host))]));
+    return { ids, direction: dir.lengthSq() > 1e-10 ? dir.normalize() : "outward" };
+  }
+
+  /**
+   * The always-on back-face cap: the mesh's inside in a flat colour, so a
+   * bone never looks hollow, e.g. with the camera inside it. Cut faces get
+   * a proper cap on the plane on top of this (_updatePlaneCaps).
+   */
+  _capMaterial() {
+    return new THREE.MeshBasicMaterial({ side: THREE.BackSide, clippingPlanes: this.clipPlanes });
+  }
+
+  /**
+   * Caps the cut: for every solid mesh the plane crosses, a flat quad *on*
+   * the plane, drawn only where the plane passes through the mesh's inside
+   * (stencil capping). So a cut face is solid even where another mesh lies
+   * inside it: the costal cartilages' tips overlap into the sternum, and
+   * with only back-face caps (the far inner wall) they showed through the
+   * sternum's cut face. Per mesh, in order (renderOrder), after the bones:
+   *   1. back faces +1, front faces −1 on the stencil (no colour, no depth
+   *      test, clipped), leaving it non-zero where the plane is inside;
+   *   2. the quad, where the stencil isn't 0, depth-tested, in the cap
+   *      colour, resetting the stencil to 0 for the next mesh.
+   * Only meshes whose box the plane crosses get the passes (a few dozen).
+   */
+  _updatePlaneCaps() {
+    const cutting = this.clipPlanes.length > 0;
+    let order = 0;
+    for (const [id, list] of this.meshes) {
+      const solid = list[0].visible && !this._isMutedNow(id);
+      for (const m of list) {
+        let pc = m.userData.planeCap;
+        m.geometry.boundingBox ?? m.geometry.computeBoundingBox();
+        const needed = cutting && solid && this.cutPlane.intersectsBox(m.geometry.boundingBox);
+        if (!needed) {
+          if (pc) pc.visible = false;
+          continue;
+        }
+        pc ??= this._makePlaneCap(m);
+        pc.visible = true;
+        const [back, front, quad] = pc.children;
+        back.renderOrder = front.renderOrder = PLANE_CAP_ORDER + 2 * order;
+        quad.renderOrder = PLANE_CAP_ORDER + 2 * order + 1;
+        order++;
+        // The quad: on the plane, over the mesh's box, facing along the normal.
+        const box = m.geometry.boundingBox;
+        const c = box.getCenter(new THREE.Vector3());
+        c.addScaledVector(this.cutPlane.normal, -this.cutPlane.distanceToPoint(c));
+        quad.position.copy(c);
+        quad.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), this.cutPlane.normal);
+        const size = box.getSize(new THREE.Vector3()).length() * 1.2;
+        quad.scale.set(size, size, 1);
+        quad.material.color.copy(m.material.color).multiplyScalar(CAP_SHADE);
+      }
+    }
+    this.dirty = true;
+  }
+
+  _makePlaneCap(m) {
+    const counter = (side, op) => {
+      const x = new THREE.Mesh(
+        m.geometry,
+        new THREE.MeshBasicMaterial({
+          side,
+          colorWrite: false,
+          depthWrite: false,
+          depthTest: false,
+          clippingPlanes: this.clipPlanes,
+          stencilWrite: true,
+          stencilFunc: THREE.AlwaysStencilFunc,
+          stencilFail: op,
+          stencilZFail: op,
+          stencilZPass: op,
+        }),
+      );
+      x.raycast = () => {};
+      return x;
+    };
+    this.capQuadGeometry ??= new THREE.PlaneGeometry(1, 1);
+    const quad = new THREE.Mesh(
+      this.capQuadGeometry,
+      new THREE.MeshBasicMaterial({
+        side: THREE.DoubleSide,
+        stencilWrite: true,
+        stencilRef: 0,
+        stencilFunc: THREE.NotEqualStencilFunc,
+        stencilFail: THREE.KeepStencilOp,
+        stencilZFail: THREE.ReplaceStencilOp,
+        stencilZPass: THREE.ReplaceStencilOp,
+      }),
+    );
+    quad.raycast = () => {};
+    const group = new THREE.Group();
+    group.add(counter(THREE.BackSide, THREE.IncrementWrapStencilOp), counter(THREE.FrontSide, THREE.DecrementWrapStencilOp), quad);
+    // A child of the mesh, so hiding the mesh (patches) hides its cap too;
+    // meshes are baked in world space, so local = world.
+    m.add(group);
+    m.userData.planeCap = group;
+    return group;
+  }
+
+  /** Muted (ghosted) right now, as _apply decides it. */
+  _isMutedNow(id) {
+    return !this._isSolid(id) && !this.states.has(id);
+  }
+
+  /**
+   * World-space bounding box of these meshes: their own geometry only.
+   * (Box3.expandByObject would include children, and the cut-cap quads are
+   * deliberately oversized children: framing a capped bone zoomed far out.)
+   */
   boxOf(ids) {
     const box = new THREE.Box3();
-    for (const id of ids) for (const m of this.meshes.get(id) ?? []) box.expandByObject(m);
+    for (const id of ids)
+      for (const m of this.meshes.get(id) ?? []) {
+        m.geometry.boundingBox ?? m.geometry.computeBoundingBox();
+        m.updateWorldMatrix(true, false);
+        box.union(m.geometry.boundingBox.clone().applyMatrix4(m.matrixWorld));
+      }
     return box;
   }
+
 
   _hoverEnabled() {
     return Boolean(this.hoverGroup || this.hoverHandler);
   }
 
+  /** Clickable and hoverable: in play and not peeled away. */
   _isPlayable(id) {
-    return !this.playable || this.playable.has(id);
+    return (!this.playable || this.playable.has(id)) && !this._isPeeled(id);
+  }
+
+  /** Drawn solid: playable, or a backdrop bone that isn't peeled. */
+  _isSolid(id) {
+    return this._isPlayable(id) || (this.backdrop.has(id) && !this._isPeeled(id));
+  }
+
+  _isPeeled(id) {
+    return this.peelDepth > 0 && (this.peelLevels?.get(id) ?? Infinity) < this.peelDepth;
   }
 
   _applyAll() {
     for (const id of this.meshes.keys()) this._apply(id);
+    this._updatePlaneCaps();
   }
 
   _apply(id) {
     const state = this.states.get(id) ?? (this.hoverIds.includes(id) ? "hover" : null);
-    const muted = !this._isPlayable(id) && !this.states.has(id);
+    const muted = !this._isSolid(id) && !this.states.has(id);
     for (const m of this.meshes.get(id) ?? []) {
       const mat = m.material;
       if (muted) {
@@ -443,11 +965,30 @@ export class SkeletonViewer {
         mat.emissive.setHex(state ? STATE_COLORS[state] : 0x000000);
         mat.emissiveIntensity = state ? 0.25 : 0;
       }
-      mat.transparent = muted;
+      // Switching transparent needs a shader rebuild: three compiles an
+      // opaque material with alpha forced to 1, and keeps that program
+      // until told otherwise. Without this, a bone first drawn solid (in
+      // Explore, before peeling) stayed solid white when it should ghost.
+      // Both variants stay in three's program cache, so this is cheap after
+      // the first switch.
+      if (mat.transparent !== muted) {
+        mat.transparent = muted;
+        mat.needsUpdate = true;
+      }
       mat.opacity = muted ? MUTED_OPACITY : 1;
       mat.depthWrite = !muted;
       m.renderOrder = muted ? GHOST_COLOR_ORDER : 0;
       m.userData.ghostDepth.visible = muted;
+      const cap = m.userData.cap;
+      if (cap) {
+        // Always on for solid meshes, not just while cutting: whenever the
+        // inside of a bone shows (a cut, the camera inside or right against
+        // a bone while orbiting a deep pivot), it reads as solid instead of
+        // a hollow shell you can see through (user report: "I can see
+        // inside the left clavicle").
+        cap.visible = !muted;
+        cap.material.color.copy(mat.color).multiplyScalar(CAP_SHADE);
+      }
     }
     this.dirty = true;
   }
@@ -461,10 +1002,42 @@ export class SkeletonViewer {
     this.raycaster.setFromCamera(ndc, this.camera);
     // Only playable meshes are tested, so muted bones never block a click on
     // what's behind them (the ossicles inside the temporal bone, for one).
+    // Backdrop bones are tested too, but only to block: a click that meets
+    // a bone first picks nothing, so you can't select an attachment on the
+    // far side of a femur by clicking through it.
     const targets = [];
-    for (const [id, list] of this.meshes) if (this._isPlayable(id)) targets.push(...list);
-    const hit = this.raycaster.intersectObjects(targets, false)[0];
-    return hit ? hit.object.userData.meshId : null;
+    for (const [id, list] of this.meshes) {
+      if (!list[0].visible) continue; // hidden patches
+      if (this._isPlayable(id) || (this.backdrop.has(id) && !this._isPeeled(id))) targets.push(...list);
+    }
+    const cutting = this.clipPlanes.length > 0;
+    // While cut: ignore hits on the hidden side, and test back faces too, so
+    // a click on a bone's cut face (its inside) picks that bone.
+    if (cutting) for (const m of targets) m.material.side = THREE.DoubleSide;
+    const hits = this.raycaster.intersectObjects(targets, false);
+    if (cutting) for (const m of targets) m.material.side = THREE.FrontSide;
+    let hit = hits[0];
+    if (cutting) {
+      const kept = hits.filter((h) => this.cutPlane.distanceToPoint(h.point) >= 0);
+      hit = kept[0];
+      // Where the ray crosses the cut plane inside a mesh, that mesh's cap
+      // is drawn on the plane, in front of anything inside it (see
+      // _capMaterial). The ray is inside a mesh at the plane when its first
+      // kept hit on that mesh is a back face, and it came from the hidden
+      // side. Pick that mesh, as the picture shows.
+      const fromHidden = this.cutPlane.distanceToPoint(this.raycaster.ray.origin) < 0;
+      if (fromHidden) {
+        const firstPerMesh = new Map();
+        for (const h of kept) if (!firstPerMesh.has(h.object.userData.meshId)) firstPerMesh.set(h.object.userData.meshId, h);
+        const inside = [...firstPerMesh.values()].find(
+          (h) => h.face && h.face.normal.dot(this.raycaster.ray.direction) > 0,
+        );
+        if (inside) hit = inside;
+      }
+    }
+    if (!hit) return null;
+    const id = hit.object.userData.meshId;
+    return this._isPlayable(id) ? id : null;
   }
 
   /** _pickAt, falling back to the nearest hit within `radius` px on a miss. */

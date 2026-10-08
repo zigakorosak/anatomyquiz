@@ -92,6 +92,17 @@ next action is building observation tooling, not another fix.
   equal depth. Measure ghost brightness percentiles across the image
   instead of eyeballing one view: stacking shows as a 95th percentile near
   twice the median.
+- **Don't trust source-data labels that geometry can check.** The atlas's
+  left/right labels were wrong on 55 of 705 attachment patches. Measure
+  (which side of x = 0) instead of believing the name. And when choosing
+  a "close enough to the midline" zone, list what falls inside it first:
+  5 mm hid real paired patches at ±1.4 mm.
+- **Flipping `material.transparent` needs `material.needsUpdate = true`.**
+  three compiles an opaque material with alpha forced to 1 and keeps that
+  shader. Toggling `transparent` alone leaves a bone that was first drawn
+  solid stuck solid (here: bright white ghosts after visiting Explore).
+  Test state changes after the *other* state has been rendered first, not
+  only from a fresh load.
 - **Don't add children inside `traverse()`.** three's traverse walks into
   children added during the walk. Adding a mesh to each mesh recursed
   forever. Collect first, then modify.
@@ -124,7 +135,27 @@ next action is building observation tooling, not another fix.
 - **The `hidden` attribute loses to any class that sets `display`.** Keep
   the global `[hidden] { display: none !important }` in style.css.
 - **`el.replaceChildren(a, null, b)` renders the text "null".** Use `h()`
-  or filter the arguments first.
+  or filter the arguments first. This happened three times (Explore panel,
+  feedback line, plane buttons). Grep for `replaceChildren(` with a
+  conditional argument before calling a UI change done.
+- **`Box3.expandByObject` includes children.** Helper meshes added as
+  children (cap quads, x-ray copies) silently change a mesh's "size".
+  Measure the geometry itself.
+- **Test in the state the user is in.** A patch-cap sweep ran with the
+  attachments subject off, so the patches were ghosts and got no caps by
+  design: 21 false "holes".
+- **Placing a test camera "inside" a mesh:** a bounding-box centre can lie
+  outside a curved bone (the S-shaped clavicle), and three's Raycaster
+  only reports front faces, so "the second hit is the exit" never fires.
+  Take a surface vertex and step inward along its normal. Check the test
+  shows the old behaviour before trusting the "fixed" picture.
+- **Heredoc delimiters must match.** `<<'EOF'` closed by `PYEOF` feeds
+  the rest of the command into the program (twice: nothing ran, but a
+  stray re-run of an edit script almost went with it). Put multi-line
+  edits in a file, then run the file.
+- **Screenshots and computed styles right after a click can catch a CSS
+  transition mid-way** (buttons fade over 0.15 s). Wait it out before
+  judging colours.
 - **Size-dependent constants must scale with the region.** A 12 cm camera
   margin suits a femur and is 40× too big for a stapes. Same lesson as
   GeoQuiz #6/#7, in 3D.

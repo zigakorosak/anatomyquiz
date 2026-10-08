@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "export-skeleton": "LD_LIBRARY_PATH=\"$(dirname \"$(readlink -f \"$(command -v blender)\")\")/lib\" blender -b reference/Z-Anatomy_Template/Z-Anatomy/Startup.blend --python-exit-code 1 --python scripts/export-skeleton.py",
+    "export-models": "LD_LIBRARY_PATH=\"$(dirname \"$(readlink -f \"$(command -v blender)\")\")/lib\" blender -b reference/Z-Anatomy_Template/Z-Anatomy/Startup.blend --python-exit-code 1 --python scripts/export-models.py",
     "generate-data": "node scripts/generate-data.mjs",
     "archive": "bash scripts/archive.sh"
   },

@@ -4,6 +4,7 @@
 import { normalize } from "./answers.js";
 import { attributes } from "./attributes.js";
 import { buildQuizItems } from "./dataset.js";
+import { subjectOf } from "./subjects.js";
 
 /**
  * True when the prompt itself would be an accepted answer, so the question
@@ -22,7 +23,8 @@ function givesAway(item, question, answer, how) {
 export function gamePool(rawItems, config, region) {
   const question = attributes[config.question];
   const answer = attributes[config.answer];
+  const { inRegion } = subjectOf(config);
   return buildQuizItems(rawItems, config)
-    .filter(region.test)
+    .filter((i) => inRegion(i, region))
     .filter((i) => !givesAway(i, question, answer, config.how));
 }

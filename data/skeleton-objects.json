@@ -493,6 +493,7 @@
   ],
   "sourceTris": 1882,
   "merged": [],
+  "openEdgesFilled": 2,
   "tris": 470,
   "materials": [
    "cartilage"
@@ -938,7 +939,8 @@
    "Posterior cells of ethmoid bone.l",
    "Posterior cells of ethmoid bone.r"
   ],
-  "tris": 3988,
+  "openEdgesFilled": 20,
+  "tris": 3996,
   "materials": [
    "bone"
   ]
@@ -1306,7 +1308,8 @@
   ],
   "sourceTris": 7776,
   "merged": [],
-  "tris": 1944,
+  "openEdgesFilled": 20,
+  "tris": 1960,
   "materials": [
    "bone"
   ]
@@ -1380,6 +1383,7 @@
   ],
   "sourceTris": 4280,
   "merged": [],
+  "openEdgesFilled": 4,
   "tris": 1070,
   "materials": [
    "bone",
@@ -1395,6 +1399,7 @@
   ],
   "sourceTris": 4280,
   "merged": [],
+  "openEdgesFilled": 4,
   "tris": 1070,
   "materials": [
    "bone",
@@ -1574,6 +1579,7 @@
   ],
   "sourceTris": 347,
   "merged": [],
+  "openEdgesFilled": 2,
   "tris": 347,
   "materials": [
    "cartilage"
@@ -1587,6 +1593,7 @@
   ],
   "sourceTris": 347,
   "merged": [],
+  "openEdgesFilled": 2,
   "tris": 347,
   "materials": [
    "cartilage"
@@ -1882,6 +1889,7 @@
   ],
   "sourceTris": 18838,
   "merged": [],
+  "openEdgesFilled": 6,
   "tris": 4708,
   "materials": [
    "bone",
@@ -2340,6 +2348,7 @@
   ],
   "sourceTris": 7531,
   "merged": [],
+  "openEdgesFilled": 40,
   "tris": 1881,
   "materials": [
    "bone",
@@ -2820,6 +2829,7 @@
   ],
   "sourceTris": 11676,
   "merged": [],
+  "openEdgesFilled": 12,
   "tris": 2919,
   "materials": [
    "bone",
@@ -3093,7 +3103,8 @@
   ],
   "sourceTris": 7308,
   "merged": [],
-  "tris": 1826,
+  "openEdgesFilled": 14,
+  "tris": 1836,
   "materials": [
    "bone"
   ]
@@ -4026,6 +4037,7 @@
   ],
   "sourceTris": 1733,
   "merged": [],
+  "openEdgesFilled": 26,
   "tris": 432,
   "materials": [
    "bone",
@@ -4071,6 +4083,7 @@
   ],
   "sourceTris": 913,
   "merged": [],
+  "openEdgesFilled": 16,
   "tris": 400,
   "materials": [
    "bone",

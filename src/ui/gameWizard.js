@@ -1,8 +1,10 @@
 // The Games flow: a sequence of choice screens, worded and laid out like
 // GeoQuiz's wizard, ending in a game config handed to the game screen:
-//   question → answer → [how, if the answer has more than one input style →
-//   how many options, if multiple choice] → region [→ sub-region] →
-//   left/right → play.
+//   subject → question → answer → [how, if the answer has more than one
+//   input style → how many options, if multiple choice] → region
+//   [→ sub-region] → left/right → play.
+// A step with only one option for the chosen subject is skipped (muscle
+// attachments are always answered by clicking, so there's no answer step).
 //
 // Steps are named ({ name, ...params }) rather than closures, so the whole
 // position — config, history, current step — can be handed to the game
@@ -10,8 +12,8 @@
 // earlier choice (and the Back chain behind it) intact, as in GeoQuiz.
 
 import { attributes, answerKindLabels, answerOptionsFor } from "../core/attributes.js";
-import { loadSkeletonData } from "../core/dataset.js";
 import { gamePool } from "../core/pool.js";
+import { subjectOf, subjects } from "../core/subjects.js";
 import { findRegion, regions } from "../core/regions.js";
 import { choiceScreen, withCount } from "./screenKit.js";
 import { h } from "./dom.js";
@@ -19,7 +21,7 @@ import { h } from "./dom.js";
 export function renderWizard(root, navigate, resume = null) {
   const config = { ...(resume?.config ?? {}) };
   const history = [...(resume?.history ?? [])];
-  let current = resume?.current ?? { name: "question" };
+  let current = resume?.current ?? { name: "subject" };
   let raw = null;
   let left = false;
 
@@ -42,15 +44,47 @@ export function renderWizard(root, navigate, resume = null) {
   // final step shows both counts.
   const count = (region, sides = "match") => gamePool(raw, { ...config, sides }, region).length;
 
+  // Picking an answer, shared by the answer step and its skip.
+  const chooseAnswer = (a) => {
+    config.answer = a.id;
+    if (a.answerKinds.length === 1) {
+      config.how = a.answerKinds[0];
+      return { name: "region" };
+    }
+    return { name: "how" };
+  };
+  const answersFor = () =>
+    answerOptionsFor(config.question).filter((a) => subjectOf(config).answers.includes(a.id));
+
   const steps = {
+    subject() {
+      screen({
+        title: "Choose a subject",
+        options: Object.values(subjects).map((s) => ({
+          label: s.label,
+          onSelect: () => {
+            if (config.subject !== s.id) {
+              config.subject = s.id;
+              raw = null;
+            }
+            loadRaw().then(() => go({ name: "question" }));
+          },
+        })),
+      });
+    },
+
     question() {
       screen({
         title: "What should we show you?",
-        options: Object.values(attributes).map((a) => ({
-          label: a.label,
+        options: subjectOf(config).questions.map((id) => ({
+          label: attributes[id].label,
           onSelect: () => {
-            config.question = a.id;
-            go({ name: "answer" });
+            config.question = id;
+            const options = answersFor();
+            if (options.length === 1) {
+              // Only one way to answer: no answer step.
+              go(chooseAnswer(options[0]));
+            } else go({ name: "answer" });
           },
         })),
       });
@@ -59,15 +93,9 @@ export function renderWizard(root, navigate, resume = null) {
     answer() {
       screen({
         title: "How do you want to answer?",
-        options: answerOptionsFor(config.question).map((a) => ({
+        options: answersFor().map((a) => ({
           label: a.label,
-          onSelect: () => {
-            config.answer = a.id;
-            if (a.answerKinds.length === 1) {
-              config.how = a.answerKinds[0];
-              go({ name: "region" });
-            } else go({ name: "how" });
-          },
+          onSelect: () => go(chooseAnswer(a)),
         })),
       });
     },
@@ -160,18 +188,27 @@ export function renderWizard(root, navigate, resume = null) {
       screen({
         title: "Either side, or left and right separately?",
         options: [
-          option("ignore", "Either side", "“Femur”: either one counts"),
-          option("match", "Left and right separately", "“Femur (left)”, “Femur (right)”"),
+          option("ignore", "Either side", subjectOf(config).sideExample.either),
+          option("match", "Left and right separately", subjectOf(config).sideExample.separate),
         ],
       });
     },
   };
 
+  // The current subject's raw items, for the counts.
+  function loadRaw() {
+    if (raw) return Promise.resolve();
+    return subjectOf(config)
+      .load()
+      .then((data) => {
+        raw = data.items;
+      });
+  }
+
   root.append(h("div.menu-screen", {}, h("p.loading-text", {}, "Loading…")));
-  loadSkeletonData()
-    .then((data) => {
+  loadRaw()
+    .then(() => {
       if (left) return;
-      raw = data.items;
       show();
     })
     .catch((err) => {

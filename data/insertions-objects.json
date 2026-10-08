@@ -1,0 +1,5184 @@
+[
+ {
+  "name": "(Abdominal part of pectoralis major muscle).ol",
+  "host": "Costal cartilage of seventh rib.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "(Abdominal part of pectoralis major muscle).or",
+  "host": "Costal cartilage of seventh rib.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "(Opponens digiti minimi muscle of foot).ol",
+  "host": "Fifth metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 120,
+  "tris": 60
+ },
+ {
+  "name": "(Opponens digiti minimi muscle of foot).or",
+  "host": "Fifth metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 120,
+  "tris": 60
+ },
+ {
+  "name": "Abductor digiti minimi of foot.el",
+  "host": "Proximal phalanx of fifth finger of foot.l",
+  "action": "End-Abduction",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Abductor digiti minimi of foot.er",
+  "host": "Proximal phalanx of fifth finger of foot.r",
+  "action": "End-Abduction",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Abductor digiti minimi of hand.el",
+  "host": "Proximal phalanx of fifth finger of hand.l",
+  "action": "End-Abduction",
+  "sourceTris": 228,
+  "tris": 114
+ },
+ {
+  "name": "Abductor digiti minimi of hand.er",
+  "host": "Proximal phalanx of fifth finger of hand.r",
+  "action": "End-Abduction",
+  "sourceTris": 228,
+  "tris": 114
+ },
+ {
+  "name": "Abductor digiti minimi of hand.ol",
+  "host": "Pisiform bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Abductor digiti minimi of hand.or",
+  "host": "Pisiform bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Abductor hallucis.el",
+  "host": "Proximal phalanx of first finger of foot.l",
+  "action": "End-Abduction",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Abductor hallucis.er",
+  "host": "Proximal phalanx of first finger of foot.r",
+  "action": "End-Abduction",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Abductor hallucis.ol",
+  "host": "Calcaneus.l",
+  "action": "Muscular origin",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Abductor hallucis.or",
+  "host": "Calcaneus.r",
+  "action": "Muscular origin",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Abductor pollicis longus.el",
+  "host": "First metacarpal bone.l",
+  "action": "End-Abduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Abductor pollicis longus.er",
+  "host": "First metacarpal bone.r",
+  "action": "End-Abduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Abductor pollicis longus.ol",
+  "host": "Radius.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 292,
+  "tris": 146
+ },
+ {
+  "name": "Abductor pollicis longus.or",
+  "host": "Radius.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 292,
+  "tris": 146
+ },
+ {
+  "name": "Acromial part of deltoid muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 1216,
+  "tris": 608
+ },
+ {
+  "name": "Acromial part of deltoid muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 1216,
+  "tris": 608
+ },
+ {
+  "name": "Adductor longus.el",
+  "host": "Femur.l",
+  "action": "End-Adduction",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Adductor longus.er",
+  "host": "Femur.r",
+  "action": "End-Adduction",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Adductor longus.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Adductor longus.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Adductor magnus.el",
+  "host": "Femur.l",
+  "action": "End-Adduction",
+  "sourceTris": 440,
+  "tris": 220
+ },
+ {
+  "name": "Adductor magnus.er",
+  "host": "Femur.r",
+  "action": "End-Adduction",
+  "sourceTris": 440,
+  "tris": 220
+ },
+ {
+  "name": "Adductor magnus.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Adductor magnus.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Adductor pollicis.e1l",
+  "host": "Proximal phalanx of first finger of hand.l",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Adductor pollicis.e1r",
+  "host": "Proximal phalanx of first finger of hand.r",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Adductor pollicis.el",
+  "host": "Capitate bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Adductor pollicis.er",
+  "host": "Capitate bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Anconeus muscle.el",
+  "host": "Ulna.l",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Anconeus muscle.er",
+  "host": "Ulna.r",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Anconeus muscle.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Extension",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Anconeus muscle.or",
+  "host": "Humerus.r",
+  "action": "Origin-Extension",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Anterior belly of digastric muscle.el",
+  "host": "Mandible",
+  "action": "End-Mastication",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Anterior belly of digastric muscle.er",
+  "host": "Mandible",
+  "action": "End-Mastication",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Articularis genus muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-Extension",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Articularis genus muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-Extension",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Ascending part of trapezius muscle.el",
+  "host": "Occipital bone",
+  "action": "End-Abduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Ascending part of trapezius muscle.er",
+  "host": "Occipital bone",
+  "action": "End-Abduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Ascending part of trapezius muscle.ol",
+  "host": "Clavicle.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Ascending part of trapezius muscle.or",
+  "host": "Clavicle.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Biceps brachii muscle.el",
+  "host": "Radius.l",
+  "action": "End-Biarticular",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Biceps brachii muscle.er",
+  "host": "Radius.r",
+  "action": "End-Biarticular",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Biceps femoris muscle.el",
+  "host": "Fibula.l",
+  "action": "End-Flexion",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Biceps femoris muscle.er",
+  "host": "Fibula.r",
+  "action": "End-Flexion",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Brachialis muscle.el",
+  "host": "Ulna.l",
+  "action": "End-Flexion",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Brachialis muscle.er",
+  "host": "Ulna.r",
+  "action": "End-Flexion",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Brachialis muscle.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 532,
+  "tris": 266
+ },
+ {
+  "name": "Brachialis muscle.or",
+  "host": "Humerus.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 532,
+  "tris": 266
+ },
+ {
+  "name": "Brachioradialis muscle.el",
+  "host": "Radius.l",
+  "action": "End-Flexion",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Brachioradialis muscle.er",
+  "host": "Radius.r",
+  "action": "End-Flexion",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Brachioradialis muscle.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Brachioradialis muscle.or",
+  "host": "Humerus.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Bucinator.o1l",
+  "host": "Mandible",
+  "action": "Origin-Adduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Bucinator.o1r",
+  "host": "Mandible",
+  "action": "Origin-Adduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Bucinator.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Bucinator.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Clavicular part of deltoid muscle.ol",
+  "host": "Clavicle.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 356,
+  "tris": 178
+ },
+ {
+  "name": "Clavicular part of deltoid muscle.or",
+  "host": "Clavicle.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 356,
+  "tris": 178
+ },
+ {
+  "name": "Common extensor tendon.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Common extensor tendon.or",
+  "host": "Humerus.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Common flexor tendon.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Common flexor tendon.or",
+  "host": "Humerus.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Coracobrachialis muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 516,
+  "tris": 258
+ },
+ {
+  "name": "Coracobrachialis muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 516,
+  "tris": 258
+ },
+ {
+  "name": "Deep head of flexor pollicis brevis.o1l",
+  "host": "First metacarpal bone.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Deep head of flexor pollicis brevis.o1r",
+  "host": "First metacarpal bone.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Deep head of flexor pollicis brevis.ol",
+  "host": "Trapezium bone.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Deep head of flexor pollicis brevis.or",
+  "host": "Trapezium bone.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Deltoid muscle.el",
+  "host": "Humerus.l",
+  "action": "End-Abduction",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Deltoid muscle.er",
+  "host": "Humerus.r",
+  "action": "End-Abduction",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Depressor anguli oris.ol",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Depressor anguli oris.or",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Depressor labii inferioris.ol",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Depressor labii inferioris.or",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Depressor septi nasi.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Depressor",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Depressor septi nasi.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Depressor",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Descending part of trapezius muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 668,
+  "tris": 334
+ },
+ {
+  "name": "Descending part of trapezius muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 668,
+  "tris": 334
+ },
+ {
+  "name": "Diaphragm.o1l",
+  "host": "Vertebra L1",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Diaphragm.o1r",
+  "host": "Vertebra L1",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Diaphragm.o2l",
+  "host": "Vertebra L2",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 168,
+  "tris": 84
+ },
+ {
+  "name": "Diaphragm.o2r",
+  "host": "Vertebra L2",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 168,
+  "tris": 84
+ },
+ {
+  "name": "Diaphragm.o3l",
+  "host": "Vertebra L3",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Diaphragm.o3r",
+  "host": "Vertebra L3",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Diaphragm.o4l",
+  "host": "Twelfth rib.l",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 1220,
+  "tris": 610
+ },
+ {
+  "name": "Diaphragm.o4r",
+  "host": "Twelfth rib.r",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 1220,
+  "tris": 610
+ },
+ {
+  "name": "Diaphragm.o5l",
+  "host": "Eleventh rib.l",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Diaphragm.o5r",
+  "host": "Eleventh rib.r",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Diaphragm.ol",
+  "host": "Costal cartilage of tenth rib.l",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 792,
+  "tris": 396
+ },
+ {
+  "name": "Diaphragm.or",
+  "host": "Costal cartilage of tenth rib.r",
+  "action": "Origin-Diaphragm",
+  "sourceTris": 792,
+  "tris": 396
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o1l",
+  "host": "Fourth metacarpal bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o1r",
+  "host": "Fourth metacarpal bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o2l",
+  "host": "Third metacarpal bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o2r",
+  "host": "Third metacarpal bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o3l",
+  "host": "Second metacarpal bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o3r",
+  "host": "Second metacarpal bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o4l",
+  "host": "First metacarpal bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.o4r",
+  "host": "First metacarpal bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.ol",
+  "host": "Fifth metacarpal bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Dorsal interossei muscles of hand.or",
+  "host": "Fifth metacarpal bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Erector spinae.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Extension",
+  "sourceTris": 200,
+  "tris": 100
+ },
+ {
+  "name": "Erector spinae.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Extension",
+  "sourceTris": 200,
+  "tris": 100
+ },
+ {
+  "name": "Extensor carpi radialis brevis.el",
+  "host": "Third metacarpal bone.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor carpi radialis brevis.er",
+  "host": "Third metacarpal bone.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor carpi radialis longus.el",
+  "host": "Second metacarpal bone.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Extensor carpi radialis longus.er",
+  "host": "Second metacarpal bone.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Extensor carpi radialis longus.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Extensor carpi radialis longus.or",
+  "host": "Humerus.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Extensor carpi ulnaris.el",
+  "host": "Triquetrum bone.l",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 24,
+  "tris": 24
+ },
+ {
+  "name": "Extensor carpi ulnaris.er",
+  "host": "Triquetrum bone.r",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 24,
+  "tris": 24
+ },
+ {
+  "name": "Extensor carpi ulnaris.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Extensor carpi ulnaris.or",
+  "host": "Ulna.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.e1l",
+  "host": "Middle phalanx of third finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.e1r",
+  "host": "Middle phalanx of third finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.e2l",
+  "host": "Middle phalanx of fourth finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.e2r",
+  "host": "Middle phalanx of fourth finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.el",
+  "host": "Middle phalanx of second finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum brevis.er",
+  "host": "Middle phalanx of second finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e1l",
+  "host": "Distal phalanx of third finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e1r",
+  "host": "Distal phalanx of third finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e2l",
+  "host": "Distal phalanx of fourth finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e2r",
+  "host": "Distal phalanx of fourth finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e3l",
+  "host": "Distal phalanx of fifth finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Extensor digitorum longus.e3r",
+  "host": "Distal phalanx of fifth finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Extensor digitorum longus.e4l",
+  "host": "Middle phalanx of fifth finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.e4r",
+  "host": "Middle phalanx of fifth finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.el",
+  "host": "Distal phalanx of second finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.er",
+  "host": "Distal phalanx of second finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.o1l",
+  "host": "Fibula.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 656,
+  "tris": 328
+ },
+ {
+  "name": "Extensor digitorum longus.o1r",
+  "host": "Fibula.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 656,
+  "tris": 328
+ },
+ {
+  "name": "Extensor digitorum longus.ol",
+  "host": "Tibia.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum longus.or",
+  "host": "Tibia.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e1l",
+  "host": "Proximal phalanx of fourth finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e1r",
+  "host": "Proximal phalanx of fourth finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e2l",
+  "host": "Proximal phalanx of third finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Extensor digitorum.e2r",
+  "host": "Proximal phalanx of third finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Extensor digitorum.e3l",
+  "host": "Proximal phalanx of second finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e3r",
+  "host": "Proximal phalanx of second finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e4l",
+  "host": "Middle phalanx of fifth finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Extensor digitorum.e4r",
+  "host": "Middle phalanx of fifth finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Extensor digitorum.e5l",
+  "host": "Middle phalanx of fourth finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e5r",
+  "host": "Middle phalanx of fourth finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e6l",
+  "host": "Middle phalanx of third finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Extensor digitorum.e6r",
+  "host": "Middle phalanx of third finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Extensor digitorum.e7l",
+  "host": "Middle phalanx of second finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.e7r",
+  "host": "Middle phalanx of second finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.el",
+  "host": "Proximal phalanx of fifth finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Extensor digitorum.er",
+  "host": "Proximal phalanx of fifth finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Extensor hallucis brevis.ol",
+  "host": "Calcaneus.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Extensor hallucis brevis.or",
+  "host": "Calcaneus.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Extensor hallucis longus.el",
+  "host": "Proximal phalanx of first finger of foot.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Extensor hallucis longus.er",
+  "host": "Proximal phalanx of first finger of foot.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Extensor hallucis longus.ol",
+  "host": "Fibula.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 884,
+  "tris": 442
+ },
+ {
+  "name": "Extensor hallucis longus.or",
+  "host": "Fibula.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 884,
+  "tris": 442
+ },
+ {
+  "name": "Extensor indicis.el",
+  "host": "Distal phalanx of second finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Extensor indicis.er",
+  "host": "Distal phalanx of second finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Extensor indicis.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Extensor indicis.or",
+  "host": "Ulna.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Extensor pollicis brevis.el",
+  "host": "Proximal phalanx of first finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor pollicis brevis.er",
+  "host": "Proximal phalanx of first finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Extensor pollicis brevis.ol",
+  "host": "Radius.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Extensor pollicis brevis.or",
+  "host": "Radius.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Extensor pollicis longus.el",
+  "host": "Distal phalanx of first finger of hand.l",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor pollicis longus.er",
+  "host": "Distal phalanx of first finger of hand.r",
+  "action": "End-Extension fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Extensor pollicis longus.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 196,
+  "tris": 98
+ },
+ {
+  "name": "Extensor pollicis longus.or",
+  "host": "Ulna.r",
+  "action": "Origin-Extension fingers",
+  "sourceTris": 196,
+  "tris": 98
+ },
+ {
+  "name": "External abdominal oblique muscle.o1l",
+  "host": "Sixth rib.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 416,
+  "tris": 208
+ },
+ {
+  "name": "External abdominal oblique muscle.o1r",
+  "host": "Sixth rib.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 416,
+  "tris": 208
+ },
+ {
+  "name": "External abdominal oblique muscle.o2l",
+  "host": "Seventh rib.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 328,
+  "tris": 164
+ },
+ {
+  "name": "External abdominal oblique muscle.o2r",
+  "host": "Seventh rib.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 328,
+  "tris": 164
+ },
+ {
+  "name": "External abdominal oblique muscle.o3l",
+  "host": "Eighth rib.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 584,
+  "tris": 292
+ },
+ {
+  "name": "External abdominal oblique muscle.o3r",
+  "host": "Eighth rib.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 584,
+  "tris": 292
+ },
+ {
+  "name": "External abdominal oblique muscle.o4l",
+  "host": "Hip bone.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 264,
+  "tris": 132
+ },
+ {
+  "name": "External abdominal oblique muscle.o4r",
+  "host": "Hip bone.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 264,
+  "tris": 132
+ },
+ {
+  "name": "External abdominal oblique muscle.o5l",
+  "host": "Hip bone.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 572,
+  "tris": 286
+ },
+ {
+  "name": "External abdominal oblique muscle.o5r",
+  "host": "Hip bone.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 572,
+  "tris": 286
+ },
+ {
+  "name": "External abdominal oblique muscle.ol",
+  "host": "Fifth rib.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 388,
+  "tris": 194
+ },
+ {
+  "name": "External abdominal oblique muscle.or",
+  "host": "Fifth rib.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 388,
+  "tris": 194
+ },
+ {
+  "name": "Fibularis brevis muscle.el",
+  "host": "Fifth metatarsal bone.l",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Fibularis brevis muscle.er",
+  "host": "Fifth metatarsal bone.r",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Fibularis brevis muscle.ol",
+  "host": "Fibula.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Fibularis brevis muscle.or",
+  "host": "Fibula.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Fibularis longus muscle.ol",
+  "host": "Fibula.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 308,
+  "tris": 154
+ },
+ {
+  "name": "Fibularis longus muscle.or",
+  "host": "Fibula.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 308,
+  "tris": 154
+ },
+ {
+  "name": "Fibularis tertius muscle.el",
+  "host": "Fifth metatarsal bone.l",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Fibularis tertius muscle.er",
+  "host": "Fifth metatarsal bone.r",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Fibularis tertius muscle.ol",
+  "host": "Fibula.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Fibularis tertius muscle.or",
+  "host": "Fibula.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Flexor carpi ulnaris.el",
+  "host": "Pisiform bone.l",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 168,
+  "tris": 84
+ },
+ {
+  "name": "Flexor carpi ulnaris.er",
+  "host": "Pisiform bone.r",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 168,
+  "tris": 84
+ },
+ {
+  "name": "Flexor digiti minimi of foot.el",
+  "host": "Proximal phalanx of fifth finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Flexor digiti minimi of foot.er",
+  "host": "Proximal phalanx of fifth finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Flexor digiti minimi of hand.el",
+  "host": "Proximal phalanx of fifth finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 220,
+  "tris": 110
+ },
+ {
+  "name": "Flexor digiti minimi of hand.er",
+  "host": "Proximal phalanx of fifth finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 220,
+  "tris": 110
+ },
+ {
+  "name": "Flexor digiti minimi of hand.ol",
+  "host": "Hamate bone.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digiti minimi of hand.or",
+  "host": "Hamate bone.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum brevis.e1l",
+  "host": "Middle phalanx of third finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Flexor digitorum brevis.e1r",
+  "host": "Middle phalanx of third finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Flexor digitorum brevis.e2l",
+  "host": "Middle phalanx of fifth finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Flexor digitorum brevis.e2r",
+  "host": "Middle phalanx of fifth finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Flexor digitorum brevis.el",
+  "host": "Middle phalanx of second finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Flexor digitorum brevis.er",
+  "host": "Middle phalanx of second finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Flexor digitorum brevis.ol",
+  "host": "Calcaneus.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Flexor digitorum brevis.or",
+  "host": "Calcaneus.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Flexor digitorum longus.e1l",
+  "host": "Distal phalanx of third finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.e1r",
+  "host": "Distal phalanx of third finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.e2l",
+  "host": "Distal phalanx of fourth finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.e2r",
+  "host": "Distal phalanx of fourth finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.e3l",
+  "host": "Distal phalanx of fifth finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.e3r",
+  "host": "Distal phalanx of fifth finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.el",
+  "host": "Distal phalanx of second finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.er",
+  "host": "Distal phalanx of second finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum longus.ol",
+  "host": "Tibia.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Flexor digitorum longus.or",
+  "host": "Tibia.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Flexor digitorum profundus.e1l",
+  "host": "Distal phalanx of fourth finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum profundus.e1r",
+  "host": "Distal phalanx of fourth finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum profundus.e2l",
+  "host": "Distal phalanx of third finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Flexor digitorum profundus.e2r",
+  "host": "Distal phalanx of third finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Flexor digitorum profundus.e3l",
+  "host": "Distal phalanx of second finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum profundus.e3r",
+  "host": "Distal phalanx of second finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Flexor digitorum profundus.el",
+  "host": "Distal phalanx of fifth finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Flexor digitorum profundus.er",
+  "host": "Distal phalanx of fifth finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Flexor digitorum superficialis.e1l",
+  "host": "Middle phalanx of fourth finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Flexor digitorum superficialis.e1r",
+  "host": "Middle phalanx of fourth finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Flexor digitorum superficialis.e2l",
+  "host": "Middle phalanx of third finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Flexor digitorum superficialis.e2r",
+  "host": "Middle phalanx of third finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Flexor digitorum superficialis.e3l",
+  "host": "Middle phalanx of second finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Flexor digitorum superficialis.e3r",
+  "host": "Middle phalanx of second finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Flexor digitorum superficialis.el",
+  "host": "Middle phalanx of fifth finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Flexor digitorum superficialis.er",
+  "host": "Middle phalanx of fifth finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Flexor digitorum superficialis.ol",
+  "host": "Radius.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Flexor digitorum superficialis.or",
+  "host": "Radius.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Flexor hallucis longus.el",
+  "host": "Distal phalanx of first finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Flexor hallucis longus.er",
+  "host": "Distal phalanx of first finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Flexor hallucis longus.ol",
+  "host": "Fibula.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 710,
+  "tris": 354,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Flexor hallucis longus.or",
+  "host": "Fibula.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 710,
+  "tris": 354,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Flexor pollicis longus.el",
+  "host": "Distal phalanx of first finger of hand.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Flexor pollicis longus.er",
+  "host": "Distal phalanx of first finger of hand.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Flexor pollicis longus.o1l",
+  "host": "Radius.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 336,
+  "tris": 168
+ },
+ {
+  "name": "Flexor pollicis longus.o1r",
+  "host": "Radius.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 336,
+  "tris": 168
+ },
+ {
+  "name": "Flexor pollicis longus.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Flexor pollicis longus.or",
+  "host": "Ulna.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 44,
+  "tris": 40
+ },
+ {
+  "name": "Frontalis muscle.ol",
+  "host": "Frontal bone",
+  "action": "Origin-Superficial",
+  "sourceTris": 260,
+  "tris": 130
+ },
+ {
+  "name": "Frontalis muscle.or",
+  "host": "Frontal bone",
+  "action": "Origin-Superficial",
+  "sourceTris": 260,
+  "tris": 130
+ },
+ {
+  "name": "Geniohyoid muscle.el",
+  "host": "Hyoid bone",
+  "action": "End-Levator",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Geniohyoid muscle.er",
+  "host": "Hyoid bone",
+  "action": "End-Levator",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Geniohyoid muscle.ol",
+  "host": "Mandible",
+  "action": "Origin-Levator",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Geniohyoid muscle.or",
+  "host": "Mandible",
+  "action": "Origin-Levator",
+  "sourceTris": 32,
+  "tris": 32
+ },
+ {
+  "name": "Gluteus maximus muscle.el",
+  "host": "Femur.l",
+  "action": "End-Extension",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Gluteus maximus muscle.er",
+  "host": "Femur.r",
+  "action": "End-Extension",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Gluteus maximus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Extension",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "Gluteus maximus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Extension",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "Gluteus medius muscle.el",
+  "host": "Femur.l",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Gluteus medius muscle.er",
+  "host": "Femur.r",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Gluteus medius muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 208,
+  "tris": 104
+ },
+ {
+  "name": "Gluteus medius muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 208,
+  "tris": 104
+ },
+ {
+  "name": "Gluteus minimus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Gluteus minimus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Gracilis muscle.el",
+  "host": "Tibia.l",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Gracilis muscle.er",
+  "host": "Tibia.r",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Gracilis muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Gracilis muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Iliacus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Iliacus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Iliocostalis colli muscle.el",
+  "host": "Vertebra C4",
+  "action": "End-External rotation",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Iliocostalis colli muscle.er",
+  "host": "Vertebra C4",
+  "action": "End-External rotation",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Iliopsoas muscle.el",
+  "host": "Femur.l",
+  "action": "End-Flexion",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Iliopsoas muscle.er",
+  "host": "Femur.r",
+  "action": "End-Flexion",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Inferior gemellus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Inferior gemellus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Infraspinatus muscle.el",
+  "host": "Humerus.l",
+  "action": "End-External rotation",
+  "sourceTris": 232,
+  "tris": 116
+ },
+ {
+  "name": "Infraspinatus muscle.er",
+  "host": "Humerus.r",
+  "action": "End-External rotation",
+  "sourceTris": 232,
+  "tris": 116
+ },
+ {
+  "name": "Infraspinatus muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 2336,
+  "tris": 1168
+ },
+ {
+  "name": "Infraspinatus muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 2336,
+  "tris": 1168
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o1l",
+  "host": "Costal cartilage of tenth rib.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 376,
+  "tris": 188
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o1r",
+  "host": "Costal cartilage of tenth rib.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 376,
+  "tris": 188
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o2l",
+  "host": "Tenth rib.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 252,
+  "tris": 126
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o2r",
+  "host": "Tenth rib.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 252,
+  "tris": 126
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o3l",
+  "host": "Hip bone.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 268,
+  "tris": 134
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o3r",
+  "host": "Hip bone.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 268,
+  "tris": 134
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o4l",
+  "host": "Eleventh rib.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 1168,
+  "tris": 584
+ },
+ {
+  "name": "Internal abdominal oblique muscle.o4r",
+  "host": "Eleventh rib.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 1168,
+  "tris": 584
+ },
+ {
+  "name": "Internal abdominal oblique muscle.ol",
+  "host": "Twelfth rib.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 888,
+  "tris": 444
+ },
+ {
+  "name": "Internal abdominal oblique muscle.or",
+  "host": "Twelfth rib.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 888,
+  "tris": 444
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.el",
+  "host": "Proximal phalanx of first finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.er",
+  "host": "Proximal phalanx of first finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.o1l",
+  "host": "First metatarsal bone.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.o1r",
+  "host": "First metatarsal bone.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.ol",
+  "host": "Medial cuneiform bone.l",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Lateral head of flexor hallucis brevis.or",
+  "host": "Medial cuneiform bone.r",
+  "action": "Origin-Flexion fingers",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Lateral head of gastrocnemius.ol",
+  "host": "Femur.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of gastrocnemius.or",
+  "host": "Femur.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Lateral head of triceps brachii.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Extension",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Lateral head of triceps brachii.or",
+  "host": "Humerus.r",
+  "action": "Origin-Extension",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Lateral pterygoid muscle.o1l",
+  "host": "Maxilla.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Lateral pterygoid muscle.o1r",
+  "host": "Maxilla.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Lateral pterygoid muscle.ol",
+  "host": "Palatine bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 172,
+  "tris": 86
+ },
+ {
+  "name": "Lateral pterygoid muscle.or",
+  "host": "Palatine bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 172,
+  "tris": 86
+ },
+ {
+  "name": "Latissimus dorsi muscle.el",
+  "host": "Scapula.l",
+  "action": "End-Adduction",
+  "sourceTris": 596,
+  "tris": 298
+ },
+ {
+  "name": "Latissimus dorsi muscle.er",
+  "host": "Scapula.r",
+  "action": "End-Adduction",
+  "sourceTris": 596,
+  "tris": 298
+ },
+ {
+  "name": "Latissimus dorsi muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 228,
+  "tris": 114
+ },
+ {
+  "name": "Latissimus dorsi muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 228,
+  "tris": 114
+ },
+ {
+  "name": "Levator anguli oris.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Levator",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Levator anguli oris.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Levator",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Levator ani.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 152,
+  "tris": 76
+ },
+ {
+  "name": "Levator ani.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 152,
+  "tris": 76
+ },
+ {
+  "name": "Levator labii superioris.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Levator",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Levator labii superioris.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Levator",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Levator nasolabialis.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Levator",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Levator nasolabialis.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Levator",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Levator scapulae.el",
+  "host": "Scapula.l",
+  "action": "End-Levator",
+  "sourceTris": 1936,
+  "tris": 968
+ },
+ {
+  "name": "Levator scapulae.er",
+  "host": "Scapula.r",
+  "action": "End-Levator",
+  "sourceTris": 1936,
+  "tris": 968
+ },
+ {
+  "name": "Levator scapulae.o1l",
+  "host": "Axis (C2)",
+  "action": "Origin-Levator",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Levator scapulae.o1r",
+  "host": "Axis (C2)",
+  "action": "Origin-Levator",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Levator scapulae.o2l",
+  "host": "Vertebra C3",
+  "action": "Origin-Levator",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Levator scapulae.o2r",
+  "host": "Vertebra C3",
+  "action": "Origin-Levator",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Levator scapulae.o3l",
+  "host": "Vertebra C4",
+  "action": "Origin-Levator",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Levator scapulae.o3r",
+  "host": "Vertebra C4",
+  "action": "Origin-Levator",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Levator scapulae.ol",
+  "host": "Atlas (C1)",
+  "action": "Origin-Levator",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Levator scapulae.or",
+  "host": "Atlas (C1)",
+  "action": "Origin-Levator",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Levatores longi costarum.e10l",
+  "host": "Twelfth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Levatores longi costarum.e10r",
+  "host": "Twelfth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Levatores longi costarum.e1l",
+  "host": "Third rib.l",
+  "action": "End-Levator",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Levatores longi costarum.e1r",
+  "host": "Third rib.r",
+  "action": "End-Levator",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Levatores longi costarum.e2l",
+  "host": "Fourth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 272,
+  "tris": 136
+ },
+ {
+  "name": "Levatores longi costarum.e2r",
+  "host": "Fourth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 272,
+  "tris": 136
+ },
+ {
+  "name": "Levatores longi costarum.e3l",
+  "host": "Fifth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Levatores longi costarum.e3r",
+  "host": "Fifth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Levatores longi costarum.e4l",
+  "host": "Sixth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 220,
+  "tris": 110
+ },
+ {
+  "name": "Levatores longi costarum.e4r",
+  "host": "Sixth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 220,
+  "tris": 110
+ },
+ {
+  "name": "Levatores longi costarum.e5l",
+  "host": "Seventh rib.l",
+  "action": "End-Levator",
+  "sourceTris": 156,
+  "tris": 78
+ },
+ {
+  "name": "Levatores longi costarum.e5r",
+  "host": "Seventh rib.r",
+  "action": "End-Levator",
+  "sourceTris": 156,
+  "tris": 78
+ },
+ {
+  "name": "Levatores longi costarum.e6l",
+  "host": "Eighth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Levatores longi costarum.e6r",
+  "host": "Eighth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Levatores longi costarum.e7l",
+  "host": "Ninth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 440,
+  "tris": 220
+ },
+ {
+  "name": "Levatores longi costarum.e7r",
+  "host": "Ninth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 440,
+  "tris": 220
+ },
+ {
+  "name": "Levatores longi costarum.e8l",
+  "host": "Tenth rib.l",
+  "action": "End-Levator",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Levatores longi costarum.e8r",
+  "host": "Tenth rib.r",
+  "action": "End-Levator",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Levatores longi costarum.e9l",
+  "host": "Eleventh rib.l",
+  "action": "End-Levator",
+  "sourceTris": 400,
+  "tris": 200
+ },
+ {
+  "name": "Levatores longi costarum.e9r",
+  "host": "Eleventh rib.r",
+  "action": "End-Levator",
+  "sourceTris": 400,
+  "tris": 200
+ },
+ {
+  "name": "Levatores longi costarum.el",
+  "host": "Second rib.l",
+  "action": "End-Levator",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Levatores longi costarum.er",
+  "host": "Second rib.r",
+  "action": "End-Levator",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Long head of biceps brachii.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Long head of biceps brachii.or",
+  "host": "Scapula.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 224,
+  "tris": 112
+ },
+ {
+  "name": "Long head of biceps femoris.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Long head of biceps femoris.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Long head of triceps brachii.ol",
+  "host": "Scapula.l",
+  "action": "End-Extension",
+  "sourceTris": 268,
+  "tris": 134
+ },
+ {
+  "name": "Long head of triceps brachii.or",
+  "host": "Scapula.r",
+  "action": "End-Extension",
+  "sourceTris": 268,
+  "tris": 134
+ },
+ {
+  "name": "Long plantar ligament.o1l",
+  "host": "First metatarsal bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 120,
+  "tris": 60
+ },
+ {
+  "name": "Long plantar ligament.o1r",
+  "host": "First metatarsal bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 120,
+  "tris": 60
+ },
+ {
+  "name": "Long plantar ligament.o2l",
+  "host": "Second metatarsal bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Long plantar ligament.o2r",
+  "host": "Second metatarsal bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 88,
+  "tris": 44
+ },
+ {
+  "name": "Long plantar ligament.o3l",
+  "host": "Third metatarsal bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Long plantar ligament.o3r",
+  "host": "Third metatarsal bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Long plantar ligament.o4l",
+  "host": "Fourth metatarsal bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Long plantar ligament.o4r",
+  "host": "Fourth metatarsal bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Long plantar ligament.ol",
+  "host": "Calcaneus.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Long plantar ligament.or",
+  "host": "Calcaneus.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Longissimus thoracis muscle.e10l",
+  "host": "Eighth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Longissimus thoracis muscle.e10r",
+  "host": "Eighth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 144,
+  "tris": 72
+ },
+ {
+  "name": "Longissimus thoracis muscle.e11l",
+  "host": "Vertebra T8",
+  "action": "End-Extension",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e11r",
+  "host": "Vertebra T8",
+  "action": "End-Extension",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e12l",
+  "host": "Seventh rib.l",
+  "action": "End-Extension",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Longissimus thoracis muscle.e12r",
+  "host": "Seventh rib.r",
+  "action": "End-Extension",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Longissimus thoracis muscle.e13l",
+  "host": "Vertebra T7",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.e13r",
+  "host": "Vertebra T7",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.e14l",
+  "host": "Sixth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Longissimus thoracis muscle.e14r",
+  "host": "Sixth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Longissimus thoracis muscle.e15l",
+  "host": "Vertebra T6",
+  "action": "End-Extension",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Longissimus thoracis muscle.e15r",
+  "host": "Vertebra T6",
+  "action": "End-Extension",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Longissimus thoracis muscle.e16l",
+  "host": "Fifth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e16r",
+  "host": "Fifth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e17l",
+  "host": "Vertebra T5",
+  "action": "End-Extension",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e17r",
+  "host": "Vertebra T5",
+  "action": "End-Extension",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e18l",
+  "host": "Fourth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Longissimus thoracis muscle.e18r",
+  "host": "Fourth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Longissimus thoracis muscle.e19l",
+  "host": "Vertebra T4",
+  "action": "End-Extension",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e19r",
+  "host": "Vertebra T4",
+  "action": "End-Extension",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e1l",
+  "host": "Vertebra L2",
+  "action": "End-Extension",
+  "sourceTris": 208,
+  "tris": 104
+ },
+ {
+  "name": "Longissimus thoracis muscle.e1r",
+  "host": "Vertebra L2",
+  "action": "End-Extension",
+  "sourceTris": 208,
+  "tris": 104
+ },
+ {
+  "name": "Longissimus thoracis muscle.e20l",
+  "host": "Third rib.l",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Longissimus thoracis muscle.e20r",
+  "host": "Third rib.r",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Longissimus thoracis muscle.e21l",
+  "host": "Vertebra T3",
+  "action": "End-Extension",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Longissimus thoracis muscle.e21r",
+  "host": "Vertebra T3",
+  "action": "End-Extension",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Longissimus thoracis muscle.e22l",
+  "host": "Second rib.l",
+  "action": "End-Extension",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e22r",
+  "host": "Second rib.r",
+  "action": "End-Extension",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e23l",
+  "host": "Vertebra T2",
+  "action": "End-Extension",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e23r",
+  "host": "Vertebra T2",
+  "action": "End-Extension",
+  "sourceTris": 68,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e24l",
+  "host": "First rib.l",
+  "action": "End-Extension",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Longissimus thoracis muscle.e24r",
+  "host": "First rib.r",
+  "action": "End-Extension",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Longissimus thoracis muscle.e25l",
+  "host": "Vertebra T1",
+  "action": "End-Extension",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e25r",
+  "host": "Vertebra T1",
+  "action": "End-Extension",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Longissimus thoracis muscle.e26l",
+  "host": "Twelfth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Longissimus thoracis muscle.e26r",
+  "host": "Twelfth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Longissimus thoracis muscle.e2l",
+  "host": "Vertebra L1",
+  "action": "End-Extension",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Longissimus thoracis muscle.e2r",
+  "host": "Vertebra L1",
+  "action": "End-Extension",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Longissimus thoracis muscle.e3l",
+  "host": "Vertebra T12",
+  "action": "End-Extension",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Longissimus thoracis muscle.e3r",
+  "host": "Vertebra T12",
+  "action": "End-Extension",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Longissimus thoracis muscle.e4l",
+  "host": "Eleventh rib.l",
+  "action": "End-Extension",
+  "sourceTris": 152,
+  "tris": 76
+ },
+ {
+  "name": "Longissimus thoracis muscle.e4r",
+  "host": "Eleventh rib.r",
+  "action": "End-Extension",
+  "sourceTris": 152,
+  "tris": 76
+ },
+ {
+  "name": "Longissimus thoracis muscle.e5l",
+  "host": "Vertebra T11",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.e5r",
+  "host": "Vertebra T11",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.e6l",
+  "host": "Tenth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Longissimus thoracis muscle.e6r",
+  "host": "Tenth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Longissimus thoracis muscle.e7l",
+  "host": "Vertebra T10",
+  "action": "End-Extension",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Longissimus thoracis muscle.e7r",
+  "host": "Vertebra T10",
+  "action": "End-Extension",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Longissimus thoracis muscle.e8l",
+  "host": "Ninth rib.l",
+  "action": "End-Extension",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Longissimus thoracis muscle.e8r",
+  "host": "Ninth rib.r",
+  "action": "End-Extension",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Longissimus thoracis muscle.e9l",
+  "host": "Vertebra T9",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.e9r",
+  "host": "Vertebra T9",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.el",
+  "host": "Vertebra L3",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longissimus thoracis muscle.er",
+  "host": "Vertebra L3",
+  "action": "End-Extension",
+  "sourceTris": 84,
+  "tris": 42
+ },
+ {
+  "name": "Longus capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Longus capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Masseter.el",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 140,
+  "tris": 70
+ },
+ {
+  "name": "Masseter.er",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 140,
+  "tris": 70
+ },
+ {
+  "name": "Masseter.o1l",
+  "host": "Temporal bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Masseter.o1r",
+  "host": "Temporal bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Masseter.ol",
+  "host": "Zygomatic bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 268,
+  "tris": 134,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Masseter.or",
+  "host": "Zygomatic bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 268,
+  "tris": 134,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Medial head of flexor hallucis brevis.el",
+  "host": "Proximal phalanx of first finger of foot.l",
+  "action": "End-Flexion fingers",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Medial head of flexor hallucis brevis.er",
+  "host": "Proximal phalanx of first finger of foot.r",
+  "action": "End-Flexion fingers",
+  "sourceTris": 72,
+  "tris": 40
+ },
+ {
+  "name": "Medial head of gastrocnemius.ol",
+  "host": "Femur.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 200,
+  "tris": 100
+ },
+ {
+  "name": "Medial head of gastrocnemius.or",
+  "host": "Femur.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 200,
+  "tris": 100
+ },
+ {
+  "name": "Medial head of triceps brachii.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Extension",
+  "sourceTris": 288,
+  "tris": 144
+ },
+ {
+  "name": "Medial head of triceps brachii.or",
+  "host": "Humerus.r",
+  "action": "Origin-Extension",
+  "sourceTris": 288,
+  "tris": 144
+ },
+ {
+  "name": "Medial pterygoid muscle.el",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Medial pterygoid muscle.er",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 76,
+  "tris": 40
+ },
+ {
+  "name": "Medial pterygoid muscle.ol",
+  "host": "Sphenoid bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Medial pterygoid muscle.or",
+  "host": "Sphenoid bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 148,
+  "tris": 74
+ },
+ {
+  "name": "Mentalis muscle.ol",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 20,
+  "tris": 20
+ },
+ {
+  "name": "Mentalis muscle.or",
+  "host": "Mandible",
+  "action": "Origin-Depressor",
+  "sourceTris": 20,
+  "tris": 20
+ },
+ {
+  "name": "Mylohyoid muscle.ol",
+  "host": "Mandible",
+  "action": "Origin mastication",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Mylohyoid muscle.or",
+  "host": "Mandible",
+  "action": "Origin mastication",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Nasalis muscle.ol",
+  "host": "Nasal bone.l",
+  "action": "Origin-Superficial",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Nasalis muscle.or",
+  "host": "Nasal bone.r",
+  "action": "Origin-Superficial",
+  "sourceTris": 124,
+  "tris": 62
+ },
+ {
+  "name": "Oblique head of adductor hallucis.el",
+  "host": "Sesamoid bones of foot.l",
+  "action": "End-Adduction",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Oblique head of adductor hallucis.er",
+  "host": "Sesamoid bones of foot.r",
+  "action": "End-Adduction",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Oblique head of adductor hallucis.o1l",
+  "host": "Fourth metatarsal bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 232,
+  "tris": 116
+ },
+ {
+  "name": "Oblique head of adductor hallucis.o1r",
+  "host": "Fourth metatarsal bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 232,
+  "tris": 116
+ },
+ {
+  "name": "Oblique head of adductor hallucis.ol",
+  "host": "Cuboid bone.l",
+  "action": "Origin-Ligament",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Oblique head of adductor hallucis.or",
+  "host": "Cuboid bone.r",
+  "action": "Origin-Ligament",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Obliquus inferior capitis muscle.el",
+  "host": "Axis (C2)",
+  "action": "End-External rotation",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Obliquus inferior capitis muscle.er",
+  "host": "Axis (C2)",
+  "action": "End-External rotation",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Obliquus inferior capitis muscle.ol",
+  "host": "Atlas (C1)",
+  "action": "Origin-External rotation",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Obliquus inferior capitis muscle.or",
+  "host": "Atlas (C1)",
+  "action": "Origin-External rotation",
+  "sourceTris": 52,
+  "tris": 40
+ },
+ {
+  "name": "Obliquus superior capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Obliquus superior capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Obturator externus.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 476,
+  "tris": 238
+ },
+ {
+  "name": "Obturator externus.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 476,
+  "tris": 238
+ },
+ {
+  "name": "Obturator internus.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 364,
+  "tris": 182
+ },
+ {
+  "name": "Obturator internus.or",
+  "host": "Hip bone.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 364,
+  "tris": 182
+ },
+ {
+  "name": "Occipitalis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Superficial",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Occipitalis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Superficial",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Omohyoid muscle.el",
+  "host": "Hyoid bone",
+  "action": "End-Flexion",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Omohyoid muscle.er",
+  "host": "Hyoid bone",
+  "action": "End-Flexion",
+  "sourceTris": 56,
+  "tris": 40
+ },
+ {
+  "name": "Omohyoid muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Omohyoid muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Opponens digiti minimi muscle of hand.ol",
+  "host": "Hamate bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Opponens digiti minimi muscle of hand.or",
+  "host": "Hamate bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Orbicularis oris muscle.ol",
+  "host": "Mandible",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Orbicularis oris muscle.or",
+  "host": "Mandible",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Orbital part of orbicularis oculi.ol",
+  "host": "Maxilla.l",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Orbital part of orbicularis oculi.or",
+  "host": "Maxilla.r",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Patellar ligament.el",
+  "host": "Tibia.l",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Patellar ligament.er",
+  "host": "Tibia.r",
+  "action": "End-Extension",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Patellar ligament.ol",
+  "host": "Patella.l",
+  "action": "Origin-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Patellar ligament.or",
+  "host": "Patella.r",
+  "action": "Origin-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Pectineus muscle.el",
+  "host": "Femur.l",
+  "action": "End-External rotation",
+  "sourceTris": 68,
+  "tris": 40,
+  "mirroredFrom": "Pectineus muscle.er"
+ },
+ {
+  "name": "Pectineus muscle.er",
+  "host": "Femur.r",
+  "action": "End-External rotation",
+  "sourceTris": 68,
+  "tris": 40,
+  "relabelledFrom": "Pectineus muscle.el"
+ },
+ {
+  "name": "Pectineus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Pectineus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 184,
+  "tris": 92
+ },
+ {
+  "name": "Pectoralis major muscle.el",
+  "host": "Humerus.l",
+  "action": "End-Adduction",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Pectoralis major muscle.er",
+  "host": "Humerus.r",
+  "action": "End-Adduction",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Pectoralis major muscle.ol",
+  "host": "Clavicle.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 296,
+  "tris": 148
+ },
+ {
+  "name": "Pectoralis major muscle.or",
+  "host": "Clavicle.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 296,
+  "tris": 148
+ },
+ {
+  "name": "Pectoralis minor muscle.e1l",
+  "host": "Fourth rib.l",
+  "action": "End-Abduction",
+  "sourceTris": 464,
+  "tris": 232
+ },
+ {
+  "name": "Pectoralis minor muscle.e1r",
+  "host": "Fourth rib.r",
+  "action": "End-Abduction",
+  "sourceTris": 464,
+  "tris": 232
+ },
+ {
+  "name": "Pectoralis minor muscle.e2l",
+  "host": "Fifth rib.l",
+  "action": "End-Abduction",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Pectoralis minor muscle.e2r",
+  "host": "Fifth rib.r",
+  "action": "End-Abduction",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Pectoralis minor muscle.el",
+  "host": "Third rib.l",
+  "action": "End-Abduction",
+  "sourceTris": 300,
+  "tris": 150
+ },
+ {
+  "name": "Pectoralis minor muscle.er",
+  "host": "Third rib.r",
+  "action": "End-Abduction",
+  "sourceTris": 300,
+  "tris": 150
+ },
+ {
+  "name": "Pectoralis minor muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 836,
+  "tris": 418
+ },
+ {
+  "name": "Pectoralis minor muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 836,
+  "tris": 418
+ },
+ {
+  "name": "Piriformis muscle.el",
+  "host": "Femur.l",
+  "action": "End-Abduction",
+  "sourceTris": 76,
+  "tris": 40,
+  "mirroredFrom": "Piriformis muscle.er"
+ },
+ {
+  "name": "Piriformis muscle.er",
+  "host": "Femur.r",
+  "action": "End-Abduction",
+  "sourceTris": 76,
+  "tris": 40,
+  "relabelledFrom": "Piriformis muscle.el"
+ },
+ {
+  "name": "Piriformis muscle.ol",
+  "host": "Sacrum",
+  "action": "Origin-Abduction",
+  "sourceTris": 420,
+  "tris": 210,
+  "relabelledFrom": "Piriformis muscle.or"
+ },
+ {
+  "name": "Piriformis muscle.or",
+  "host": "Sacrum",
+  "action": "Origin-Abduction",
+  "sourceTris": 420,
+  "tris": 210,
+  "relabelledFrom": "Piriformis muscle.ol"
+ },
+ {
+  "name": "Plantar interossei muscles.e1l",
+  "host": "Proximal phalanx of fourth finger of foot.l",
+  "action": "End-Adduction",
+  "sourceTris": 64,
+  "tris": 40,
+  "mirroredFrom": "Plantar interossei muscles.e1r"
+ },
+ {
+  "name": "Plantar interossei muscles.e1r",
+  "host": "Proximal phalanx of fourth finger of foot.r",
+  "action": "End-Adduction",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Plantar interossei muscles.e1l"
+ },
+ {
+  "name": "Plantar interossei muscles.e2l",
+  "host": "Proximal phalanx of fifth finger of foot.l",
+  "action": "End-Adduction",
+  "sourceTris": 60,
+  "tris": 40,
+  "mirroredFrom": "Plantar interossei muscles.e2r"
+ },
+ {
+  "name": "Plantar interossei muscles.e2r",
+  "host": "Proximal phalanx of fifth finger of foot.r",
+  "action": "End-Adduction",
+  "sourceTris": 60,
+  "tris": 40,
+  "relabelledFrom": "Plantar interossei muscles.e2l"
+ },
+ {
+  "name": "Plantar interossei muscles.el",
+  "host": "Proximal phalanx of third finger of foot.l",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40,
+  "mirroredFrom": "Plantar interossei muscles.er"
+ },
+ {
+  "name": "Plantar interossei muscles.er",
+  "host": "Proximal phalanx of third finger of foot.r",
+  "action": "End-Adduction",
+  "sourceTris": 56,
+  "tris": 40,
+  "relabelledFrom": "Plantar interossei muscles.el"
+ },
+ {
+  "name": "Plantar interossei muscles.o1l",
+  "host": "Fourth metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 100,
+  "tris": 50,
+  "mirroredFrom": "Plantar interossei muscles.o1r"
+ },
+ {
+  "name": "Plantar interossei muscles.o1r",
+  "host": "Fourth metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 100,
+  "tris": 50,
+  "relabelledFrom": "Plantar interossei muscles.o1l"
+ },
+ {
+  "name": "Plantar interossei muscles.o2l",
+  "host": "Fifth metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 132,
+  "tris": 66,
+  "mirroredFrom": "Plantar interossei muscles.o2r"
+ },
+ {
+  "name": "Plantar interossei muscles.o2r",
+  "host": "Fifth metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 132,
+  "tris": 66,
+  "relabelledFrom": "Plantar interossei muscles.o2l"
+ },
+ {
+  "name": "Plantar interossei muscles.ol",
+  "host": "Third metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 92,
+  "tris": 46,
+  "mirroredFrom": "Plantar interossei muscles.or"
+ },
+ {
+  "name": "Plantar interossei muscles.or",
+  "host": "Third metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 92,
+  "tris": 46,
+  "relabelledFrom": "Plantar interossei muscles.ol"
+ },
+ {
+  "name": "Plantaris muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Plantaris muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 128,
+  "tris": 64
+ },
+ {
+  "name": "Popliteus muscle.el",
+  "host": "Tibia.l",
+  "action": "End-External rotation",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Popliteus muscle.er",
+  "host": "Tibia.r",
+  "action": "End-External rotation",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Popliteus muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 92,
+  "tris": 46,
+  "hostWas": "Femur.r"
+ },
+ {
+  "name": "Popliteus muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Procerus muscle.el",
+  "host": "Nasal bone.l",
+  "action": "End-Depressor",
+  "sourceTris": 60,
+  "tris": 40,
+  "mirroredFrom": "Procerus muscle.er"
+ },
+ {
+  "name": "Procerus muscle.er",
+  "host": "Nasal bone.r",
+  "action": "End-Depressor",
+  "sourceTris": 60,
+  "tris": 40,
+  "relabelledFrom": "Procerus muscle.el"
+ },
+ {
+  "name": "Procerus muscle.ol",
+  "host": "Frontal bone",
+  "action": "Origin-Depressor",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Procerus muscle.or"
+ },
+ {
+  "name": "Procerus muscle.or",
+  "host": "Frontal bone",
+  "action": "Origin-Depressor",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Procerus muscle.ol"
+ },
+ {
+  "name": "Pronator quadratus.el",
+  "host": "Radius.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 120,
+  "tris": 60,
+  "mirroredFrom": "Pronator quadratus.er"
+ },
+ {
+  "name": "Pronator quadratus.er",
+  "host": "Radius.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 120,
+  "tris": 60,
+  "relabelledFrom": "Pronator quadratus.el"
+ },
+ {
+  "name": "Pronator quadratus.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 52,
+  "tris": 40,
+  "mirroredFrom": "Pronator quadratus.or"
+ },
+ {
+  "name": "Pronator quadratus.or",
+  "host": "Ulna.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 52,
+  "tris": 40,
+  "relabelledFrom": "Pronator quadratus.ol"
+ },
+ {
+  "name": "Pronator teres.el",
+  "host": "Radius.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Pronator teres.er",
+  "host": "Radius.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Pronator teres.ol",
+  "host": "Humerus.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Pronator teres.or",
+  "host": "Humerus.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 64,
+  "tris": 40
+ },
+ {
+  "name": "Quadratus femoris muscle.el",
+  "host": "Femur.l",
+  "action": "End-External rotation",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Quadratus femoris muscle.er",
+  "host": "Femur.r",
+  "action": "End-External rotation",
+  "sourceTris": 132,
+  "tris": 66
+ },
+ {
+  "name": "Quadratus femoris muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Quadratus femoris muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Quadriceps femoris muscle.el",
+  "host": "Patella.l",
+  "action": "End-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Quadriceps femoris muscle.er",
+  "host": "Patella.r",
+  "action": "End-Extension",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Rectus abdominis muscle.el",
+  "host": "Costal cartilage of seventh rib.l",
+  "action": "End-Flexion",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Rectus abdominis muscle.er",
+  "host": "Costal cartilage of seventh rib.r",
+  "action": "End-Flexion",
+  "sourceTris": 188,
+  "tris": 94
+ },
+ {
+  "name": "Rectus abdominis muscle.ol",
+  "host": "Costal cartilage of fifth rib.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 888,
+  "tris": 444,
+  "hostWas": "Costal cartilage of fifth rib.r"
+ },
+ {
+  "name": "Rectus abdominis muscle.or",
+  "host": "Costal cartilage of fifth rib.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 888,
+  "tris": 444
+ },
+ {
+  "name": "Rectus anterior capitis muscle.el",
+  "host": "Atlas (C1)",
+  "action": "End-Flexion",
+  "sourceTris": 80,
+  "tris": 40,
+  "relabelledFrom": "Rectus anterior capitis muscle.er"
+ },
+ {
+  "name": "Rectus anterior capitis muscle.er",
+  "host": "Atlas (C1)",
+  "action": "End-Flexion",
+  "sourceTris": 80,
+  "tris": 40,
+  "relabelledFrom": "Rectus anterior capitis muscle.el"
+ },
+ {
+  "name": "Rectus anterior capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 32,
+  "tris": 32,
+  "relabelledFrom": "Rectus anterior capitis muscle.or"
+ },
+ {
+  "name": "Rectus anterior capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 32,
+  "tris": 32,
+  "relabelledFrom": "Rectus anterior capitis muscle.ol"
+ },
+ {
+  "name": "Rectus femoris muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Rectus femoris muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Rectus lateralis capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Abduction",
+  "sourceTris": 116,
+  "tris": 58,
+  "relabelledFrom": "Rectus lateralis capitis muscle.or"
+ },
+ {
+  "name": "Rectus lateralis capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Abduction",
+  "sourceTris": 116,
+  "tris": 58,
+  "relabelledFrom": "Rectus lateralis capitis muscle.ol"
+ },
+ {
+  "name": "Rectus posterior major capitis muscle.el",
+  "host": "Axis (C2)",
+  "action": "End-Extension",
+  "sourceTris": 72,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior major capitis muscle.er"
+ },
+ {
+  "name": "Rectus posterior major capitis muscle.er",
+  "host": "Axis (C2)",
+  "action": "End-Extension",
+  "sourceTris": 72,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior major capitis muscle.el"
+ },
+ {
+  "name": "Rectus posterior major capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 68,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior major capitis muscle.or"
+ },
+ {
+  "name": "Rectus posterior major capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 68,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior major capitis muscle.ol"
+ },
+ {
+  "name": "Rectus posterior minor capitis muscle.el",
+  "host": "Atlas (C1)",
+  "action": "End-Extension",
+  "sourceTris": 112,
+  "tris": 56,
+  "relabelledFrom": "Rectus posterior minor capitis muscle.er"
+ },
+ {
+  "name": "Rectus posterior minor capitis muscle.er",
+  "host": "Atlas (C1)",
+  "action": "End-Extension",
+  "sourceTris": 112,
+  "tris": 56,
+  "relabelledFrom": "Rectus posterior minor capitis muscle.el"
+ },
+ {
+  "name": "Rectus posterior minor capitis muscle.ol",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior minor capitis muscle.or"
+ },
+ {
+  "name": "Rectus posterior minor capitis muscle.or",
+  "host": "Occipital bone",
+  "action": "Origin-Extension",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Rectus posterior minor capitis muscle.ol"
+ },
+ {
+  "name": "Rhomboid major muscle.el",
+  "host": "Scapula.l",
+  "action": "End-Adduction",
+  "sourceTris": 2736,
+  "tris": 1368
+ },
+ {
+  "name": "Rhomboid major muscle.er",
+  "host": "Scapula.r",
+  "action": "End-Adduction",
+  "sourceTris": 2736,
+  "tris": 1368
+ },
+ {
+  "name": "Rhomboid minor muscle.el",
+  "host": "Scapula.l",
+  "action": "End-Adduction",
+  "sourceTris": 820,
+  "tris": 410
+ },
+ {
+  "name": "Rhomboid minor muscle.er",
+  "host": "Scapula.r",
+  "action": "End-Adduction",
+  "sourceTris": 820,
+  "tris": 410
+ },
+ {
+  "name": "Sartorius muscle.el",
+  "host": "Tibia.l",
+  "action": "End-Adduction",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Sartorius muscle.er",
+  "host": "Tibia.r",
+  "action": "End-Adduction",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Sartorius muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "Sartorius muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 244,
+  "tris": 122
+ },
+ {
+  "name": "Scalenus anterior muscle.e1l",
+  "host": "Vertebra C5",
+  "action": "End-Abduction",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Scalenus anterior muscle.e1r"
+ },
+ {
+  "name": "Scalenus anterior muscle.e1r",
+  "host": "Vertebra C5",
+  "action": "End-Abduction",
+  "sourceTris": 64,
+  "tris": 40,
+  "relabelledFrom": "Scalenus anterior muscle.e1l"
+ },
+ {
+  "name": "Scalenus anterior muscle.e2l",
+  "host": "Vertebra C6",
+  "action": "End-Abduction",
+  "sourceTris": 40,
+  "tris": 40,
+  "relabelledFrom": "Scalenus anterior muscle.e2r"
+ },
+ {
+  "name": "Scalenus anterior muscle.e2r",
+  "host": "Vertebra C6",
+  "action": "End-Abduction",
+  "sourceTris": 40,
+  "tris": 40,
+  "relabelledFrom": "Scalenus anterior muscle.e2l"
+ },
+ {
+  "name": "Scalenus anterior muscle.el",
+  "host": "Vertebra C4",
+  "action": "End-Abduction",
+  "sourceTris": 84,
+  "tris": 42,
+  "relabelledFrom": "Scalenus anterior muscle.er"
+ },
+ {
+  "name": "Scalenus anterior muscle.er",
+  "host": "Vertebra C4",
+  "action": "End-Abduction",
+  "sourceTris": 84,
+  "tris": 42,
+  "relabelledFrom": "Scalenus anterior muscle.el"
+ },
+ {
+  "name": "Scalenus anterior muscle.ol",
+  "host": "First rib.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Scalenus anterior muscle.or",
+  "host": "First rib.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 204,
+  "tris": 102
+ },
+ {
+  "name": "Scalenus medius muscle.e1l",
+  "host": "Vertebra C7",
+  "action": "End-Abduction",
+  "sourceTris": 88,
+  "tris": 44,
+  "relabelledFrom": "Scalenus medius muscle.e1r"
+ },
+ {
+  "name": "Scalenus medius muscle.e1r",
+  "host": "Vertebra C7",
+  "action": "End-Abduction",
+  "sourceTris": 88,
+  "tris": 44,
+  "relabelledFrom": "Scalenus medius muscle.e1l"
+ },
+ {
+  "name": "Scalenus medius muscle.el",
+  "host": "Vertebra C6",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62,
+  "relabelledFrom": "Scalenus medius muscle.er"
+ },
+ {
+  "name": "Scalenus medius muscle.er",
+  "host": "Vertebra C6",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62,
+  "relabelledFrom": "Scalenus medius muscle.el"
+ },
+ {
+  "name": "Scalenus medius muscle.ol",
+  "host": "First rib.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Scalenus medius muscle.or",
+  "host": "First rib.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 276,
+  "tris": 138
+ },
+ {
+  "name": "Scalenus posterior muscle.el",
+  "host": "Vertebra C5",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62,
+  "relabelledFrom": "Scalenus posterior muscle.er"
+ },
+ {
+  "name": "Scalenus posterior muscle.er",
+  "host": "Vertebra C5",
+  "action": "End-Abduction",
+  "sourceTris": 124,
+  "tris": 62,
+  "relabelledFrom": "Scalenus posterior muscle.el"
+ },
+ {
+  "name": "Scapular spinal part of deltoid muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 2060,
+  "tris": 1030
+ },
+ {
+  "name": "Scapular spinal part of deltoid muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 2060,
+  "tris": 1030
+ },
+ {
+  "name": "Semimembranosus muscle.el",
+  "host": "Tibia.l",
+  "action": "End-Flexion",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Semimembranosus muscle.er",
+  "host": "Tibia.r",
+  "action": "End-Flexion",
+  "sourceTris": 136,
+  "tris": 68
+ },
+ {
+  "name": "Semimembranosus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Semimembranosus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 112,
+  "tris": 56
+ },
+ {
+  "name": "Semitendinosus muscle.el",
+  "host": "Tibia.l",
+  "action": "End-Flexion",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Semitendinosus muscle.er",
+  "host": "Tibia.r",
+  "action": "End-Flexion",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Semitendinosus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Semitendinosus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 164,
+  "tris": 82
+ },
+ {
+  "name": "Serratus anterior muscle.e1l",
+  "host": "Second rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 388,
+  "tris": 194,
+  "mirroredFrom": "Serratus anterior muscle.e1r"
+ },
+ {
+  "name": "Serratus anterior muscle.e1r",
+  "host": "Second rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 388,
+  "tris": 194,
+  "relabelledFrom": "Serratus anterior muscle.e1l"
+ },
+ {
+  "name": "Serratus anterior muscle.e2l",
+  "host": "Third rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 496,
+  "tris": 248,
+  "relabelledFrom": "Serratus anterior muscle.e2r"
+ },
+ {
+  "name": "Serratus anterior muscle.e2r",
+  "host": "Third rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 496,
+  "tris": 248,
+  "relabelledFrom": "Serratus anterior muscle.e2l"
+ },
+ {
+  "name": "Serratus anterior muscle.e3l",
+  "host": "Fourth rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 744,
+  "tris": 372
+ },
+ {
+  "name": "Serratus anterior muscle.e3r",
+  "host": "Fourth rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 744,
+  "tris": 372
+ },
+ {
+  "name": "Serratus anterior muscle.e4l",
+  "host": "Fifth rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 332,
+  "tris": 166
+ },
+ {
+  "name": "Serratus anterior muscle.e4r",
+  "host": "Fifth rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 332,
+  "tris": 166
+ },
+ {
+  "name": "Serratus anterior muscle.e5l",
+  "host": "Sixth rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 372,
+  "tris": 186
+ },
+ {
+  "name": "Serratus anterior muscle.e5r",
+  "host": "Sixth rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 372,
+  "tris": 186
+ },
+ {
+  "name": "Serratus anterior muscle.e6l",
+  "host": "Seventh rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 532,
+  "tris": 266
+ },
+ {
+  "name": "Serratus anterior muscle.e6r",
+  "host": "Seventh rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 532,
+  "tris": 266
+ },
+ {
+  "name": "Serratus anterior muscle.e7l",
+  "host": "Eighth rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Serratus anterior muscle.e7r",
+  "host": "Eighth rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 348,
+  "tris": 174
+ },
+ {
+  "name": "Serratus anterior muscle.e8l",
+  "host": "Ninth rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 268,
+  "tris": 134,
+  "mirroredFrom": "Serratus anterior muscle.e8r"
+ },
+ {
+  "name": "Serratus anterior muscle.e8r",
+  "host": "Ninth rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 268,
+  "tris": 134,
+  "relabelledFrom": "Serratus anterior muscle.e8l"
+ },
+ {
+  "name": "Serratus anterior muscle.el",
+  "host": "First rib.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 340,
+  "tris": 170
+ },
+ {
+  "name": "Serratus anterior muscle.er",
+  "host": "First rib.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 340,
+  "tris": 170
+ },
+ {
+  "name": "Serratus anterior muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 952,
+  "tris": 476
+ },
+ {
+  "name": "Serratus anterior muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 952,
+  "tris": 476
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e1l",
+  "host": "Tenth rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 276,
+  "tris": 138,
+  "mirroredFrom": "Serratus posterior inferior muscle.e1r"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e1r",
+  "host": "Tenth rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 276,
+  "tris": 138,
+  "relabelledFrom": "Serratus posterior inferior muscle.e1l"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e2l",
+  "host": "Eleventh rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 144,
+  "tris": 72,
+  "mirroredFrom": "Serratus posterior inferior muscle.e2r"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e2r",
+  "host": "Eleventh rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 144,
+  "tris": 72,
+  "relabelledFrom": "Serratus posterior inferior muscle.e2l"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e3l",
+  "host": "Twelfth rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 176,
+  "tris": 88,
+  "mirroredFrom": "Serratus posterior inferior muscle.e3r"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.e3r",
+  "host": "Twelfth rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 176,
+  "tris": 88,
+  "relabelledFrom": "Serratus posterior inferior muscle.e3l"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.el",
+  "host": "Ninth rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 276,
+  "tris": 138,
+  "mirroredFrom": "Serratus posterior inferior muscle.er"
+ },
+ {
+  "name": "Serratus posterior inferior muscle.er",
+  "host": "Ninth rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 276,
+  "tris": 138,
+  "relabelledFrom": "Serratus posterior inferior muscle.el"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e1l",
+  "host": "Third rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 376,
+  "tris": 188,
+  "mirroredFrom": "Serratus posterior superior muscle.e1r"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e1r",
+  "host": "Third rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 376,
+  "tris": 188,
+  "relabelledFrom": "Serratus posterior superior muscle.e1l"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e2l",
+  "host": "Fourth rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 920,
+  "tris": 460,
+  "mirroredFrom": "Serratus posterior superior muscle.e2r"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e2r",
+  "host": "Fourth rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 920,
+  "tris": 460,
+  "relabelledFrom": "Serratus posterior superior muscle.e2l"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e3l",
+  "host": "Fifth rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 716,
+  "tris": 358,
+  "mirroredFrom": "Serratus posterior superior muscle.e3r"
+ },
+ {
+  "name": "Serratus posterior superior muscle.e3r",
+  "host": "Fifth rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 716,
+  "tris": 358,
+  "relabelledFrom": "Serratus posterior superior muscle.e3l"
+ },
+ {
+  "name": "Serratus posterior superior muscle.el",
+  "host": "Second rib.l",
+  "action": "End-External rotation",
+  "sourceTris": 420,
+  "tris": 210,
+  "mirroredFrom": "Serratus posterior superior muscle.er"
+ },
+ {
+  "name": "Serratus posterior superior muscle.er",
+  "host": "Second rib.r",
+  "action": "End-External rotation",
+  "sourceTris": 420,
+  "tris": 210,
+  "relabelledFrom": "Serratus posterior superior muscle.el"
+ },
+ {
+  "name": "Short head of biceps brachii.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Biarticular",
+  "sourceTris": 496,
+  "tris": 248,
+  "mirroredFrom": "Short head of biceps brachii.or"
+ },
+ {
+  "name": "Short head of biceps brachii.or",
+  "host": "Scapula.r",
+  "action": "Origin-Biarticular",
+  "sourceTris": 496,
+  "tris": 248,
+  "relabelledFrom": "Short head of biceps brachii.ol"
+ },
+ {
+  "name": "Short head of biceps femoris.el",
+  "host": "Femur.l",
+  "action": "End-Flexion",
+  "sourceTris": 232,
+  "tris": 116,
+  "mirroredFrom": "Short head of biceps femoris.er"
+ },
+ {
+  "name": "Short head of biceps femoris.er",
+  "host": "Femur.r",
+  "action": "End-Flexion",
+  "sourceTris": 232,
+  "tris": 116,
+  "relabelledFrom": "Short head of biceps femoris.el"
+ },
+ {
+  "name": "Soleus muscle.o1l",
+  "host": "Tibia.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 180,
+  "tris": 90
+ },
+ {
+  "name": "Soleus muscle.o1r",
+  "host": "Tibia.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 180,
+  "tris": 90
+ },
+ {
+  "name": "Soleus muscle.ol",
+  "host": "Fibula.l",
+  "action": "Origin-Extension",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Soleus muscle.or",
+  "host": "Fibula.r",
+  "action": "Origin-Extension",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Spinalis capitis muscle.el",
+  "host": "Occipital bone",
+  "action": "End-Extension",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Spinalis capitis muscle.er",
+  "host": "Occipital bone",
+  "action": "End-Extension",
+  "sourceTris": 104,
+  "tris": 52
+ },
+ {
+  "name": "Splenius colli muscle.e1l",
+  "host": "Atlas (C1)",
+  "action": "End-Abduction",
+  "sourceTris": 140,
+  "tris": 70
+ },
+ {
+  "name": "Splenius colli muscle.e1r",
+  "host": "Atlas (C1)",
+  "action": "End-Abduction",
+  "sourceTris": 140,
+  "tris": 70
+ },
+ {
+  "name": "Splenius colli muscle.el",
+  "host": "Axis (C2)",
+  "action": "End-Abduction",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Splenius colli muscle.er",
+  "host": "Axis (C2)",
+  "action": "End-Abduction",
+  "sourceTris": 60,
+  "tris": 40
+ },
+ {
+  "name": "Sternocleidomastoid muscle.el",
+  "host": "Temporal bone.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 600,
+  "tris": 300
+ },
+ {
+  "name": "Sternocleidomastoid muscle.er",
+  "host": "Temporal bone.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 600,
+  "tris": 300
+ },
+ {
+  "name": "Sternocleidomastoid muscle.o1l",
+  "host": "Clavicle.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Sternocleidomastoid muscle.o1r",
+  "host": "Clavicle.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Sternocleidomastoid muscle.ol",
+  "host": "Manubrium of sternum",
+  "action": "Origin-External rotation",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Sternocleidomastoid muscle.or",
+  "host": "Manubrium of sternum",
+  "action": "Origin-External rotation",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.e1l",
+  "host": "Body of sternum",
+  "action": "Origin-Adduction",
+  "sourceTris": 896,
+  "tris": 448
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.e1r",
+  "host": "Body of sternum",
+  "action": "Origin-Adduction",
+  "sourceTris": 896,
+  "tris": 448
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.e2l",
+  "host": "Manubrium of sternum",
+  "action": "Origin-Adduction",
+  "sourceTris": 432,
+  "tris": 216
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.e2r",
+  "host": "Manubrium of sternum",
+  "action": "Origin-Adduction",
+  "sourceTris": 432,
+  "tris": 216
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.el",
+  "host": "Costal cartilage of sixth rib.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 1140,
+  "tris": 570
+ },
+ {
+  "name": "Sternocostal head of pectoralis major muscle.er",
+  "host": "Costal cartilage of sixth rib.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 1140,
+  "tris": 570
+ },
+ {
+  "name": "Sternohyoid muscle.el",
+  "host": "Hyoid bone",
+  "action": "End-Flexion",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Sternohyoid muscle.er",
+  "host": "Hyoid bone",
+  "action": "End-Flexion",
+  "sourceTris": 100,
+  "tris": 50
+ },
+ {
+  "name": "Sternohyoid muscle.ol",
+  "host": "Clavicle.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 300,
+  "tris": 150
+ },
+ {
+  "name": "Sternohyoid muscle.or",
+  "host": "Clavicle.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 300,
+  "tris": 150
+ },
+ {
+  "name": "Subclavius muscle.ol",
+  "host": "Clavicle.l",
+  "action": "Origin-Depressor",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Subclavius muscle.or",
+  "host": "Clavicle.r",
+  "action": "Origin-Depressor",
+  "sourceTris": 160,
+  "tris": 80
+ },
+ {
+  "name": "Subscapularis muscle.el",
+  "host": "Humerus.l",
+  "action": "End-Internal rotation",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Subscapularis muscle.er",
+  "host": "Humerus.r",
+  "action": "End-Internal rotation",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Subscapularis muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 2936,
+  "tris": 1468
+ },
+ {
+  "name": "Subscapularis muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 2936,
+  "tris": 1468
+ },
+ {
+  "name": "Superior gemellus muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Superior gemellus muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Supinator.el",
+  "host": "Radius.l",
+  "action": "End-External rotation",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Supinator.er",
+  "host": "Radius.r",
+  "action": "End-External rotation",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Supinator.ol",
+  "host": "Ulna.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Supinator.or",
+  "host": "Ulna.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 92,
+  "tris": 46
+ },
+ {
+  "name": "Supraspinatus muscle.el",
+  "host": "Humerus.l",
+  "action": "End-Abduction",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Supraspinatus muscle.er",
+  "host": "Humerus.r",
+  "action": "End-Abduction",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Supraspinatus muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 1400,
+  "tris": 700
+ },
+ {
+  "name": "Supraspinatus muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 1400,
+  "tris": 700
+ },
+ {
+  "name": "Temporalis muscle.el",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 356,
+  "tris": 178
+ },
+ {
+  "name": "Temporalis muscle.er",
+  "host": "Mandible",
+  "action": "End-Flexion",
+  "sourceTris": 356,
+  "tris": 178
+ },
+ {
+  "name": "Temporalis muscle.o1l",
+  "host": "Frontal bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Temporalis muscle.o1r",
+  "host": "Frontal bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 280,
+  "tris": 140
+ },
+ {
+  "name": "Temporalis muscle.o2l",
+  "host": "Parietal bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 636,
+  "tris": 318
+ },
+ {
+  "name": "Temporalis muscle.o2r",
+  "host": "Parietal bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 636,
+  "tris": 318
+ },
+ {
+  "name": "Temporalis muscle.o3l",
+  "host": "Sphenoid bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 248,
+  "tris": 124,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Temporalis muscle.o3r",
+  "host": "Sphenoid bone",
+  "action": "Origin-Flexion",
+  "sourceTris": 248,
+  "tris": 124,
+  "openEdgesFilled": 2
+ },
+ {
+  "name": "Temporalis muscle.o4l",
+  "host": "Temporal bone.l",
+  "action": "Origin-Flexion",
+  "sourceTris": 952,
+  "tris": 476
+ },
+ {
+  "name": "Temporalis muscle.o4r",
+  "host": "Temporal bone.r",
+  "action": "Origin-Flexion",
+  "sourceTris": 952,
+  "tris": 476
+ },
+ {
+  "name": "Tensor fasciae latae.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Tensor fasciae latae.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 80,
+  "tris": 40
+ },
+ {
+  "name": "Teres major muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 896,
+  "tris": 448
+ },
+ {
+  "name": "Teres major muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Internal rotation",
+  "sourceTris": 896,
+  "tris": 448
+ },
+ {
+  "name": "Teres minor muscle.el",
+  "host": "Humerus.l",
+  "action": "End-External rotation",
+  "sourceTris": 328,
+  "tris": 164
+ },
+ {
+  "name": "Teres minor muscle.er",
+  "host": "Humerus.r",
+  "action": "End-External rotation",
+  "sourceTris": 328,
+  "tris": 164
+ },
+ {
+  "name": "Teres minor muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-External rotation",
+  "sourceTris": 1004,
+  "tris": 502
+ },
+ {
+  "name": "Teres minor muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-External rotation",
+  "sourceTris": 1004,
+  "tris": 502
+ },
+ {
+  "name": "Thyrohyoid muscle.el",
+  "host": "Thyroid cartilage",
+  "action": "End-Levator",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Thyrohyoid muscle.er",
+  "host": "Thyroid cartilage",
+  "action": "End-Levator",
+  "sourceTris": 248,
+  "tris": 124
+ },
+ {
+  "name": "Thyrohyoid muscle.ol",
+  "host": "Hyoid bone",
+  "action": "Origin-Levator",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Thyrohyoid muscle.or",
+  "host": "Hyoid bone",
+  "action": "Origin-Levator",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Tibialis anterior muscle.e1l",
+  "host": "First metatarsal bone.l",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Tibialis anterior muscle.e1r",
+  "host": "First metatarsal bone.r",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 108,
+  "tris": 54
+ },
+ {
+  "name": "Tibialis anterior muscle.el",
+  "host": "Medial cuneiform bone.l",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Tibialis anterior muscle.er",
+  "host": "Medial cuneiform bone.r",
+  "action": "End-Flexion hand/foot",
+  "sourceTris": 240,
+  "tris": 120
+ },
+ {
+  "name": "Tibialis anterior muscle.ol",
+  "host": "Tibia.l",
+  "action": "Origin-Flexion hand/foot",
+  "sourceTris": 976,
+  "tris": 488
+ },
+ {
+  "name": "Tibialis anterior muscle.or",
+  "host": "Tibia.r",
+  "action": "Origin-Flexion hand/foot",
+  "sourceTris": 976,
+  "tris": 488
+ },
+ {
+  "name": "Tibialis posterior muscle.ol",
+  "host": "Tibia.l",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 1492,
+  "tris": 746
+ },
+ {
+  "name": "Tibialis posterior muscle.or",
+  "host": "Tibia.r",
+  "action": "Origin-Extension hand/foot",
+  "sourceTris": 1492,
+  "tris": 746
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e1l",
+  "host": "Fifth metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e1r",
+  "host": "Fifth metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 48,
+  "tris": 40
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e2l",
+  "host": "Fourth metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e2r",
+  "host": "Fourth metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 216,
+  "tris": 108
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e3l",
+  "host": "Third metatarsal bone.l",
+  "action": "Origin-Adduction",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Transverse head of adductor hallucis.e3r",
+  "host": "Third metatarsal bone.r",
+  "action": "Origin-Adduction",
+  "sourceTris": 116,
+  "tris": 58
+ },
+ {
+  "name": "Transverse head of adductor hallucis.ol",
+  "host": "Sesamoid bones of foot.l",
+  "action": "End-Adduction",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Transverse head of adductor hallucis.or",
+  "host": "Sesamoid bones of foot.r",
+  "action": "End-Adduction",
+  "sourceTris": 28,
+  "tris": 28
+ },
+ {
+  "name": "Transverse part of trapezius muscle.ol",
+  "host": "Scapula.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 548,
+  "tris": 274
+ },
+ {
+  "name": "Transverse part of trapezius muscle.or",
+  "host": "Scapula.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 548,
+  "tris": 274
+ },
+ {
+  "name": "Transversus abdominis muscle.ol",
+  "host": "Hip bone.l",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 272,
+  "tris": 136
+ },
+ {
+  "name": "Transversus abdominis muscle.or",
+  "host": "Hip bone.r",
+  "action": "Origin-Orbicular/Constrictor",
+  "sourceTris": 272,
+  "tris": 136
+ },
+ {
+  "name": "Transversus thoracis muscle.o1l",
+  "host": "Xiphoid process",
+  "action": "Origin-Depressor",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Transversus thoracis muscle.o1r",
+  "host": "Xiphoid process",
+  "action": "Origin-Depressor",
+  "sourceTris": 192,
+  "tris": 96
+ },
+ {
+  "name": "Transversus thoracis muscle.ol",
+  "host": "Body of sternum",
+  "action": "Origin-Depressor",
+  "sourceTris": 720,
+  "tris": 360
+ },
+ {
+  "name": "Transversus thoracis muscle.or",
+  "host": "Body of sternum",
+  "action": "Origin-Depressor",
+  "sourceTris": 720,
+  "tris": 360
+ },
+ {
+  "name": "Triceps brachii muscle.el",
+  "host": "Ulna.l",
+  "action": "End-Extension",
+  "sourceTris": 172,
+  "tris": 86
+ },
+ {
+  "name": "Triceps brachii muscle.er",
+  "host": "Ulna.r",
+  "action": "End-Extension",
+  "sourceTris": 172,
+  "tris": 86
+ },
+ {
+  "name": "Triceps surae muscle.el",
+  "host": "Calcaneus.l",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Triceps surae muscle.er",
+  "host": "Calcaneus.r",
+  "action": "End-Extension hand-foot",
+  "sourceTris": 176,
+  "tris": 88
+ },
+ {
+  "name": "Trochanteric insertion.el",
+  "host": "Femur.l",
+  "action": "End-External rotation",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Trochanteric insertion.er",
+  "host": "Femur.r",
+  "action": "End-External rotation",
+  "sourceTris": 96,
+  "tris": 48
+ },
+ {
+  "name": "Ulnar head of flexor carpi ulnaris.ol",
+  "host": "Ulna.l",
+  "action": "Origin-Flexion hand/foot",
+  "sourceTris": 628,
+  "tris": 314
+ },
+ {
+  "name": "Ulnar head of flexor carpi ulnaris.or",
+  "host": "Ulna.r",
+  "action": "Origin-Flexion hand/foot",
+  "sourceTris": 628,
+  "tris": 314
+ },
+ {
+  "name": "Vastus intermedius muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-Extension",
+  "sourceTris": 324,
+  "tris": 162
+ },
+ {
+  "name": "Vastus intermedius muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-Extension",
+  "sourceTris": 324,
+  "tris": 162
+ },
+ {
+  "name": "Vastus lateralis muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-Extension",
+  "sourceTris": 388,
+  "tris": 194
+ },
+ {
+  "name": "Vastus lateralis muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-Extension",
+  "sourceTris": 388,
+  "tris": 194
+ },
+ {
+  "name": "Vastus medialis muscle.ol",
+  "host": "Femur.l",
+  "action": "Origin-Extension",
+  "sourceTris": 360,
+  "tris": 180
+ },
+ {
+  "name": "Vastus medialis muscle.or",
+  "host": "Femur.r",
+  "action": "Origin-Extension",
+  "sourceTris": 360,
+  "tris": 180
+ },
+ {
+  "name": "Zygomaticus major muscle.ol",
+  "host": "Zygomatic bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Zygomaticus major muscle.or",
+  "host": "Zygomatic bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 36,
+  "tris": 36
+ },
+ {
+  "name": "Zygomaticus minor muscle.ol",
+  "host": "Zygomatic bone.l",
+  "action": "Origin-Abduction",
+  "sourceTris": 40,
+  "tris": 40
+ },
+ {
+  "name": "Zygomaticus minor muscle.or",
+  "host": "Zygomatic bone.r",
+  "action": "Origin-Abduction",
+  "sourceTris": 40,
+  "tris": 40
+ }
+]

@@ -15,16 +15,18 @@
 
 import * as THREE from "three";
 import { attributes } from "../core/attributes.js";
-import { buildQuizItems, displayLatin, displayName, loadSkeletonData } from "../core/dataset.js";
+import { buildQuizItems, displayLatin, displayName, INSERTIONS_MODEL_URL } from "../core/dataset.js";
 import { QuizSession } from "../core/engine.js";
 import { gamePool } from "../core/pool.js";
 import { findRegion } from "../core/regions.js";
+import { subjectOf } from "../core/subjects.js";
 import { loadSettings } from "../core/settings.js";
 import { SkeletonViewer } from "../viewer/SkeletonViewer.js";
 import { getViewer } from "../viewer/shared.js";
 import { h } from "./dom.js";
 import { createHamburgerMenu } from "./hamburgerMenu.js";
 import { inputs } from "./inputs.js";
+import { createViewTools } from "./viewTools.js";
 import { prompts } from "./prompts.js";
 
 // Context around a framed target: a phalanx alone fills the screen and says
@@ -49,6 +51,7 @@ export function renderGame(root, navigate, config, backState) {
   const answer = attributes[config.answer];
   const region = findRegion(config.region);
   const clickAnswer = config.how === "click";
+  const subject = subjectOf(config);
   const { keepView, zoomToAnswer } = loadSettings();
 
   // The name the answer is given in, and the other language alongside it,
@@ -109,6 +112,7 @@ export function renderGame(root, navigate, config, backState) {
   let contextRadius = CONTEXT_MAX;
   let viewBeforeResult = null; // the player's own view, restored next round
   let reportGuard = null;
+  let viewTools = null;
 
   function updateHeader() {
     progress.textContent = `Round ${Math.min(session.index + 1, pool.length)} / ${pool.length}`;
@@ -211,8 +215,11 @@ export function renderGame(root, navigate, config, backState) {
     // to the answer, unless Settings says not to.
     if (question.promptKind !== "highlight" && zoomToAnswer) {
       viewBeforeResult = viewer.getView();
-      viewer.frame([...target.meshIds, ...wrongIds], {
-        direction: "outward",
+      // An attachment is framed face-on (from its bone out to the patch);
+      // a bone from outside the body.
+      const view = subject.id === "attachments" ? viewer.faceOn(target) : { ids: target.meshIds, direction: "outward" };
+      viewer.frame([...view.ids, ...wrongIds], {
+        direction: view.direction,
         minRadius: contextRadius,
         padding: 1.4,
       });
@@ -238,6 +245,7 @@ export function renderGame(root, navigate, config, backState) {
 
   function showSummary() {
     phase = "summary";
+    viewTools?.dispose();
     stopTimer();
     viewer.reset();
     const total = session.results.length;
@@ -280,7 +288,7 @@ export function renderGame(root, navigate, config, backState) {
   }
 
   (async () => {
-    const data = await loadSkeletonData();
+    const data = await subject.load();
     if (left) return;
     pool = gamePool(data.items, config, region);
     allItems = buildQuizItems(data.items, config);
@@ -297,9 +305,29 @@ export function renderGame(root, navigate, config, backState) {
     // leaves out (give-aways in English↔Latin modes: Humerus, Radius, Ulna
     // in Upper limb). Muting them made the chosen region look partly
     // missing. Only the pool is asked about.
-    regionIds = allItems.filter(region.test).flatMap((i) => i.meshIds);
+    regionIds = allItems.filter((i) => subject.inRegion(i, region)).flatMap((i) => i.meshIds);
+    // Muscle attachments: the patches are what's clicked; the region's bones
+    // are a solid, unclickable backdrop (bones outside it ghost as usual).
+    let backdropIds = [];
+    if (subject.id === "attachments") {
+      await viewer.loadInsertions(INSERTIONS_MODEL_URL);
+      if (left) return;
+      viewer.showPatches(true);
+      backdropIds = data.bones.filter((b) => region.test(b)).map((b) => b.id);
+      viewer.setBackdrop(backdropIds);
+    }
     viewer.setPlayable(regionIds);
     viewer.frame(regionIds, { direction: SkeletonViewer.FRONT });
+    // Attachments: the slider peels the backdrop bones only. The patches
+    // are what's clicked, so they stay solid, floating on a peeled bone.
+    // (Peeling them with their bone left some unreachable: the rectus
+    // capitis anterior origin sits under the occipital, behind the atlas,
+    // which is a deeper layer than the occipital itself.)
+    viewTools = createViewTools(viewer, {
+      layerIds: subject.id === "attachments" ? backdropIds : regionIds,
+      cutIds: [...regionIds, ...backdropIds],
+    });
+    viewerArea.append(viewTools.el);
     const size = viewer.boxOf(regionIds).getSize(new THREE.Vector3()).length();
     contextRadius = Math.min(CONTEXT_MAX, Math.max(CONTEXT_MIN, size / 4));
     viewer.onPick((meshId) => {
@@ -317,6 +345,7 @@ export function renderGame(root, navigate, config, backState) {
     left = true;
     stopTimer();
     clearTimeout(reportGuard);
+    viewTools?.dispose();
     document.removeEventListener("keydown", onKey);
     viewer?.reset();
   };

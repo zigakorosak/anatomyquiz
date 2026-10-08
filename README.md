@@ -18,8 +18,23 @@ what's shown and what you have to answer, and play through rounds.
   ear ossicles. Bones outside the region fade out.
 - Every answer shows the right bone in green and your pick in red, with
   English and Latin names.
-- **Explore** mode: hover for names, click (or Random) for an info card
-  with the Latin name, synonyms and group.
+- **Muscle attachments**: a second subject. Shown "Biceps brachii muscle
+  — insertion" (or its Latin), click where it attaches: 235 origins and
+  insertions of 167 muscles, on a solid skeleton. Explore them too: the
+  card gives the bone and the muscle's action.
+- **Plane cut**: "Cut" at the bottom, then pick a sagittal, coronal or
+  transverse plane (press it again to hide the other side) and slide it
+  through the body. Everything on one side disappears, and cut bones show
+  a solid cross-section.
+- **Layers button**: each press hides the outer bones (see-through and
+  unclickable) to reach the ones inside: the vertebrae behind the ribs,
+  the inner skull bones behind the face. On the last layer it shows
+  everything again.
+- **How to play**: a home-screen page explaining the game.
+- **Explore** mode: straight into the 3D view. A Subjects dropdown toggles
+  bones and muscle attachments (any mix); hover for names, click (or
+  Random) for an info card with the Latin name, synonyms and group, or
+  the bone and action of an attachment.
 - Same look and feel as GeoQuiz: dark theme, wizard of choice screens,
   "Round / Score / timer" header with a ☰ menu, a Settings screen.
 
@@ -48,8 +63,8 @@ The model and item data are generated from the Z-Anatomy atlas in
 `reference/` (local only), not hand-maintained:
 
 ```bash
-npm run export-skeleton   # Blender (headless): public/data/skeleton.glb + data/skeleton-objects.json (~1.5 min)
-npm run generate-data     # Node: public/data/skeleton.json (names, Latin, synonyms, groups)
+npm run export-models     # Blender (headless): skeleton.glb + insertions.glb and their data/*-objects.json (~6.5 min)
+npm run generate-data     # Node: skeleton.json and insertions.json (names, Latin, synonyms, groups, attachments)
 ```
 
 Needs Blender 5.x on the PATH and `reference/Z-Anatomy_Template/Z-Anatomy/Startup.blend`

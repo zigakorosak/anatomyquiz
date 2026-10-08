@@ -49,7 +49,8 @@ src/
     screenKit.js    — shared full-screen "pick one of these" component
     hamburgerMenu.js — ☰ header menu (Restart / Back / Home), shared by game and explore
     settingsScreen.js — Settings: one section per preference (camera between rounds, zoom to answer)
-    home.js         — Games / Explore / Settings, credits
+    helpScreen.js   — How to play: short sections on how the game works (keep in step with features)
+    home.js         — Games / Explore / How to play / Settings, credits
     gameWizard.js   — the Play flow's sequence of choice screens
     game.js         — round loop, feedback, summary
     prompts.js      — prompt widget registry, keyed by attribute.promptKind
@@ -58,19 +59,22 @@ src/
     credits.js      — CC BY-SA attribution line (required, see below)
   main.js           — top-level screen router; screens may return a cleanup function
 scripts/
-  export-skeleton.py — Blender: atlas → public/data/skeleton.glb + data/skeleton-objects.json
-  generate-data.mjs  — Node: objects + translations → public/data/skeleton.json
+  export-models.py   — Blender: atlas → skeleton.glb + insertions.glb, and their *-objects.json
+  generate-data.mjs  — Node: objects + translations → skeleton.json, insertions.json
 data/
-  skeleton-objects.json — intermediate export, committed so generate-data runs without Blender
+  skeleton-objects.json, insertions-objects.json — intermediate exports, committed so
+                        generate-data runs without Blender
 public/data/
   skeleton.glb      — generated, 0.89 MB
-  skeleton.json     — generated, 269 items
+  skeleton.json     — generated, 269 bones
+  insertions.glb    — generated, 0.91 MB, 728 muscle-attachment patches (705 + 23 mirrored)
+  insertions.json   — generated, 728 patches = 235 attachments (muscle × origin/insertion)
 ```
 
 ### Data pipeline
 
 ```
-reference/…/Startup.blend ──(npm run export-skeleton)──▶ public/data/skeleton.glb
+reference/…/Startup.blend ──(npm run export-models)──▶ public/data/skeleton.glb, insertions.glb
                                                      └─▶ data/skeleton-objects.json
 data/skeleton-objects.json + Translations0.txt ──(npm run generate-data)──▶ public/data/skeleton.json
 ```
@@ -86,7 +90,9 @@ names are consistent (`Femur.l`/`Femur.r`) and objects hang under a tree
 of `.g` group empties (`Bones of cranium.g`, `True ribs.g`, …) that
 `generate-data` turns into each item's `groups` chain.
 
-**`export-skeleton.py`** takes every mesh in the "1: Skeletal system"
+**`export-models.py`** exports both models in one Blender run (loading
+the atlas takes ~1.5 min; the whole run ~6.5 min, mostly decimating the
+705 patches). For the skeleton it takes every mesh in the "1: Skeletal system"
 collection, except:
 
 - the `.g` group placeholders,
@@ -130,6 +136,94 @@ the script fails if a future export adds one that doesn't. Item shape:
 
 `id` is the Blender object name, which is also the glTF node name. That
 is the only link between the data and the model.
+
+**Muscle attachments** come from the "2: Muscular insertions" collection:
+705 thin patches on the bones, 167 muscles. Each is named
+`<muscle>.<o|e><part?><l|r>` (o = origin, e = insertion, "End" in the
+atlas; a part number for muscles attached in several places), is parented
+to the bone it sits on, and has a material naming the muscle's action
+("End-Flexion fingers"). The exporter:
+
+- skips their Subdivision Surface (with it they'd be ~931k triangles) and
+  thickens the Solidify shell from 0.5 to 1 mm so the decimated bones
+  don't bury them;
+- decimates gently (50%, floor 40 triangles), 174k → 89k triangles;
+- exports material "origin" or "insertion", and records the host bone
+  (with the skeleton's " [source]" rename stripped) and the action;
+- **corrects sides from the geometry**, because the atlas's labels aren't
+  reliable:
+  - **Labels**: a patch whose centre is at least 1 mm from the midline is
+    labelled by the side it lies on (x > 0 = left). Closer than that, a
+    patch on a sided bone takes the bone's side; on a midline bone it keeps
+    its label. 55 patches were relabelled, many in swapped pairs (the
+    scalenes, the rectus capitis origins and insertions, piriformis and
+    procerus origins).
+  - **Hosts**: a patch on the opposite side's bone gets the bone on its
+    actual side. 2 cases: the popliteus origin and a rectus abdominis
+    origin.
+  - **Missing sides**: an attachment modelled on one side only gets the
+    other side by mirroring the patch across x = 0 and snapping it onto
+    the mirrored bone (Shrinkwrap, nearest surface point, above surface),
+    then the same 1 mm shell. 23 patches, all from the 12 attachments
+    that existed on the right only (labelled left): serratus posterior
+    inferior and superior insertions, pectineus, piriformis, procerus,
+    pronator quadratus, plantar interossei, short heads of biceps brachii
+    and femoris, and two serratus anterior digitations.
+  - Every correction is recorded in `data/insertions-objects.json`
+    (`relabelledFrom`, `hostWas`, `mirroredFrom`). A collision (two
+    patches corrected to one name) fails the export.
+  - `generate-data.mjs` fails if any attachment has unequal left/right
+    patch counts.
+  - Checked in Firefox: 0 labels and 0 hosts disagree with the geometry;
+    all 23 mirrored patches are clickable. They also sit on their bones as
+    well as their originals do: 41–68% of probe points within 4 mm of the
+    bone surface, vs 45–73% for the originals.
+
+`generate-data.mjs` turns them into items:
+
+```json
+{"id":"Biceps brachii muscle.er","muscle":"Biceps brachii muscle",
+ "latinMuscle":"Musculus biceps brachii","role":"insertion",
+ "name":"Biceps brachii muscle — insertion","latin":"Musculus biceps brachii — insertio",
+ "part":null,"side":"right","host":"Radius.r","action":"Biarticular"}
+```
+
+`name` and `latin` include the role, so the attributes and display code
+work unchanged. The atlas brackets non-constant structures
+("(Abdominal part of pectoralis major muscle)"); they're shown without
+brackets. 166 of 167 muscles have a translation; the last ("Long head of
+biceps femoris") has its Terminologia Anatomica Latin as an override. The
+script fails if a patch's host isn't a known bone (none aren't).
+
+### Subjects (`core/subjects.js`)
+
+GeoQuiz's subject registry. Games start with "Choose a subject"; in
+Explore, subjects are toggles (see Interface → Explore):
+
+- **Bones**: as described throughout.
+- **Muscle attachments**: one item per muscle and role ("Diaphragm —
+  origin", all its parts). Question: its name or Latin name. Answer: click
+  it (the only answer kind, so the wizard skips the answer step). A region
+  holds an attachment when any of its patches sits on a bone in that
+  region.
+
+In attachments mode the viewer shows the patches (amber, drawn with a
+polygon offset so they win against the bone surface), the region's bones
+as a **backdrop** (solid, not clickable or hoverable), and other bones as
+ghosts. Picks test backdrop bones too, only to block: a click that meets a
+bone first selects nothing, so you can't pick an attachment on the far side
+of a femur through it. The click assist (nearest pick on a miss) still
+applies. Results frame the attachment **face-on**, from its host bone out
+to the patch (`viewer.faceOn`).
+
+Measured in Firefox, every patch framed and tried from 6 directions:
+699/705 are clickable with nothing peeled; the other 6 (lateral pterygoid
+origins behind the jaw, rectus capitis anterior origins under the skull)
+after peeling 2 layers. In attachments mode the layers button peels
+**bones only**; patches stay solid and clickable. Peeling patches with
+their bone (tried first) left the rectus capitis anterior unreachable,
+because the bone covering it (the atlas) is a deeper layer than its own
+host (the occipital).
 
 ### Left and right (`core/dataset.js`)
 
@@ -212,6 +306,144 @@ membership. Two exceptions:
   out of Head & neck's "All of it", whose test is "any non-standalone
   child".
 
+### Bottom toolbar (`ui/viewTools.js`)
+
+The layers button and the plane cut, bottom centre of the 3D view (game
+and Explore; above the credits line in Explore). Clicks on it never count
+as "click anywhere to advance" (`e.menuClick`). Its state carries between
+rounds and resets per game.
+
+**Plane cut.** "Cut" turns it on (highlighted) and reveals three plane
+buttons, Sagittal / Coronal / Transverse, and a slider. Sagittal starts
+selected. The active plane button names the hidden side ("right hidden");
+pressing it again flips the side. The slider moves the plane across the
+bounds of what's in play (the region's bones, plus attachments in that
+mode), captured when Cut is pressed. Pressing "Cut" again turns it off.
+In the viewer (`setCut`):
+
+- One `THREE.Plane` in an array that every material shares as
+  `clippingPlanes`: bones, patches, ghosts and their depth pass, the x-ray
+  copies, the caps. Empty when the cut is off. three recompiles on the
+  plane-count change by itself.
+- **Caps**, two kinds:
+  - **Plane caps** (`_updatePlaneCaps`, stencil capping) make cut faces
+    solid. For every solid mesh the plane crosses (typically a few dozen),
+    in render order after the bones: its back faces +1 and front faces −1
+    on the stencil (clipped, no colour, no depth test). That leaves the
+    stencil non-zero exactly where the plane passes through the mesh's
+    inside. Then a quad on the plane, in a darker shade (0.72) of the
+    mesh's current colour, draws there, depth-tested, and resets the
+    stencil for the next mesh. The cap sits *on* the plane, so it covers
+    anything inside the bone. Back-face caps alone (the bone's far inner
+    wall, the first version) let the costal cartilages' tips, which overlap
+    into the sternum, show through its cut face, and get clicked through it
+    (user report). A per-pixel depth push (gl_FragDepth to the plane) was
+    tried next and dropped: a fragment can't tell whether its ray crossed
+    the plane inside the mesh, so every bone beyond the plane flattened
+    into a silhouette.
+  - **Back-face caps**: every solid mesh also always draws its inside (back
+    faces) in that shade, so a bone never looks hollow with the camera
+    inside or right against it (user report: the left clavicle). Render
+    time unchanged.
+
+  Picking matches: where the ray is inside a mesh at the plane (its first
+  hit on that mesh past the plane is a back face, from the hidden side),
+  that mesh is picked. Verified:
+  - Over the sternum body's cut face, all 295 sampled points pick the
+    sternum (before: 78 picked a costal cartilage, 9 the manubrium).
+  - Every one of the 997 meshes, in play, cut through its centre on all 3
+    planes: see-through only at real openings (vertebral canal, sacral
+    and sphenoid foramina, maxillary sinus, gaps between parts of one
+    mesh) and 3 ring-shaped patch sections, which read 0 px with their
+    bone shown.
+  - A sagittal cut caps 45 meshes; render time 3.7 → 5.8 ms per frame
+    (software WebGL).
+
+  The exporter's `seal()` (holes filled, normals outward) keeps both kinds
+  of cap valid.
+- `boxOf()` measures the meshes' own geometry, not their children:
+  `Box3.expandByObject` includes children, and the oversized cap quads
+  then inflated a cut bone's box (framing zoomed far out).
+- **Plane marker**: a faint quad in the accent blue (8% opacity, both
+  sides) on the cut plane, spanning the region's extent in the other two
+  axes (+10%). It's not clipped, not clickable, doesn't write depth, and
+  shows only while cutting, so you can see where the plane passes, even
+  through empty space.
+- **Picking**: hits on the hidden side are ignored. Back faces are tested
+  too while cutting (materials set to double-sided just for the raycast),
+  so a click on a cut face picks that bone rather than whatever lies
+  behind it.
+
+Axes (glTF space): sagittal = x (+ = the body's left), coronal = z
+(+ = front), transverse = y (+ = up). Unflipped keeps the +side.
+
+### Layers button (`ui/layerButton.js`, `SkeletonViewer.computeLayers`)
+
+A pill button at the bottom centre of the 3D view (game and Explore;
+above the credits line in Explore). Each press hides the outermost layer
+still showing ("Remove a layer 4/5"): those bones become the pale ghost and
+can't be clicked or hovered, so the bones inside can. On the last layer it
+reads "Show all layers 1/5", and the next press brings everything back. A
+peeled bone with a state (the target, the answer, a pick) still draws in
+colour. Its state carries between rounds and resets per game. It's hidden
+when the bones in play form a single layer (Hand, Teeth, Ear ossicles), and
+pressing it during a result doesn't advance the round. (It was a slider at
+first; replaced at the user's request.)
+
+Layers are **measured, not listed**, for whatever is in play, so they fit
+every region and Explore:
+
+- `peelExposure(ids)`: renders the set from 14 directions (6 axes, 8
+  corners), orthographic, 256² px, as flat id colours, depth-peeled up to
+  8 surfaces deep (a shader drops fragments at or in front of the previous
+  pass's depth). Only front faces are drawn, so each bone counts once per
+  surface it shows to a ray. A bone's **exposure** is the share of its
+  pixels that are the first surface: visible from outside.
+- `computeLayers(ids)`: peels in rounds. Each round splits the remaining
+  bones at the natural break in their exposures (Otsu), and takes off the
+  outer group only if the inner group is genuinely hidden (mean exposure
+  < 0.45) and clearly apart (means ≥ 0.15 apart). Otherwise the rest is
+  one layer. Then **every layer must hold at least 4 different
+  structures** (left and right count once): a smaller layer merges into
+  the next layer inward, or outward if it's the innermost
+  (`mergeSmallLayers`). Cached per id set.
+
+Calibration (from printed per-round exposures):
+- No fixed threshold works: the skull's break is near 0.25, the trunk's
+  (ribs 0.53–0.68 vs vertebrae 0.28–0.49) near 0.5.
+- A median-layer measure (tried first) put the skull vault a layer too
+  deep, because the inside of the far wall is seen across the cavity.
+- Without the inner-group condition, the vertebral column peeled two
+  vertebrae at a time from its ends: inner groups at 0.50–0.52, already
+  easy to click.
+
+- Tiny layers: the user found the skull's last layer (the ethmoid alone)
+  pointless, because it's easy to click a step earlier. A check of every
+  region found the same pattern elsewhere: two cuneiforms at the end of the
+  foot, cuneiforms + navicular at the end of the lower limb, and incus /
+  malleus / one incisor as a layer of their own in Explore. A
+  "hidden from most directions" measure was tried and couldn't separate
+  them from layers that matter (vertebrae behind ribs: hidden from 32% of
+  directions; the lone ethmoid: 29%). Size did: every pointless layer had
+  1–3 structures, every useful one 4+ (hence the merge rule).
+
+Results (each layer's count of distinct structures):
+
+| Region | Layers |
+|---|---|
+| Skull | 2: vault, face, jaw, hyoid (9) → lacrimal, palatine, sphenoid, inferior concha, vomer, ethmoid (6) |
+| Head & neck (all) | 4: 16 → 10 → 6 → 4 |
+| Trunk (all) | 2: ribs, sternum, costal cartilages (+ sacrum, coccyx, atlas, axis, L5) (29) → vertebrae (22) |
+| Upper limb (all) | 2: 24 → carpals (8) |
+| Lower limb (all) | 2: 21 → 11 |
+| Foot | 2: 18 → 9 |
+| Whole skeleton | 6; Explore 5 |
+| Every other region | 1 (no button) |
+
+Computing takes about 0.1–0.4 s per region (0.9 s for the whole skeleton)
+in headless Firefox's software WebGL, less on a GPU. It runs 250 ms after
+the screen draws, so it never delays the first frame.
+
 ### Viewer (`viewer/SkeletonViewer.js`)
 
 - **Ids.** `GLTFLoader` sanitizes node names (`Femur.l` → `Femurl`), so
@@ -259,7 +491,7 @@ The UI deliberately copies GeoQuiz (its source is in `reference/geoquiz/`):
 its dark palette and button styles (`style.css` keeps GeoQuiz's class
 names where a rule exists in both), its screens and its wording.
 
-- **Home**: Games / Explore / Settings. Unlike GeoQuiz's wrapping row,
+- **Home**: Games / Explore / How to play / Settings. Unlike GeoQuiz's wrapping row,
   menu-screen options (home, wizard, Settings) are a single centred column
   of equal-width buttons, at the user's request.
 - **Wizard**: "What should we show you?" → "How do you want to answer?" →
@@ -291,9 +523,25 @@ names where a rule exists in both), its screens and its wording.
   then Play Again / Back / Home. The buttons ignore clicks for the first
   500 ms (`REPORT_GUARD_MS`). They sit where you just clicked to finish the
   last round, and a quick second click used to skip the report.
-- **Explore**: "Tap a bone", a Random button, ☰ (Reset view / Home), and
-  an info card over the top of the view (name, group, Latin, synonyms,
-  side). Random skips the ossicles (hidden inside the temporal bone).
+- **Explore**: opens straight into the 3D view with bones. Header: a label
+  ("Tap a bone" / "Tap an attachment" / "Tap a bone or attachment"), a
+  **Subjects** dropdown, Random, and ☰ (Reset view / Home). Subjects is a
+  list of checkboxes, one per subject, any mix on; it stays open while
+  toggling, and a click elsewhere closes it. A subject's data and model load
+  the first time it's turned on (its checkbox is disabled meanwhile). The
+  enabled subjects' meshes are clickable. With bones off but another
+  subject on, the bones are a solid backdrop; with nothing on, everything
+  ghosts and Random is disabled. Turning a subject off clears its
+  selection. The info card fits what was clicked (bone: name, group,
+  Latin, synonyms, side; attachment: name and role, Latin, bone, action,
+  side). Random picks from the enabled subjects (skipping the ossicles,
+  hidden inside the temporal bone). How a subject shows in Explore is a
+  small table in `ui/explore.js` (`EXPLORE`), so muscles and later
+  subjects add an entry there.
+- **How to play**: six short sections: the idea, starting a game,
+  answering, moving the skeleton (the actual OrbitControls gestures),
+  the bottom tools, and ☰ / Explore / Settings. It describes behaviour,
+  so update it when features change.
 - **Settings**: two sections, saved in localStorage
   (`anatomy-quiz-settings`). **Camera**: "Keep view between rounds"
   (default) or "Reset view every round", GeoQuiz's zoom setting for a
@@ -422,7 +670,7 @@ Attribution strings, as Z-Anatomy specifies:
 - **Scratch scripts**: `scratch-*.mjs` in the project root (gitignored),
   deleted in the same turn they're finished with.
 - **Generated data**: `public/data/*` and `data/*` are generated by
-  `npm run export-skeleton` / `npm run generate-data` from `reference/`.
+  `npm run export-models` / `npm run generate-data` from `reference/`.
   Never edit them by hand. Re-run both after changing either script.
 
 ## Deployment
