@@ -42,17 +42,32 @@ export function createLayerButton(viewer, ids) {
     update();
   });
 
-  const timer = setTimeout(() => {
-    const result = viewer.computeLayers(ids);
-    if (result.count < 2) return;
-    levels = result.levels;
-    total = result.count;
-    update();
-    el.hidden = false;
-  }, COMPUTE_DELAY_MS);
+  let timer = null;
+  const measure = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const result = viewer.computeLayers(ids);
+      if (result.count < 2) return;
+      levels = result.levels;
+      total = result.count;
+      update();
+      el.hidden = false;
+    }, COMPUTE_DELAY_MS);
+  };
+  measure();
 
   return {
     el,
+    /** Re-measures on other meshes (Explore's subjects changed): all layers shown. */
+    setIds(next) {
+      ids = next;
+      levels = null;
+      total = 0;
+      peeled = 0;
+      viewer.setPeel(null, 0);
+      el.hidden = true;
+      measure();
+    },
     dispose() {
       clearTimeout(timer);
     },

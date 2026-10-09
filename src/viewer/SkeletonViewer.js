@@ -23,14 +23,24 @@ const TISSUE_COLORS = {
 // the full-resolution bone, and the bones are decimated).
 const PATCH_COLOR = 0xe0a83a;
 
+// Muscles (public/data/muscles.glb): a muted brick red, darker than the
+// "wrong" state's pink-red, and their tendons a pale silver, apart from the
+// bones' warm ivory.
+const MUSCLE_COLORS = {
+  muscle: 0x9e4a42,
+  tendon: 0xc9cdc6,
+};
+
 // Plane cut (setCut): one clipping plane shared by every material. Cut
 // bones show a flat "cap" where they're open: a back-face copy of the mesh
 // in a darker shade of its colour. Caps are always drawn (behind the front
 // faces they cost a depth test, nothing more), so the inside of any bone
 // looks solid however you see it: through a cut, or with the camera inside.
 const CAP_SHADE = 0.72;
-// Plane caps draw after the bones (opaque, renderOrder 0), before the ghosts.
+// Plane caps draw after the bones (opaque, renderOrder 0), before the ghosts,
+// by kind in this order: where structures overlap, the first cap wins.
 const PLANE_CAP_ORDER = 1000;
+const CAP_PRIORITY = ["bone", "patch", "muscle"];
 // The cut's plane itself, drawn faintly so you can see where it is.
 const CUT_PLANE_COLOR = 0x4f8cff; // --accent
 const CUT_PLANE_OPACITY = 0.08;
@@ -173,14 +183,79 @@ const ASSIST_RADIUS = { mouse: 10, touch: 20, pen: 12 };
 const ASSIST_STEP = 3;
 const ASSIST_ANGLES = 12;
 
+/**
+ * Closes the seams between a structure's parts (a bone and its articular
+ * cartilage, a muscle and its tendon: one material each, so separate glTF
+ * primitives). Draco quantizes each primitive's positions on its own grid,
+ * so vertices shared across the seam come out up to ~25 µm apart: hairline
+ * cracks that break the closed-surface counting the cut caps rely on.
+ * Snaps each open-edge vertex of a later part onto the nearest open-edge
+ * vertex of an earlier one within WELD_DISTANCE.
+ */
+const WELD_DISTANCE = 0.00006;
+function weldSeams(list) {
+  const cell = WELD_DISTANCE;
+  const key = (x, y, z) => `${Math.floor(x / cell)},${Math.floor(y / cell)},${Math.floor(z / cell)}`;
+  const boundary = (geometry) => {
+    const index = geometry.index;
+    if (!index) return [];
+    const count = new Map();
+    for (let t = 0; t < index.count; t += 3)
+      for (let j = 0; j < 3; j++) {
+        const a = index.getX(t + j), b = index.getX(t + ((j + 1) % 3));
+        const k = a < b ? `${a}_${b}` : `${b}_${a}`;
+        count.set(k, (count.get(k) ?? 0) + 1);
+      }
+    const verts = new Set();
+    for (const [k, c] of count) if (c === 1) for (const v of k.split("_")) verts.add(Number(v));
+    return [...verts];
+  };
+  const grid = new Map(); // cell -> [[x, y, z]]
+  list.forEach((m, i) => {
+    const pos = m.geometry.attributes.position;
+    let moved = false;
+    for (const v of boundary(m.geometry)) {
+      const x = pos.getX(v), y = pos.getY(v), z = pos.getZ(v);
+      if (i > 0) {
+        let best = null, bestD = WELD_DISTANCE * WELD_DISTANCE;
+        const cx = Math.floor(x / cell), cy = Math.floor(y / cell), cz = Math.floor(z / cell);
+        for (let dx = -1; dx <= 1; dx++)
+          for (let dy = -1; dy <= 1; dy++)
+            for (let dz = -1; dz <= 1; dz++)
+              for (const p of grid.get(`${cx + dx},${cy + dy},${cz + dz}`) ?? []) {
+                const d = (p[0] - x) ** 2 + (p[1] - y) ** 2 + (p[2] - z) ** 2;
+                if (d < bestD) (bestD = d), (best = p);
+              }
+        if (best) {
+          pos.setXYZ(v, best[0], best[1], best[2]);
+          moved = true;
+          continue;
+        }
+      }
+      const k = key(x, y, z);
+      if (!grid.has(k)) grid.set(k, []);
+      grid.get(k).push([x, y, z]);
+    }
+    if (moved) {
+      pos.needsUpdate = true;
+      m.geometry.computeBoundingBox();
+      m.geometry.computeBoundingSphere();
+    }
+  });
+}
+
 export class SkeletonViewer {
   constructor(container, { modelUrl }) {
     this.container = container;
     this.modelUrl = modelUrl;
 
     this.meshes = new Map(); // mesh id -> [THREE.Mesh] (one per material primitive)
-    this.patchIds = []; // muscle-attachment mesh ids, once loadInsertions() ran
-    this.patchesShown = false;
+    // Models loaded on demand beside the skeleton, by kind: attachment
+    // patches and muscles. Each starts hidden (see showModel).
+    this.extras = {
+      patch: { ids: [], shown: false, ready: null },
+      muscle: { ids: [], shown: false, ready: null },
+    };
     this.playable = null; // Set of mesh ids, or null = everything
     // Mesh ids drawn solid but never clickable or hoverable: the bones under
     // muscle attachments. They still block clicks on what's behind them.
@@ -259,21 +334,49 @@ export class SkeletonViewer {
   }
 
   /**
-   * Loads the muscle-attachment patches (once; later calls return the same
-   * promise). They start hidden: see showPatches().
+   * Loads an extra model ("patch" or "muscle"; once, later calls return
+   * the same promise). It starts hidden: see showModel().
    */
-  loadInsertions(url) {
-    this.insertionsReady ??= this._loadModel(url, "patch").then((ids) => {
-      this.patchIds = ids;
-      this.showPatches(this.patchesShown);
+  loadModel(kind, url) {
+    const extra = this.extras[kind];
+    extra.ready ??= this._loadModel(url, kind).then((ids) => {
+      extra.ids = ids;
+      this._updateVisibility();
+      this._applyAll();
     });
-    return this.insertionsReady;
+    return extra.ready;
   }
 
-  /** Patches only exist on screen in attachments mode. */
-  showPatches(shown) {
-    this.patchesShown = shown;
+  /** An extra model is only on screen while its subject is in use. */
+  showModel(kind, shown) {
+    this.extras[kind].shown = shown;
     this._updateVisibility();
+  }
+
+  loadInsertions(url) {
+    return this.loadModel("patch", url);
+  }
+
+  showPatches(shown) {
+    this.showModel("patch", shown);
+  }
+
+  loadMuscles(url) {
+    return this.loadModel("muscle", url);
+  }
+
+  showMuscles(shown) {
+    this.showModel("muscle", shown);
+  }
+
+  /** Muscle-attachment patch mesh ids (empty until loaded). */
+  get patchIds() {
+    return this.extras.patch.ids;
+  }
+
+  /** Muscle mesh ids (empty until loaded). */
+  get muscleIds() {
+    return this.extras.muscle.ids;
   }
 
   /** Meshes not drawn at all: not clickable, no ghost, no cap. */
@@ -284,9 +387,9 @@ export class SkeletonViewer {
   }
 
   _updateVisibility() {
-    const patches = new Set(this.patchIds);
     for (const [id, list] of this.meshes) {
-      const shown = !this.hidden.has(id) && (this.patchesShown || !patches.has(id));
+      const kind = list[0].userData.kind;
+      const shown = !this.hidden.has(id) && (kind === "bone" || this.extras[kind].shown);
       for (const m of list) m.visible = shown;
     }
     if (this.clipPlanes) this._updatePlaneCaps();
@@ -325,8 +428,13 @@ export class SkeletonViewer {
     for (const [id, meshes] of nodes) {
       const list = [];
       for (const m of meshes) {
-        const tissue = m.material?.name in TISSUE_COLORS ? m.material.name : "bone";
-        const base = kind === "patch" ? PATCH_COLOR : TISSUE_COLORS[tissue];
+        const material = m.material?.name;
+        const base =
+          kind === "patch"
+            ? PATCH_COLOR
+            : kind === "muscle"
+              ? (MUSCLE_COLORS[material] ?? MUSCLE_COLORS.muscle)
+              : (TISSUE_COLORS[material] ?? TISSUE_COLORS.bone);
         m.material = new THREE.MeshStandardMaterial({
           color: base,
           roughness: 0.75,
@@ -356,6 +464,7 @@ export class SkeletonViewer {
         }
         list.push(m);
       }
+      if (list.length > 1) weldSeams(list);
       this.meshes.set(id, list);
     }
     this.scene.add(gltf.scene);
@@ -414,6 +523,13 @@ export class SkeletonViewer {
           opacity: CUT_PLANE_OPACITY,
           side: THREE.DoubleSide,
           depthWrite: false,
+          // Pushed a hair behind the plane: it lies exactly where the cut
+          // caps are, and at equal depth it z-fought with them into faint
+          // stripes across every cut face. Now the caps always win and the
+          // marker shows only where nothing is cut.
+          polygonOffset: true,
+          polygonOffsetFactor: 1,
+          polygonOffsetUnits: 4,
         }),
       );
       this.cutMarker.renderOrder = 5; // after the ghosts, before the x-ray
@@ -438,7 +554,8 @@ export class SkeletonViewer {
     this.peelDepth = 0;
     this.backdrop = new Set();
     this.hidden = new Set();
-    this.showPatches(false);
+    for (const extra of Object.values(this.extras)) extra.shown = false;
+    this._updateVisibility();
     this.pickHandler = null;
     this.hoverHandler = null;
     this.hoverGroup = null;
@@ -829,55 +946,77 @@ export class SkeletonViewer {
   }
 
   /**
-   * Caps the cut: for every solid mesh the plane crosses, a flat quad *on*
-   * the plane, drawn only where the plane passes through the mesh's inside
+   * Caps the cut: for every solid structure the plane crosses, a flat quad
+   * *on* the plane, drawn only where the plane passes through its inside
    * (stencil capping). So a cut face is solid even where another mesh lies
    * inside it: the costal cartilages' tips overlap into the sternum, and
    * with only back-face caps (the far inner wall) they showed through the
-   * sternum's cut face. Per mesh, in order (renderOrder), after the bones:
-   *   1. back faces +1, front faces −1 on the stencil (no colour, no depth
-   *      test, clipped), leaving it non-zero where the plane is inside;
-   *   2. the quad, where the stencil isn't 0, depth-tested, in the cap
-   *      colour, resetting the stencil to 0 for the next mesh.
-   * Only meshes whose box the plane crosses get the passes (a few dozen).
+   * sternum's cut face. Per structure, in order (renderOrder), after the
+   * bones:
+   *   1. the back faces of all its parts +1, front faces −1 on the stencil's
+   *      low 7 bits (no colour, no depth test, clipped), leaving them
+   *      non-zero where the plane is inside. All parts count together: a
+   *      muscle's tendon (or a bone's cartilage) is a separate part, open
+   *      where it meets the rest, so counted alone it would miscount.
+   *   2. the quad, where those bits aren't 0, depth-tested, in the cap
+   *      colour. It sets the top bit ("capped") and clears the count.
+   * Counting skips capped pixels, so where structures overlap (muscles
+   * interpenetrate each other and the bones) the first cap drawn keeps the
+   * pixel; separate quads at the same depth otherwise z-fought into
+   * stripes. Caps go in priority order: bones, then attachment patches,
+   * then muscles, each in model order, and cut picking prefers the same
+   * order (_pickAt), so a click picks what's shown.
+   * Only structures whose box the plane crosses get the passes.
    */
   _updatePlaneCaps() {
     const cutting = this.clipPlanes.length > 0;
     let order = 0;
-    for (const [id, list] of this.meshes) {
-      const solid = list[0].visible && !this._isMutedNow(id);
-      for (const m of list) {
-        let pc = m.userData.planeCap;
-        m.geometry.boundingBox ?? m.geometry.computeBoundingBox();
-        const needed = cutting && solid && this.cutPlane.intersectsBox(m.geometry.boundingBox);
+    this.capPriority = new Map();
+    for (const kind of CAP_PRIORITY) {
+      for (const [id, list] of this.meshes) {
+        if (list[0].userData.kind !== kind) continue;
+        const solid = list[0].visible && !this._isMutedNow(id);
+        let pc = list[0].userData.planeCap;
+        const box = this._geometryBox(list);
+        const needed = cutting && solid && this.cutPlane.intersectsBox(box);
         if (!needed) {
           if (pc) pc.visible = false;
           continue;
         }
-        pc ??= this._makePlaneCap(m);
+        pc ??= this._makePlaneCap(list);
         pc.visible = true;
-        const [back, front, quad] = pc.children;
-        back.renderOrder = front.renderOrder = PLANE_CAP_ORDER + 2 * order;
+        this.capPriority.set(id, order);
+        const quad = pc.userData.quad;
+        for (const c of pc.userData.counters) c.renderOrder = PLANE_CAP_ORDER + 2 * order;
         quad.renderOrder = PLANE_CAP_ORDER + 2 * order + 1;
         order++;
-        // The quad: on the plane, over the mesh's box, facing along the normal.
-        const box = m.geometry.boundingBox;
+        // The quad: on the plane, over the structure's box, facing along the normal.
         const c = box.getCenter(new THREE.Vector3());
         c.addScaledVector(this.cutPlane.normal, -this.cutPlane.distanceToPoint(c));
         quad.position.copy(c);
         quad.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), this.cutPlane.normal);
         const size = box.getSize(new THREE.Vector3()).length() * 1.2;
         quad.scale.set(size, size, 1);
-        quad.material.color.copy(m.material.color).multiplyScalar(CAP_SHADE);
+        quad.material.color.copy(list[0].material.color).multiplyScalar(CAP_SHADE);
       }
     }
     this.dirty = true;
   }
 
-  _makePlaneCap(m) {
-    const counter = (side, op) => {
+  /** Box of a structure's parts (geometry only; they're baked in world space). */
+  _geometryBox(list) {
+    const box = new THREE.Box3();
+    for (const m of list) {
+      m.geometry.boundingBox ?? m.geometry.computeBoundingBox();
+      box.union(m.geometry.boundingBox);
+    }
+    return box;
+  }
+
+  _makePlaneCap(list) {
+    const counter = (geometry, side, op) => {
       const x = new THREE.Mesh(
-        m.geometry,
+        geometry,
         new THREE.MeshBasicMaterial({
           side,
           colorWrite: false,
@@ -885,8 +1024,12 @@ export class SkeletonViewer {
           depthTest: false,
           clippingPlanes: this.clipPlanes,
           stencilWrite: true,
-          stencilFunc: THREE.AlwaysStencilFunc,
-          stencilFail: op,
+          // Only where no cap is drawn yet (top bit clear); count in the low bits.
+          stencilFunc: THREE.EqualStencilFunc,
+          stencilRef: 0,
+          stencilFuncMask: 0x80,
+          stencilWriteMask: 0x7f,
+          stencilFail: THREE.KeepStencilOp,
           stencilZFail: op,
           stencilZPass: op,
         }),
@@ -900,20 +1043,30 @@ export class SkeletonViewer {
       new THREE.MeshBasicMaterial({
         side: THREE.DoubleSide,
         stencilWrite: true,
-        stencilRef: 0,
+        // Where the count (low bits) isn't 0: ref & mask = 0, so NotEqual.
+        stencilRef: 0x80,
+        stencilFuncMask: 0x7f,
         stencilFunc: THREE.NotEqualStencilFunc,
+        stencilWriteMask: 0xff,
         stencilFail: THREE.KeepStencilOp,
-        stencilZFail: THREE.ReplaceStencilOp,
+        // Hidden behind something: just clear the count.
+        stencilZFail: THREE.ZeroStencilOp,
+        // Drawn: mark capped (0x80), count cleared.
         stencilZPass: THREE.ReplaceStencilOp,
       }),
     );
     quad.raycast = () => {};
+    const counters = list.flatMap((m) => [
+      counter(m.geometry, THREE.BackSide, THREE.IncrementWrapStencilOp),
+      counter(m.geometry, THREE.FrontSide, THREE.DecrementWrapStencilOp),
+    ]);
     const group = new THREE.Group();
-    group.add(counter(THREE.BackSide, THREE.IncrementWrapStencilOp), counter(THREE.FrontSide, THREE.DecrementWrapStencilOp), quad);
-    // A child of the mesh, so hiding the mesh (patches) hides its cap too;
-    // meshes are baked in world space, so local = world.
-    m.add(group);
-    m.userData.planeCap = group;
+    group.add(...counters, quad);
+    group.userData = { counters, quad };
+    // A child of the structure's first mesh, so hiding the structure hides
+    // its cap too; meshes are baked in world space, so local = world.
+    list[0].add(group);
+    list[0].userData.planeCap = group;
     return group;
   }
 
@@ -1045,11 +1198,15 @@ export class SkeletonViewer {
       // side. Pick that mesh, as the picture shows.
       const fromHidden = this.cutPlane.distanceToPoint(this.raycaster.ray.origin) < 0;
       if (fromHidden) {
+        // First kept hit per structure (any of its parts).
         const firstPerMesh = new Map();
         for (const h of kept) if (!firstPerMesh.has(h.object.userData.meshId)) firstPerMesh.set(h.object.userData.meshId, h);
-        const inside = [...firstPerMesh.values()].find(
-          (h) => h.face && h.face.normal.dot(this.raycaster.ray.direction) > 0,
-        );
+        // Inside several (overlapping structures): the one whose cap is
+        // drawn, i.e. first in cap priority.
+        const rank = (h) => this.capPriority?.get(h.object.userData.meshId) ?? Infinity;
+        const inside = [...firstPerMesh.values()]
+          .filter((h) => h.face && h.face.normal.dot(this.raycaster.ray.direction) > 0)
+          .sort((x, y) => rank(x) - rank(y))[0];
         if (inside) hit = inside;
       }
     }

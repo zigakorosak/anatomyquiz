@@ -1,8 +1,10 @@
 // Builds the quiz data:
 //   public/data/skeleton.json   — bones
 //   public/data/insertions.json — muscle attachments (origins and insertions)
+//   public/data/muscles.json    — muscles
 // from:
-//   data/skeleton-objects.json, data/insertions-objects.json — written by
+//   data/skeleton-objects.json, data/insertions-objects.json,
+//   data/muscles-objects.json — written by
 //     scripts/export-models.py (Blender)
 //   reference/…/Translations0.txt — Z-Anatomy's name table (English, Latin,
 //     French, Spanish, Portuguese, each followed by a %-separated synonyms column)
@@ -22,6 +24,8 @@ const TRANSLATIONS = join(
 const OUT = join(ROOT, "public", "data", "skeleton.json");
 const INSERTION_OBJECTS = join(ROOT, "data", "insertions-objects.json");
 const INSERTIONS_OUT = join(ROOT, "public", "data", "insertions.json");
+const MUSCLE_OBJECTS = join(ROOT, "data", "muscles-objects.json");
+const MUSCLES_OUT = join(ROOT, "public", "data", "muscles.json");
 
 // The one attachment muscle with no row in Translations0.txt; its standard
 // Terminologia Anatomica Latin name.
@@ -172,4 +176,84 @@ writeFileSync(INSERTIONS_OUT, JSON.stringify({ items: patches }) + "\n");
 console.log(
   `wrote ${INSERTIONS_OUT}: ${patches.length} patches, ` +
     `${new Set(patches.map((p) => p.name)).size} muscle attachments`,
+);
+
+// --- Muscles ---
+// One item per atlas muscle object: some muscles come as parts or heads
+// ("Acromial part of deltoid muscle"), each its own item; the muscle they
+// belong to is their nearest group ("Deltoid muscle").
+// The atlas's action materials, as shown on the info card. A few name the
+// muscle instead of an action, or are vague; those are dropped.
+const MUSCLE_ACTIONS = {
+  "Extension hand/foot": "Extension of hand/foot",
+  "Flexion hand/foot": "Flexion of hand/foot",
+  "Flexion fingers": "Flexion of fingers/toes",
+  "Extensor extremities": "Extension of fingers/toes",
+  "Internal rotator": "Internal rotation",
+  Abductor: "Abduction",
+  Adductor: "Adduction",
+  Depressor: "Depression",
+  Levator: "Elevation",
+  Masticator: "Mastication",
+  Ingestion: "Swallowing",
+  "Orbicularis/Constrictor": "Sphincter/constrictor",
+  Biarticular: "Biarticular (crosses two joints)",
+  Diaphragm: "Breathing",
+  Superficial: null,
+  Trapezius: null,
+};
+const muscleObjects = JSON.parse(readFileSync(MUSCLE_OBJECTS, "utf8"));
+const muscles = muscleObjects.map((o) => {
+  const { base, side } = splitSide(o.name);
+  const t = translations.get(base.toLowerCase());
+  const latin = LATIN_OVERRIDES[base] ?? t?.latin;
+  if (!latin) missing.push(base);
+  return {
+    id: o.name,
+    name: unbracket(base),
+    side,
+    latin: unbracket(latin ?? ""),
+    synonyms: t?.synonyms ?? [],
+    latinSynonyms: t?.latinSynonyms ?? [],
+    groups: o.groups.map(stripGroup).map(unbracket),
+    action: o.action in MUSCLE_ACTIONS ? MUSCLE_ACTIONS[o.action] : o.action,
+    bones: o.bones,
+    tissue: o.materials,
+  };
+});
+if (missing.length) {
+  console.error(`no translation for: ${[...new Set(missing)].join(", ")}`);
+  process.exit(1);
+}
+// Ids are shared by every model in one viewer: no muscle may reuse a
+// bone's or a patch's.
+const taken = new Set([...items.map((i) => i.id), ...patches.map((p) => p.id)]);
+const clashes = muscles.filter((m) => taken.has(m.id));
+if (clashes.length) {
+  console.error(`muscle ids clash with bones/patches: ${clashes.map((m) => m.id).join(", ")}`);
+  process.exit(1);
+}
+const strayBones = muscles.flatMap((m) => m.bones.filter((b) => !boneIds.has(b)).map((b) => `${m.id} → ${b}`));
+if (strayBones.length) {
+  console.error(`muscles on unknown bones: ${strayBones.join(", ")}`);
+  process.exit(1);
+}
+// Every sided muscle exists on both sides (export-models.py checks the
+// labels against geometry).
+const muscleSides = new Map();
+for (const m of muscles) {
+  if (!m.side) continue;
+  const n = muscleSides.get(m.name) ?? { left: 0, right: 0 };
+  n[m.side]++;
+  muscleSides.set(m.name, n);
+}
+const lopsidedMuscles = [...muscleSides].filter(([, n]) => n.left !== n.right);
+if (lopsidedMuscles.length) {
+  console.error(`muscles with unequal sides: ${lopsidedMuscles.map(([k, n]) => `${k} (L${n.left} R${n.right})`).join(", ")}`);
+  process.exit(1);
+}
+writeFileSync(MUSCLES_OUT, JSON.stringify({ items: muscles }) + "\n");
+console.log(
+  `wrote ${MUSCLES_OUT}: ${muscles.length} muscles, ${new Set(muscles.map((m) => m.name)).size} distinct, ` +
+    `${muscles.filter((m) => !m.side).length} unsided`,
 );

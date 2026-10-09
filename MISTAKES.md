@@ -138,6 +138,27 @@ next action is building observation tooling, not another fix.
   or filter the arguments first. This happened three times (Explore panel,
   feedback line, plane buttons). Grep for `replaceChildren(` with a
   conditional argument before calling a UI change done.
+- **Blender 5: `mesh.materials.clear()` resets every face to slot 0.**
+  Replace slots in place. This silently merged articular cartilage into
+  bone from the very first export; it only surfaced when the muscles'
+  tendons went missing. Check the GLB's primitives/materials against the
+  source's per-face material counts after any material change.
+- **Draco quantizes each glTF primitive on its own grid**, so a mesh split
+  by material into primitives gets ~25 µm cracks along the seams. Anything
+  that relies on a closed surface (stencil caps, inside tests) needs the
+  seams welded. A topology check that welds by exact position will report
+  the cracks as open edges and nonsense "inward pieces": that's the
+  signal, not a reason to panic about the meshes.
+- **Coplanar helpers z-fight.** A translucent marker exactly on the cut
+  plane striped every cap; separate per-structure cap quads striped where
+  structures overlap. Give helpers a polygon offset, and make one surface
+  claim a pixel (stencil bit) instead of letting equal depths fight.
+  A debug palette render (one flat colour per layer kind) tells at once
+  which layer is responsible.
+- **Test cameras: one direction isn't a reachability test.** "Can't click
+  the fourth metacarpal" was the test looking from the side through the
+  fifth. Try several directions (and layer depths) before calling
+  something unreachable.
 - **`Box3.expandByObject` includes children.** Helper meshes added as
   children (cap quads, x-ray copies) silently change a mesh's "size".
   Measure the geometry itself.

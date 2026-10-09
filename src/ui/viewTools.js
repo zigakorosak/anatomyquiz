@@ -93,6 +93,10 @@ export function createViewTools(viewer, { layerIds, cutIds }) {
 
   return {
     el,
+    /** The meshes the layers button measures and peels changed. */
+    setLayerIds(ids) {
+      layers.setIds(ids);
+    },
     dispose() {
       layers.dispose();
     },

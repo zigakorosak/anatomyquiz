@@ -10,8 +10,15 @@
 // Clickable, everything else Off.
 // - Bones card: name, group, Latin, synonyms, side.
 // - Muscle attachments card: muscle and role, Latin, bone, action, side.
+// - Muscles card: name, its muscle and group, Latin, synonyms, action, side.
 
-import { buildQuizItems, displayLatin, displayName, INSERTIONS_MODEL_URL } from "../core/dataset.js";
+import {
+  buildQuizItems,
+  displayLatin,
+  displayName,
+  INSERTIONS_MODEL_URL,
+  MUSCLES_MODEL_URL,
+} from "../core/dataset.js";
 import { subjects } from "../core/subjects.js";
 import { SkeletonViewer } from "../viewer/SkeletonViewer.js";
 import { getViewer } from "../viewer/shared.js";
@@ -21,6 +28,8 @@ import { createHamburgerMenu } from "./hamburgerMenu.js";
 import { createViewTools } from "./viewTools.js";
 
 const SIDE = { left: "Left", right: "Right" };
+// The viewer's "selected" state colour, for the x-ray copy of the selection.
+const SELECTED_COLOR = 0x4f8cff;
 
 // A subject's modes, in the order its button cycles through them.
 const MODES = [
@@ -46,12 +55,22 @@ const EXPLORE = {
   attachments: {
     noun: "attachment",
     meshIds: (viewer) => viewer.patchIds,
+    // Not peeled by the layers button: the patches float on their bones,
+    // and peeling them with the bones left some unreachable (see game.js).
+    peel: false,
     prepare: (viewer) => viewer.loadInsertions(INSERTIONS_MODEL_URL),
     randomPool: (items) => items,
     frame: (viewer, item) => {
       const view = viewer.faceOn(item);
       viewer.frame(view.ids, { direction: view.direction, minRadius: 0.06, padding: 1.8 });
     },
+  },
+  muscles: {
+    noun: "muscle",
+    meshIds: (viewer) => viewer.muscleIds,
+    prepare: (viewer) => viewer.loadMuscles(MUSCLES_MODEL_URL),
+    randomPool: (items) => items,
+    frame: (viewer, item) => viewer.frame(item.meshIds, { direction: "outward", minRadius: 0.1, padding: 1.8 }),
   },
 };
 
@@ -166,6 +185,7 @@ export function renderExplore(root, navigate) {
   function apply() {
     const meshes = (m) => ids(m).flatMap((id) => EXPLORE[id].meshIds(viewer));
     viewer.showPatches(loaded.has("attachments"));
+    viewer.showMuscles(loaded.has("muscles"));
     viewer.setHidden(meshes("off"));
     viewer.setBackdrop(meshes("visible"));
     viewer.setPlayable(meshes("clickable"));
@@ -175,6 +195,9 @@ export function renderExplore(root, navigate) {
       : "Nothing clickable";
     randomButton.disabled = !nouns.length;
     if (selected && mode[selected.subject] !== "clickable") select(null);
+    // Layers peel whatever is drawn solid (except the patches).
+    const peelable = (m) => ids(m).filter((id) => EXPLORE[id].peel !== false).flatMap((id) => EXPLORE[id].meshIds(viewer));
+    viewTools?.setLayerIds([...peelable("visible"), ...peelable("clickable")]);
   }
 
   function showInfo(item) {
@@ -198,13 +221,16 @@ export function renderExplore(root, navigate) {
       card.hidden = false;
       return;
     }
-    // The broadest named group under "Skeletal system" and the nearest
-    // one, e.g. "Bones of upper limb · Bones of free part of upper limb".
+    // The broadest named group under "Skeletal system" (or "Muscular
+    // system") and the nearest one, e.g. "Bones of upper limb · Bones of
+    // free part of upper limb", "Muscular system of upper limb · Deltoid
+    // muscle".
     const groups = item.groups.slice(0, -1);
     const sub = [...new Set([groups.at(-1), groups[0]])].filter(Boolean).join(" · ");
     const facts = [
       ["Latin", displayLatin(item)],
       ["Also", item.synonyms.join(", ")],
+      ["Action", item.subject === "muscles" ? item.action : null],
       ["Side", SIDE[item.side]],
     ].filter(([, v]) => v);
     // (replaceChildren would print a null as "null": MISTAKES.md.)
@@ -222,6 +248,10 @@ export function renderExplore(root, navigate) {
     if (selected) viewer.setState(selected.meshIds, null);
     selected = item;
     if (item) viewer.setState(item.meshIds, "selected");
+    // An x-ray copy shows it through whatever covers it: most muscles lie
+    // under others (Random often picks a deep one), and the ossicles sit
+    // inside the temporal bone.
+    viewer.setXray(item ? item.meshIds : [], SELECTED_COLOR);
     showInfo(item);
   }
 
@@ -253,11 +283,10 @@ export function renderExplore(root, navigate) {
     if (left) return;
     loading.remove();
     viewer.frame(null, { direction: SkeletonViewer.FRONT });
-    apply();
-    // Layers are measured on, and peel, the bones only; attachment patches
-    // stay solid and clickable (see game.js). The cut spans the skeleton.
+    // The cut spans the skeleton; the layers follow the subjects (apply()).
     viewTools = createViewTools(viewer, { layerIds: viewer.meshIds, cutIds: viewer.meshIds });
     stage.parentElement.append(viewTools.el);
+    apply();
     viewer.onPick((id) => select(id ? itemOf(id) : null));
     viewer.onHover((id) => {
       const item = id ? itemOf(id) : null;

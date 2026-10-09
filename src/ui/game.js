@@ -15,7 +15,13 @@
 
 import * as THREE from "three";
 import { attributes } from "../core/attributes.js";
-import { buildQuizItems, displayLatin, displayName, INSERTIONS_MODEL_URL } from "../core/dataset.js";
+import {
+  buildQuizItems,
+  displayLatin,
+  displayName,
+  INSERTIONS_MODEL_URL,
+  MUSCLES_MODEL_URL,
+} from "../core/dataset.js";
 import { QuizSession } from "../core/engine.js";
 import { gamePool } from "../core/pool.js";
 import { findRegion } from "../core/regions.js";
@@ -49,9 +55,9 @@ const seconds = (ms) => `${(ms / 1000).toFixed(1)}s`;
 export function renderGame(root, navigate, config, backState) {
   const question = attributes[config.question];
   const answer = attributes[config.answer];
-  const region = findRegion(config.region);
-  const clickAnswer = config.how === "click";
   const subject = subjectOf(config);
+  const region = findRegion(config.region, subject.regions);
+  const clickAnswer = config.how === "click";
   const { keepView, zoomToAnswer } = loadSettings();
 
   // The name the answer is given in, and the other language alongside it,
@@ -89,7 +95,7 @@ export function renderGame(root, navigate, config, backState) {
   );
 
   const stage = h("div.stage");
-  const loading = h("div.stage-loading", {}, "Loading skeleton…");
+  const loading = h("div.stage-loading", {}, `Loading ${subject.label.toLowerCase()}…`);
   const promptArea = h("div.prompt-area");
   const feedbackArea = h("div.feedback-area");
   const answerArea = h("div.answer-area");
@@ -300,7 +306,6 @@ export function renderGame(root, navigate, config, backState) {
     itemByMesh = new Map(pool.flatMap((i) => i.meshIds.map((m) => [m, i])));
     viewer = await getViewer(stage);
     if (left) return;
-    loading.remove();
     // The whole region is drawn solid and framed, even items the pool
     // leaves out (give-aways in English↔Latin modes: Humerus, Radius, Ulna
     // in Upper limb). Muting them made the chosen region look partly
@@ -316,6 +321,17 @@ export function renderGame(root, navigate, config, backState) {
       backdropIds = data.bones.filter((b) => region.test(b)).map((b) => b.id);
       viewer.setBackdrop(backdropIds);
     }
+    // Muscles: the muscles are what's asked; the bones the region's muscles
+    // lie on are a solid, unclickable backdrop (the rest ghost).
+    if (subject.id === "muscles") {
+      await viewer.loadMuscles(MUSCLES_MODEL_URL);
+      if (left) return;
+      viewer.showMuscles(true);
+      const regionMuscles = data.items.filter((m) => region.test(m));
+      backdropIds = [...new Set(regionMuscles.flatMap((m) => m.bones))];
+      viewer.setBackdrop(backdropIds);
+    }
+    loading.remove(); // after the subject's own model, not just the skeleton
     viewer.setPlayable(regionIds);
     viewer.frame(regionIds, { direction: SkeletonViewer.FRONT });
     // Attachments: the slider peels the backdrop bones only. The patches
@@ -323,8 +339,12 @@ export function renderGame(root, navigate, config, backState) {
     // (Peeling them with their bone left some unreachable: the rectus
     // capitis anterior origin sits under the occipital, behind the atlas,
     // which is a deeper layer than the occipital itself.)
+    // Muscles: layers run through muscles and bones together, so a deep
+    // muscle against or behind a bone (the intercostals, the diaphragm
+    // behind the ribs) can be reached.
     viewTools = createViewTools(viewer, {
-      layerIds: subject.id === "attachments" ? backdropIds : regionIds,
+      layerIds:
+        subject.id === "attachments" ? backdropIds : subject.id === "muscles" ? [...regionIds, ...backdropIds] : regionIds,
       cutIds: [...regionIds, ...backdropIds],
     });
     viewerArea.append(viewTools.el);
@@ -338,7 +358,7 @@ export function renderGame(root, navigate, config, backState) {
     startRound();
   })().catch((err) => {
     console.error(err);
-    loading.textContent = "Couldn't load the skeleton. Try reloading the page.";
+    loading.textContent = "Couldn't load the 3D model. Try reloading the page.";
   });
 
   return () => {

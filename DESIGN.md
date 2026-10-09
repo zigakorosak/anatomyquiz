@@ -74,9 +74,9 @@ public/data/
 ### Data pipeline
 
 ```
-reference/…/Startup.blend ──(npm run export-models)──▶ public/data/skeleton.glb, insertions.glb
-                                                     └─▶ data/skeleton-objects.json
-data/skeleton-objects.json + Translations0.txt ──(npm run generate-data)──▶ public/data/skeleton.json
+reference/…/Startup.blend ──(npm run export-models)──▶ public/data/skeleton.glb, insertions.glb, muscles.glb
+                                                     └─▶ data/{skeleton,insertions,muscles}-objects.json
+data/*-objects.json + Translations0.txt ──(npm run generate-data)──▶ public/data/{skeleton,insertions,muscles}.json
 ```
 
 Both outputs are committed. The deploy workflow only runs `vite build`;
@@ -90,9 +90,10 @@ names are consistent (`Femur.l`/`Femur.r`) and objects hang under a tree
 of `.g` group empties (`Bones of cranium.g`, `True ribs.g`, …) that
 `generate-data` turns into each item's `groups` chain.
 
-**`export-models.py`** exports both models in one Blender run (loading
-the atlas takes ~1.5 min; the whole run ~6.5 min, mostly decimating the
-705 patches). For the skeleton it takes every mesh in the "1: Skeletal system"
+**`export-models.py`** exports all three models in one Blender run
+(loading the atlas takes ~1.5 min; the whole run ~8 min).
+`EXPORT_ONLY=muscles` (or `skeleton`, `insertions`) writes just one; the
+skeleton is always baked, since the muscles need it. For the skeleton it takes every mesh in the "1: Skeletal system"
 collection, except:
 
 - the `.g` group placeholders,
@@ -106,8 +107,16 @@ six Booleans), bakes world transforms, maps the atlas's many materials
 (`Bone-1`…`Bone-8`, `Cartilage`, `Teeth`, `Teeth-roots`) to three named
 materials (`bone`, `cartilage`, `tooth`), and decimates to 25% of its
 triangles (floor of 400 so phalanges and ossicles keep their shape):
-700k → 205k triangles. Glb export uses Draco (level 7): **0.89 MB**.
+700k → 205k triangles. Glb export uses Draco (level 7): **1.18 MB**.
 Tunable with `DECIMATE_RATIO` / `MIN_TRIS` env vars.
+
+Materials are replaced slot by slot (`replace_materials`). The first
+version cleared the slots and appended new ones, and in Blender 5
+`materials.clear()` resets every face to slot 0: for months every bone's
+articular cartilage (232 bones) was exported as bone, and the muscles'
+tendons as muscle. Found by comparing the GLB's primitives with the
+atlas's per-face material counts. Each part becomes its own glTF
+primitive; the viewer welds the seams between them (see Viewer).
 
 Two traps:
 
@@ -195,12 +204,63 @@ brackets. 166 of 167 muscles have a translation; the last ("Long head of
 biceps femoris") has its Terminologia Anatomica Latin as an override. The
 script fails if a patch's host isn't a known bone (none aren't).
 
+**Muscles** come from "4: Muscular system": 670 meshes, of which 464 are
+muscles. An object is a muscle when its first material is one of the
+atlas's action materials (Flexion, Abductor, …); the rest are bursae,
+fasciae, retinacula, tendon sheaths, standalone tendons, ligaments and the
+tarsal plates, left out. Some muscles come in parts or heads ("Acromial
+part of deltoid muscle"); each is its own item, as in the atlas, and the
+muscle they belong to is their nearest group. The exporter:
+
+- skips Subdivision Surface (as for the patches) and decimates like the
+  bones (15%, floor 300): 1.89M → 317k triangles, **1.77 MB**;
+- exports materials `muscle` and `tendon` (229 muscles have tendon faces);
+- checks sides against the geometry (MISTAKES.md: don't trust labels
+  that geometry can check): none disagree, and the export fails if one
+  ever does. The one unsided muscle off the midline with a twin,
+  "Iliocostalis colli muscle", is the left one and is relabelled;
+- records the bones each muscle lies on (`bones`: bones with ≥ 3% of its
+  sampled vertices within 6 mm, from a BVH over the baked skeleton), for
+  the game's backdrop. 5 big sheets (diaphragm, external obliques,
+  external anal sphincter) touch bone only at their edges and list none;
+- seals with extra cleanup (`seal(clean=True)`), found by a topology check
+  of the exported meshes (open edges, edges shared by > 2 faces, pieces,
+  signed volume per piece): 1–2 triangle specks left by decimation (32
+  muscles), duplicated faces (longus colli: hundreds of edges shared by
+  four faces), and single pieces facing inward (flexor digitorum
+  profundus, one of multifidus thoracis's 21 bundles), all of which break
+  the stencil caps. So: weld coincident vertices, drop duplicate faces and
+  pieces under 4 triangles, then after filling and recalculating, turn
+  every inward piece outward and delete slivers under 0.05 mm. Bones and
+  patches showed none of these in the same check and keep the plain
+  `seal()`. Left: 10 muscles with a few open edges and 20 with 1–15
+  non-manifold edges (intercostals, levatores costarum…), which hole
+  filling can't close; the cap sweep shows no effect from them.
+
+`generate-data.mjs` writes `muscles.json` (`id`, `name`, `side`,
+`latin`, synonyms, `groups`, `action`, `bones`, `tissue`). All 233
+distinct names have a translation ("Long head of biceps femoris" uses the
+existing override); 27 have identical English and Latin, which the
+give-away filter already handles. Actions are reworded for the card
+("Flexion fingers" → "Flexion of fingers/toes"); the few that name the
+muscle rather than an action ("Trapezius", "Superficial") are dropped.
+The script fails on a missing translation, a muscle id that clashes with
+a bone or patch id, an unknown bone, or unequal left/right counts.
+
 ### Subjects (`core/subjects.js`)
 
 GeoQuiz's subject registry. Games start with "Choose a subject"; in
 Explore, each subject has a mode (see Interface → Explore):
 
 - **Bones**: as described throughout.
+- **Muscles**: one item per muscle or muscle part, asked like bones
+  (name, Latin, location; "Location on the body" in the wizard). Their
+  own region tree (`muscleRegions`): Whole body; Head & neck (Head,
+  Neck); Trunk (Back, Thorax, Abdomen & pelvis); Upper limb (Shoulder &
+  arm, Forearm & hand); Lower limb (Hip & thigh, Leg & foot), from the
+  atlas's muscle groups. Every muscle is in exactly one leaf. In a game,
+  the bones the region's muscles lie on are a solid backdrop, and the
+  layers run through muscles and bones together.
 - **Muscle attachments**: one item per muscle and role ("Diaphragm —
   origin", all its parts). Question: its name or Latin name. Answer: click
   it (the only answer kind, so the wizard skips the answer step). A region
@@ -327,37 +387,52 @@ In the viewer (`setCut`):
   plane-count change by itself.
 - **Caps**, two kinds:
   - **Plane caps** (`_updatePlaneCaps`, stencil capping) make cut faces
-    solid. For every solid mesh the plane crosses (typically a few dozen),
-    in render order after the bones: its back faces +1 and front faces −1
-    on the stencil (clipped, no colour, no depth test). That leaves the
-    stencil non-zero exactly where the plane passes through the mesh's
-    inside. Then a quad on the plane, in a darker shade (0.72) of the
-    mesh's current colour, draws there, depth-tested, and resets the
-    stencil for the next mesh. The cap sits *on* the plane, so it covers
-    anything inside the bone. Back-face caps alone (the bone's far inner
-    wall, the first version) let the costal cartilages' tips, which overlap
-    into the sternum, show through its cut face, and get clicked through it
-    (user report). A per-pixel depth push (gl_FragDepth to the plane) was
-    tried next and dropped: a fragment can't tell whether its ray crossed
-    the plane inside the mesh, so every bone beyond the plane flattened
-    into a silhouette.
+    solid. Per *structure* (all its parts together: a bone and its
+    cartilage, a muscle and its tendon) the plane crosses, in render order
+    after the opaque meshes:
+    1. its back faces +1 and front faces −1 on the stencil's low 7 bits
+       (clipped, no colour, no depth test), skipping pixels already
+       capped. That leaves the count non-zero exactly where the plane
+       passes through the structure's inside.
+    2. a quad on the plane, in a darker shade (0.72) of its colour, where
+       the count isn't 0, depth-tested. It sets the top bit ("capped") and
+       clears the count.
+
+    Why each piece:
+    - On the plane, not the far inner wall: back-face caps alone let the
+      costal cartilages' tips, which overlap into the sternum, show
+      through its cut face and get clicked through it (user report). A
+      per-pixel depth push (gl_FragDepth) was tried and dropped: every
+      bone beyond the plane flattened into a silhouette.
+    - Per structure: a part alone is open where it meets the other part,
+      so counting it alone would miscount.
+    - The "capped" bit: muscles interpenetrate each other and the bones,
+      and separate quads at the same depth z-fought into stripes. Now the
+      first cap drawn keeps the pixel. The order is bones, then
+      attachment patches, then muscles (`CAP_PRIORITY`).
   - **Back-face caps**: every solid mesh also always draws its inside (back
     faces) in that shade, so a bone never looks hollow with the camera
-    inside or right against it (user report: the left clavicle). Render
-    time unchanged.
+    inside or right against it (user report: the left clavicle).
 
-  Picking matches: where the ray is inside a mesh at the plane (its first
-  hit on that mesh past the plane is a back face, from the hidden side),
-  that mesh is picked. Verified:
+  Picking matches: where the ray is inside structures at the plane (its
+  first hit on one past the plane is a back face, from the hidden side),
+  the one first in cap priority is picked, which is the one drawn.
+  Verified (Firefox, all models loaded):
   - Over the sternum body's cut face, all 295 sampled points pick the
     sternum (before: 78 picked a costal cartilage, 9 the manubrium).
-  - Every one of the 997 meshes, in play, cut through its centre on all 3
-    planes: see-through only at real openings (vertebral canal, sacral
-    and sphenoid foramina, maxillary sinus, gaps between parts of one
-    mesh) and 3 ring-shaped patch sections, which read 0 px with their
-    bone shown.
-  - A sagittal cut caps 45 meshes; render time 3.7 → 5.8 ms per frame
-    (software WebGL).
+  - Whole body, bones and muscles, 6 cuts: at 1,215 points on the cut
+    face, the pick is exactly the structure whose cap is drawn there
+    (containment by ray parity), except 1 point on the midline seam where
+    the two latissimus dorsi touch.
+  - Every bone, patch and muscle, in play, cut through its centre on all
+    3 planes: see-through only at real openings (vertebral canal,
+    foramina, maxillary sinus), 3 ring-shaped patch sections (0 px with
+    their bone shown), and 14 muscles whose sections are really
+    ring-shaped or split (intercostals between ribs, muscle slips, a fold
+    in brachialis).
+  - Render time (software WebGL): 3.7 ms per frame for the skeleton,
+    6.5 ms with all muscles; a full-body transverse cut caps 87 structures
+    and takes 17 ms.
 
   The exporter's `seal()` (holes filled, normals outward) keeps both kinds
   of cap valid.
@@ -368,7 +443,9 @@ In the viewer (`setCut`):
   sides) on the cut plane, spanning the region's extent in the other two
   axes (+10%). It's not clipped, not clickable, doesn't write depth, and
   shows only while cutting, so you can see where the plane passes, even
-  through empty space.
+  through empty space. It's drawn with a small polygon offset behind the
+  plane: at exactly the caps' depth it z-fought with them into faint
+  stripes across every cut face (found with a debug palette render).
 - **Picking**: hits on the hidden side are ignored. Back faces are tested
   too while cutting (materials set to double-sided just for the raycast),
   so a click on a cut face picks that bone rather than whatever lies
@@ -446,6 +523,20 @@ the screen draws, so it never delays the first frame.
 
 ### Viewer (`viewer/SkeletonViewer.js`)
 
+- **Models.** The skeleton loads first; attachment patches and muscles
+  are extra models (`loadModel(kind, url)`, once, then
+  `showModel(kind, shown)`; `loadInsertions`/`loadMuscles` and
+  `patchIds`/`muscleIds` wrap them). Colours: bone ivory, cartilage pale
+  blue, tooth white, patches amber, muscle brick red (0x9e4a42, darker
+  than the "wrong" pink-red), tendon silver. `setHidden(ids)` hides
+  meshes entirely (Explore's Off).
+- **Seams.** A structure with several parts (material = part) is several
+  glTF primitives, and Draco quantizes each on its own grid, so the
+  vertices on the seam come out up to ~25 µm apart. `weldSeams` snaps
+  each later part's open-edge vertices onto the nearest earlier one
+  within 60 µm at load (~0.1 s for all muscles). Before it, the topology
+  check counted open seams in 235 bones and 239 muscles; after, exactly
+  the single-part numbers.
 - **Ids.** `GLTFLoader` sanitizes node names (`Femur.l` → `Femurl`), so
   the viewer recovers the original names through
   `parser.associations` → `parser.json.nodes[i].name`. A node with
@@ -523,7 +614,12 @@ names where a rule exists in both), its screens and its wording.
   then Play Again / Back / Home. The buttons ignore clicks for the first
   500 ms (`REPORT_GUARD_MS`). They sit where you just clicked to finish the
   last round, and a quick second click used to skip the report.
-- **Explore**: opens straight into the 3D view with bones. Header: a label
+- **Explore**: opens straight into the 3D view with bones. Muscles are a
+  third subject (card: name, muscle and group, Latin, synonyms, action,
+  side). A selection also gets an x-ray copy in the selection blue, since
+  Random often picks a deep muscle. The layers button follows the
+  subjects: it re-measures on whatever is drawn solid (Visible or
+  Clickable), except attachment patches. Header: a label
   ("Tap a bone" / "Tap an attachment" / "Tap a bone or attachment"), a
   **Subjects** button, Random, and ☰ (Reset view / Home). Subjects opens a
   popup in the middle of the screen: one row per subject, each with a
@@ -599,7 +695,9 @@ typo tolerance, because one character is often the whole answer
 
 ## Current scope (v1)
 
-- Skeleton only: 269 meshes, or 154 items with sides merged.
+- Three subjects: bones (269 meshes, 154 items with sides merged),
+  muscle attachments (728 patches, 235 items) and muscles (464 meshes,
+  233 items).
 - Home → Games (wizard), Explore (hover for names; click or Random for
   the info card), or Settings.
 - Six question/answer modes. Typed or multiple choice (2–6) for names,
@@ -608,9 +706,8 @@ typo tolerance, because one character is often the whole answer
 
 ## Possible next steps
 
-- More systems from the same atlas (muscles are the obvious next one, but
-  at 2M polygons they'll need harder decimation and layer controls, since
-  muscles cover bones).
+- More systems from the same atlas (ligaments and joints, nerves,
+  vessels), the same way the muscles were added.
 - A `group` attribute ("Which group is this bone in?") from `groups`.
 - Descriptions from `Definitions/*.txt` in Explore.
 - Other languages (French, Spanish and Portuguese are already in

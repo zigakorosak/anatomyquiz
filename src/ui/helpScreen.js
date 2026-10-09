@@ -14,7 +14,7 @@ const SECTIONS = [
   [
     "Starting a game",
     [
-      "Games → choose a subject: Bones, or Muscle attachments (where muscles start and end on the skeleton).",
+      "Games → choose a subject: Bones, Muscle attachments (where muscles start and end on the skeleton), or Muscles.",
       "Then choose what you're shown and how you answer: click it on the skeleton, type the name (it autocompletes), or pick from 2–6 options.",
       "Then choose a region (each shows how many questions it has) and whether left and right count separately.",
     ],
@@ -47,7 +47,7 @@ const SECTIONS = [
     "Elsewhere",
     [
       "☰ during a game: Restart, Back (to your last choice, with everything else kept), or Home.",
-      "Explore: no questions. Subjects sets how each subject shows, pressing its button to cycle: Off, Outline (see-through), Visible, or Clickable. Hover for names, click (or press Random) for details, including the Latin name and, for muscle attachments, the bone and the muscle's action.",
+      "Explore: no questions. Subjects sets how each subject shows, pressing its button to cycle: Off, Outline (see-through), Visible, or Clickable. Hover for names, click (or press Random) for details, including the Latin name and, for muscles and attachments, the muscle's action (and an attachment's bone).",
       "Settings: keep your camera view between rounds or reset it, and choose whether the camera moves to the answer after each question.",
     ],
   ],

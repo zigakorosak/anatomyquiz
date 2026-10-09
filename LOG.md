@@ -2,6 +2,64 @@
 
 Newest first. What changed and why.
 
+## 2026-10-09: Muscles, and the checks that came with them
+
+User request: add muscles, run every check (caps in cut mode and so on),
+and use MISTAKES.md from bones and attachments to look for similar issues.
+
+Added:
+- **Export**: 464 muscles from "4: Muscular system" (bursae, fasciae,
+  sheaths, retinacula, standalone tendons left out), Subdivision skipped,
+  decimated to 317k triangles, `muscles.glb` 1.77 MB, with tendon parts.
+  Sides checked against geometry (0 disagree; the export fails if one
+  ever does); "Iliocostalis colli muscle" (unsided) relabelled left.
+  Bones each muscle lies on, for the game's backdrop.
+- **Data**: `muscles.json`, all names translated, the same failure checks
+  as the attachments plus id clashes.
+- **Subject** "Muscles" in Games (name / Latin / location, their own
+  region tree from the atlas's muscle groups, "Location on the body") and
+  in Explore (card with action; selection x-ray; layers follow the shown
+  subjects).
+
+Found and fixed along the way, each by measuring:
+- **Tendons and articular cartilage were never exported** as their own
+  material: `materials.clear()` in Blender 5 resets every face to slot
+  0. Since the first bone export, 232 bones' joint cartilage was drawn
+  as bone. Now replaced slot by slot: cartilage shows pale blue, tendons
+  silver. Skeleton 0.89 → 1.18 MB.
+- **Cracks between a structure's parts**: Draco quantizes each part
+  separately, leaving ~25 µm seams that break cap counting. The viewer
+  welds them at load (topology check back to the single-part numbers).
+- **Muscle mesh defects** (topology check: open edges, non-manifold
+  edges, pieces, volume per piece): specks, duplicated faces (longus
+  colli), inside-out pieces. `seal(clean=True)` for muscles. Bones and
+  patches had none of these.
+- **Caps**: counting now per structure (all parts together), and where
+  structures overlap the first cap drawn claims the pixel (bones, then
+  patches, then muscles), with picking in the same order. Overlapping
+  muscle caps had z-fought.
+- **Stripes on every cut face**: the faint plane marker sat at exactly
+  the caps' depth. Pushed a hair behind with a polygon offset. Bones had
+  this too; seen only once a debug-palette render hid the marker.
+
+Verified in Firefox:
+- **Caps**: every bone, patch and muscle cut on 3 planes. See-through only
+  at real openings and real ring-shaped sections. Whole body, bones +
+  muscles, 6 cuts: 1,214 of 1,215 cut-face points pick exactly the drawn
+  structure (the other sits on the midline seam between the two latissimus
+  dorsi).
+- **Reachability**: in its own region game (backdrop bones, layers), each
+  of the 464 muscles is clickable: 138 at once, 322 after one layer, 4
+  after two.
+- **Games**: click (right and wrong), a typed answer on a highlighted deep
+  muscle, multiple choice, and the report. The Latin game drops the 27
+  identical-name pairs.
+- **Explore**: mode switching (no stuck white ghosts), one ghost layer (alpha
+  p95 = median), hover names, the popup at 360 px.
+- **Controls**: bones and attachments games unchanged.
+- **Render time**: 6.5 ms with all muscles; 17 ms for a full-body cut capping
+  87 structures (software WebGL).
+
 ## 2026-10-09: Explore subjects popup with four modes
 
 User request: Subjects opens a popup in the middle of the screen, and the

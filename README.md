@@ -22,6 +22,11 @@ what's shown and what you have to answer, and play through rounds.
   — insertion" (or its Latin), click where it attaches: 235 origins and
   insertions of 167 muscles, on a solid skeleton. Explore them too: the
   card gives the bone and the muscle's action.
+- **Muscles**: a third subject. 464 muscles and muscle parts with their
+  tendons, quizzed like bones (name, Latin, or click it), with their own
+  regions (head, neck, back, thorax, abdomen & pelvis, arm, forearm &
+  hand, thigh, leg & foot). The layers button peels superficial muscles
+  to reach deep ones.
 - **Plane cut**: "Cut" at the bottom, then pick a sagittal, coronal or
   transverse plane (press it again to hide the other side) and slide it
   through the body. Everything on one side disappears, and cut bones show
@@ -32,10 +37,10 @@ what's shown and what you have to answer, and play through rounds.
   everything again.
 - **How to play**: a home-screen page explaining the game.
 - **Explore** mode: straight into the 3D view. A Subjects popup sets each
-  subject (bones, muscle attachments) to Off, Outline, Visible or
+  subject (bones, muscle attachments, muscles) to Off, Outline, Visible or
   Clickable; hover for names, click (or
   Random) for an info card with the Latin name, synonyms and group, or
-  the bone and action of an attachment.
+  the bone and action of an attachment, or a muscle's action.
 - Same look and feel as GeoQuiz: dark theme, wizard of choice screens,
   "Round / Score / timer" header with a ☰ menu, a Settings screen.
 
@@ -64,8 +69,8 @@ The model and item data are generated from the Z-Anatomy atlas in
 `reference/` (local only), not hand-maintained:
 
 ```bash
-npm run export-models     # Blender (headless): skeleton.glb + insertions.glb and their data/*-objects.json (~6.5 min)
-npm run generate-data     # Node: skeleton.json and insertions.json (names, Latin, synonyms, groups, attachments)
+npm run export-models     # Blender (headless): skeleton.glb, insertions.glb, muscles.glb and their data/*-objects.json (~8 min)
+npm run generate-data     # Node: skeleton.json, insertions.json, muscles.json (names, Latin, synonyms, groups, …)
 ```
 
 Needs Blender 5.x on the PATH and `reference/Z-Anatomy_Template/Z-Anatomy/Startup.blend`

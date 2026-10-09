@@ -14,7 +14,7 @@
 import { attributes, answerKindLabels, answerOptionsFor } from "../core/attributes.js";
 import { gamePool } from "../core/pool.js";
 import { subjectOf, subjects } from "../core/subjects.js";
-import { findRegion, regions } from "../core/regions.js";
+import { findRegion } from "../core/regions.js";
 import { choiceScreen, withCount } from "./screenKit.js";
 import { h } from "./dom.js";
 
@@ -53,6 +53,8 @@ export function renderWizard(root, navigate, resume = null) {
     }
     return { name: "how" };
   };
+  // An attribute's label for this subject: muscles aren't "on the skeleton".
+  const labelOf = (id) => subjectOf(config).labels?.[id] ?? attributes[id].label;
   const answersFor = () =>
     answerOptionsFor(config.question).filter((a) => subjectOf(config).answers.includes(a.id));
 
@@ -77,7 +79,7 @@ export function renderWizard(root, navigate, resume = null) {
       screen({
         title: "What should we show you?",
         options: subjectOf(config).questions.map((id) => ({
-          label: attributes[id].label,
+          label: labelOf(id),
           onSelect: () => {
             config.question = id;
             const options = answersFor();
@@ -94,7 +96,7 @@ export function renderWizard(root, navigate, resume = null) {
       screen({
         title: "How do you want to answer?",
         options: answersFor().map((a) => ({
-          label: a.label,
+          label: labelOf(a.id),
           onSelect: () => go(chooseAnswer(a)),
         })),
       });
@@ -103,7 +105,7 @@ export function renderWizard(root, navigate, resume = null) {
     how() {
       const answer = attributes[config.answer];
       screen({
-        title: `How do you want to answer with the ${answer.label.toLowerCase()}?`,
+        title: `How do you want to answer with the ${labelOf(answer.id).toLowerCase()}?`,
         options: answer.answerKinds.map((k) => ({
           label: answerKindLabels[k],
           onSelect: () => {
@@ -130,7 +132,7 @@ export function renderWizard(root, navigate, resume = null) {
     region() {
       screen({
         title: "Choose a region",
-        options: regions.map((r) => {
+        options: subjectOf(config).regions.map((r) => {
           const n = count(r);
           // A parent's own count leaves out standalone children (the
           // ossicles), but its sub-screen offers them, so it stays enabled
@@ -152,7 +154,7 @@ export function renderWizard(root, navigate, resume = null) {
     },
 
     subregion({ parent: parentId }) {
-      const parent = findRegion(parentId);
+      const parent = findRegion(parentId, subjectOf(config).regions);
       const option = (r, label) => {
         const n = count(r);
         return {
@@ -172,7 +174,7 @@ export function renderWizard(root, navigate, resume = null) {
     },
 
     sides() {
-      const region = findRegion(config.region);
+      const region = findRegion(config.region, subjectOf(config).regions);
       const option = (sides, label, desc) => {
         const n = count(region, sides);
         return {

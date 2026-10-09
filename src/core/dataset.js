@@ -7,6 +7,7 @@ const BASE = import.meta.env?.BASE_URL ?? "/";
 
 export const MODEL_URL = `${BASE}data/skeleton.glb`;
 export const INSERTIONS_MODEL_URL = `${BASE}data/insertions.glb`;
+export const MUSCLES_MODEL_URL = `${BASE}data/muscles.glb`;
 
 const fetchJson = (file) =>
   fetch(`${BASE}data/${file}`).then((r) => {
@@ -16,6 +17,7 @@ const fetchJson = (file) =>
 
 let cache = null;
 let insertionsCache = null;
+let musclesCache = null;
 
 export function loadSkeletonData() {
   cache ??= fetchJson("skeleton.json");
@@ -38,6 +40,19 @@ export function loadInsertionData() {
     },
   );
   return insertionsCache;
+}
+
+/**
+ * Muscles (public/data/muscles.json). Also returns the bones, which the
+ * muscles screens draw as a backdrop (each muscle lists the bones it lies
+ * on: `bones`).
+ */
+export function loadMuscleData() {
+  musclesCache ??= Promise.all([fetchJson("muscles.json"), loadSkeletonData()]).then(([muscles, skeleton]) => ({
+    items: muscles.items,
+    bones: skeleton.items,
+  }));
+  return musclesCache;
 }
 
 /**

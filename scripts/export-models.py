@@ -1,5 +1,6 @@
-"""Export the skeleton and the muscle attachments from the Z-Anatomy atlas
-as web-ready GLBs, in one Blender run (loading the atlas takes ~1.5 min).
+"""Export the skeleton, the muscle attachments and the muscles from the
+Z-Anatomy atlas as web-ready GLBs, in one Blender run (loading the atlas
+takes ~1.5 min).
 
 Run headless via `npm run export-models` (see package.json), i.e.:
 
@@ -15,6 +16,10 @@ Writes:
                                     ("Biceps brachii muscle.er"), named the same
   data/insertions-objects.json    — per-patch host bone, action and triangle
                                     counts
+  public/data/muscles.glb         — one node per muscle ("Deltoid muscle.l"),
+                                    materials "muscle" and "tendon"
+  data/muscles-objects.json       — per-muscle group chain, action, the bones
+                                    it lies on, side and triangle counts
 
 The JSON files are the input to scripts/generate-data.mjs. See DESIGN.md
 "Data pipeline".
@@ -27,6 +32,7 @@ import sys
 import bmesh
 import bpy
 from mathutils import Matrix
+from mathutils.bvhtree import BVHTree
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKELETON_COLLECTION = "1: Skeletal system"
@@ -35,6 +41,24 @@ SKELETON_GLB = os.path.join(ROOT, "public", "data", "skeleton.glb")
 SKELETON_JSON = os.path.join(ROOT, "data", "skeleton-objects.json")
 INSERTIONS_GLB = os.path.join(ROOT, "public", "data", "insertions.glb")
 INSERTIONS_JSON = os.path.join(ROOT, "data", "insertions-objects.json")
+MUSCLES_COLLECTION = "4: Muscular system"
+MUSCLES_GLB = os.path.join(ROOT, "public", "data", "muscles.glb")
+MUSCLES_JSON = os.path.join(ROOT, "data", "muscles-objects.json")
+
+# Muscles: 2.3M triangles with modifiers. Subdivision Surface is skipped
+# (as for the patches; the base meshes are already smooth), then each
+# muscle is decimated like the bones.
+MUSCLE_DECIMATE_RATIO = float(os.environ.get("MUSCLE_DECIMATE_RATIO", "0.15"))
+MUSCLE_MIN_TRIS = 300
+# The muscular system collection also holds bursae, fasciae, retinacula,
+# tendon sheaths, standalone tendons, ligaments and the tarsal plates. A
+# muscle is an object whose first material is one of the atlas's action
+# materials (Flexion, Abductor, …); these first materials aren't.
+NOT_MUSCLE_MATERIALS = {"Tendon", "Bursa", "Fascia", "Ligament", "Articular capsule", "Cartilage", "Text"}
+# A muscle "lies on" a bone when this share of its sampled vertices are
+# within MUSCLE_BONE_REACH of that bone (for the game's backdrop bones).
+MUSCLE_BONE_REACH = 0.006
+MUSCLE_BONE_SHARE = 0.03
 
 # Bones: fraction of triangles kept per object, and a floor so small bones
 # (phalanges, ossicles) don't collapse into blobs.
@@ -88,6 +112,25 @@ def tri_count(mesh):
     return sum(len(p.vertices) - 2 for p in mesh.polygons)
 
 
+def used_materials(mesh):
+    """Names of the materials some face actually uses."""
+    used = {p.material_index for p in mesh.polygons}
+    return sorted({mesh.materials[i].name for i in used if i < len(mesh.materials) and mesh.materials[i]})
+
+
+def replace_materials(mesh, materials):
+    """Puts `materials` into the mesh's slots, one per slot, in place.
+    Never materials.clear() + append: in Blender 5 clearing the slots resets
+    every face to slot 0, which silently turned all tendons into muscle and
+    all articular cartilage into bone (found by checking the GLB's
+    primitives against the atlas's face counts)."""
+    if len(mesh.materials) == 0:
+        mesh.materials.append(materials[0])
+        return
+    for i, m in enumerate(materials):
+        mesh.materials[i] = m
+
+
 def baked_mesh(obj, depsgraph, kind_materials):
     """World-space copy of obj with all modifiers applied and materials
     replaced by the shared bone/cartilage/tooth set."""
@@ -96,12 +139,8 @@ def baked_mesh(obj, depsgraph, kind_materials):
     mesh.transform(obj.matrix_world)
     if obj.matrix_world.determinant() < 0:
         mesh.flip_normals()
-    kinds = [material_kind(m.name) if m else "bone" for m in mesh.materials]
-    if not kinds:
-        kinds = ["bone"]
-    mesh.materials.clear()
-    for k in kinds:
-        mesh.materials.append(kind_materials[k])
+    kinds = [material_kind(m.name) if m else "bone" for m in mesh.materials] or ["bone"]
+    replace_materials(mesh, [kind_materials[k] for k in kinds])
     return mesh
 
 
@@ -133,26 +172,110 @@ def decimate(mesh, ratio=None, min_tris=None):
     bpy.data.meshes.remove(decimated)
 
 
-def seal(mesh):
+def pieces(bm):
+    """Connected pieces of a bmesh, as lists of faces."""
+    seen, out = set(), []
+    for f in bm.faces:
+        if f.index in seen:
+            continue
+        stack, piece = [f], []
+        seen.add(f.index)
+        while stack:
+            g = stack.pop()
+            piece.append(g)
+            for e in g.edges:
+                for h in e.link_faces:
+                    if h.index not in seen:
+                        seen.add(h.index)
+                        stack.append(h)
+        out.append(piece)
+    return out
+
+
+def piece_volume_area(faces):
+    """Signed volume (outward faces: positive) and area of triangulated faces."""
+    vol = area = 0.0
+    for f in faces:
+        a, b, c = (v.co for v in f.verts[:3])
+        vol += a.dot(b.cross(c)) / 6
+        area += f.calc_area()
+    return vol, area
+
+
+# Muscle cleanup (seal(clean=True)): flat scraps thinner than this
+# (3 · volume / area, metres) are deleted.
+SLIVER = 0.00005
+
+
+def seal(mesh, clean=False):
     """Makes a mesh watertight with outward-facing faces, so the viewer's
     cut caps (back faces seen through the cut) fill every cross-section.
     Fills holes (14 bones and 6 patches had a few open edges, partly from
     decimation) and recalculates normals outward (two temporalis patches
-    were inside out). Returns how many open edges were filled."""
+    were inside out). Returns {what: count} of the repairs made.
+
+    clean (muscles): the muscle meshes also had, after decimation, 1-triangle
+    specks, flat inside-out slivers, single bundles facing inward (one of
+    multifidus thoracis's 21) and duplicated faces (longus colli: hundreds
+    of edges shared by four faces), which break the stencil caps (they
+    count crossings). So: weld coincident vertices, drop duplicate faces
+    and pieces under 4 triangles, then after filling and recalculating,
+    turn every inward piece outward and delete slivers. Bones and patches
+    have none of these (checked the same way), so they're left as they
+    were verified."""
     bm = bmesh.new()
     bm.from_mesh(mesh)
+    report = {}
+    if clean:
+        bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-6)
+        bm.verts.index_update()
+        keys, dupes = set(), []
+        for f in bm.faces:
+            k = tuple(sorted(v.index for v in f.verts))
+            if k in keys:
+                dupes.append(f)
+            else:
+                keys.add(k)
+        if dupes:
+            bmesh.ops.delete(bm, geom=dupes, context="FACES_ONLY")
+            report["duplicateFaces"] = len(dupes)
+        bm.faces.index_update()
+        specks = [f for p in pieces(bm) if len(p) < 4 for f in p]
+        if specks:
+            bmesh.ops.delete(bm, geom=specks, context="FACES")
+            report["specksRemoved"] = len(specks)
+        loose = [v for v in bm.verts if not v.link_faces]
+        if loose:
+            bmesh.ops.delete(bm, geom=loose, context="VERTS")
     open_edges = [e for e in bm.edges if e.is_boundary]
     if open_edges:
         bmesh.ops.holes_fill(bm, edges=open_edges, sides=0)
         bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 3])
+        report["openEdgesFilled"] = len(open_edges)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+    if clean:
+        bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 3])
+        bm.faces.index_update()
+        reversed_, slivers = 0, []
+        for p in pieces(bm):
+            vol, area = piece_volume_area(p)
+            if area > 0 and 3 * abs(vol) / area < SLIVER:
+                slivers.extend(p)
+            elif vol < 0:
+                bmesh.ops.reverse_faces(bm, faces=p)
+                reversed_ += 1
+        if slivers:
+            bmesh.ops.delete(bm, geom=slivers, context="FACES")
+            report["sliverFacesRemoved"] = len(slivers)
+        if reversed_:
+            report["piecesReversed"] = reversed_
     # recalc_face_normals can leave a thin or folded shell pointing inward
     # (the two temporalis "o3" patches); a negative signed volume says so.
-    if bm.calc_volume(signed=True) < 0:
+    elif bm.calc_volume(signed=True) < 0:
         bmesh.ops.reverse_faces(bm, faces=bm.faces[:])
     bm.to_mesh(mesh)
     bm.free()
-    return len(open_edges)
+    return report
 
 
 def join_into(target_mesh, other_mesh):
@@ -230,11 +353,16 @@ def write_records(records, out_json, out_glb, label):
 
 
 def main():
-    export_skeleton()
-    export_insertions()
+    only = os.environ.get("EXPORT_ONLY")  # e.g. "muscles": skip writing the others
+    bones = export_skeleton(write=only in (None, "skeleton"))
+    if only in (None, "insertions"):
+        export_insertions()
+    if only in (None, "muscles"):
+        export_muscles(bones)
 
 
-def export_skeleton():
+def export_skeleton(write=True):
+    """Returns the baked (decimated, world-space) bone meshes by name."""
     source = bpy.data.collections[SKELETON_COLLECTION]
     depsgraph = bpy.context.evaluated_depsgraph_get()
 
@@ -278,16 +406,17 @@ def export_skeleton():
 
     for name, mesh in baked.items():
         decimate(mesh)
-        filled = seal(mesh)
-        if filled:
-            records[name]["openEdgesFilled"] = filled
+        records[name].update(seal(mesh))
         records[name]["tris"] = tri_count(mesh)
-        records[name]["materials"] = sorted({m.name for m in mesh.materials})
+        records[name]["materials"] = used_materials(mesh)
+    if not write:
+        return baked
     export_objects(baked, SKELETON_GLB)
     write_records(records, SKELETON_JSON, SKELETON_GLB, "skeleton")
     # Out of the way of the next export's selection.
     for name in baked:
         bpy.data.objects[name].select_set(False)
+    return baked
 
 
 # Side from geometry: a patch whose centre is at least this far from the
@@ -388,9 +517,7 @@ def export_insertions():
         mesh.materials.append(role_materials[role])
         source_tris = tri_count(mesh)
         decimate(mesh, INSERTION_DECIMATE_RATIO, INSERTION_MIN_TRIS)
-        filled = seal(mesh)
-        if filled:
-            extra = {**extra, "openEdgesFilled": filled}
+        extra = {**extra, **seal(mesh)}
         baked[name] = mesh
         records[name] = {
             "name": name,
@@ -456,6 +583,105 @@ def export_insertions():
 
     export_objects(baked, INSERTIONS_GLB)
     write_records(records, INSERTIONS_JSON, INSERTIONS_GLB, "insertions")
+
+
+def bone_finder(bones):
+    """One BVH over every bone mesh, and the bone each triangle belongs to."""
+    verts, polys, owner = [], [], []
+    for name, mesh in bones.items():
+        base = len(verts)
+        verts.extend(v.co.copy() for v in mesh.vertices)
+        for p in mesh.polygons:
+            polys.append([base + i for i in p.vertices])
+            owner.append(name)
+    return BVHTree.FromPolygons(verts, polys), owner
+
+
+def export_muscles(bones):
+    """Each muscle is one object, "<name>.<l|r>" (the diaphragm and a few
+    midline muscles have no side). Its first material names its action;
+    a second, "Tendon", covers its tendons. Exported with materials
+    "muscle" and "tendon".
+
+    Checks, as for the patches (MISTAKES.md: don't trust labels geometry
+    can check): every sided name must match the side it lies on (none
+    disagree in this atlas; the export fails if one does), and an unsided
+    muscle off the midline whose other side exists gets its side from
+    geometry ("Iliocostalis colli muscle" is the left one, unlabelled)."""
+    source = bpy.data.collections[MUSCLES_COLLECTION]
+    tissue_materials = {k: new_material(k) for k in ("muscle", "tendon")}
+    candidates = [
+        o
+        for o in sorted(source.all_objects, key=lambda o: o.name)
+        if o.type == "MESH"
+        and o.data.polygons
+        and o.data.materials
+        and o.data.materials[0]
+        and o.data.materials[0].name not in NOT_MUSCLE_MATERIALS
+    ]
+    for obj in candidates:
+        for m in obj.modifiers:
+            if m.type == "SUBSURF":
+                m.show_viewport = False
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    depsgraph.update()
+    tree, owner = bone_finder(bones)
+
+    names = {o.name for o in candidates}
+    baked, records = {}, {}
+    wrong_side = []
+    for obj in candidates:
+        x = world_center_x(obj)
+        name = obj.name
+        label = name[-1] if name[-2:] in (".l", ".r") else None
+        geo = None if abs(x) < MIDLINE else ("l" if x > 0 else "r")
+        extra = {}
+        if label and geo and label != geo:
+            wrong_side.append(f"{name} (x = {x:.4f})")
+        if not label and geo:
+            twin = f"{name}.{'r' if geo == 'l' else 'l'}"
+            if twin in names:
+                extra["relabelledFrom"] = name
+                name = f"{name}.{geo}"
+        mesh = bpy.data.meshes.new_from_object(obj.evaluated_get(depsgraph))
+        mesh.transform(obj.matrix_world)
+        if obj.matrix_world.determinant() < 0:
+            mesh.flip_normals()
+        slots = [m.name if m else None for m in mesh.materials]
+        kinds = ["tendon" if s == "Tendon" else "muscle" for s in slots] or ["muscle"]
+        replace_materials(mesh, [tissue_materials[k] for k in kinds])
+        source_tris = tri_count(mesh)
+        decimate(mesh, MUSCLE_DECIMATE_RATIO, MUSCLE_MIN_TRIS)
+        extra.update(seal(mesh, clean=True))
+        # The bones it lies on: vertices within reach of a bone, by bone.
+        step = max(1, len(mesh.vertices) // 400)
+        near = {}
+        sampled = 0
+        for v in list(mesh.vertices)[::step]:
+            sampled += 1
+            hit = tree.find_nearest(v.co, MUSCLE_BONE_REACH)
+            if hit[0] is not None:
+                b = owner[hit[2]]
+                near[b] = near.get(b, 0) + 1
+        on_bones = sorted((b for b, n in near.items() if n / sampled >= MUSCLE_BONE_SHARE), key=lambda b: -near[b])
+        baked[name] = mesh
+        records[name] = {
+            "name": name,
+            "groups": group_chain(obj),
+            "action": obj.data.materials[0].name,
+            "bones": on_bones,
+            "sourceTris": source_tris,
+            "tris": tri_count(mesh),
+            "materials": used_materials(mesh),
+            **extra,
+        }
+    if wrong_side:
+        raise RuntimeError(f"muscles lying on the other side from their label: {wrong_side}")
+    dupes = len(baked) != len(candidates)
+    if dupes:
+        raise RuntimeError("side correction made duplicate names")
+    export_objects(baked, MUSCLES_GLB)
+    write_records(records, MUSCLES_JSON, MUSCLES_GLB, "muscles")
 
 
 try:
