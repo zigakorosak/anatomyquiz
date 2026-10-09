@@ -31,8 +31,9 @@ what's shown and what you have to answer, and play through rounds.
   the inner skull bones behind the face. On the last layer it shows
   everything again.
 - **How to play**: a home-screen page explaining the game.
-- **Explore** mode: straight into the 3D view. A Subjects dropdown toggles
-  bones and muscle attachments (any mix); hover for names, click (or
+- **Explore** mode: straight into the 3D view. A Subjects popup sets each
+  subject (bones, muscle attachments) to Off, Outline, Visible or
+  Clickable; hover for names, click (or
   Random) for an info card with the Latin name, synonyms and group, or
   the bone and action of an attachment.
 - Same look and feel as GeoQuiz: dark theme, wizard of choice screens,

@@ -185,6 +185,8 @@ export class SkeletonViewer {
     // Mesh ids drawn solid but never clickable or hoverable: the bones under
     // muscle attachments. They still block clicks on what's behind them.
     this.backdrop = new Set();
+    // Mesh ids not drawn at all (Explore's "Off" subjects).
+    this.hidden = new Set();
     this.states = new Map(); // mesh id -> state name
     this.hoverIds = [];
     this.hoverGroup = null; // (meshId) => mesh ids to hover together
@@ -271,7 +273,22 @@ export class SkeletonViewer {
   /** Patches only exist on screen in attachments mode. */
   showPatches(shown) {
     this.patchesShown = shown;
-    for (const id of this.patchIds) for (const m of this.meshes.get(id)) m.visible = shown;
+    this._updateVisibility();
+  }
+
+  /** Meshes not drawn at all: not clickable, no ghost, no cap. */
+  setHidden(ids) {
+    this.hidden = new Set(ids ?? []);
+    this._updateVisibility();
+    this._setHover(null);
+  }
+
+  _updateVisibility() {
+    const patches = new Set(this.patchIds);
+    for (const [id, list] of this.meshes) {
+      const shown = !this.hidden.has(id) && (this.patchesShown || !patches.has(id));
+      for (const m of list) m.visible = shown;
+    }
     if (this.clipPlanes) this._updatePlaneCaps();
     this.dirty = true;
   }
@@ -420,6 +437,7 @@ export class SkeletonViewer {
     this.peelLevels = null;
     this.peelDepth = 0;
     this.backdrop = new Set();
+    this.hidden = new Set();
     this.showPatches(false);
     this.pickHandler = null;
     this.hoverHandler = null;

@@ -198,7 +198,7 @@ script fails if a patch's host isn't a known bone (none aren't).
 ### Subjects (`core/subjects.js`)
 
 GeoQuiz's subject registry. Games start with "Choose a subject"; in
-Explore, subjects are toggles (see Interface → Explore):
+Explore, each subject has a mode (see Interface → Explore):
 
 - **Bones**: as described throughout.
 - **Muscle attachments**: one item per muscle and role ("Diaphragm —
@@ -525,16 +525,22 @@ names where a rule exists in both), its screens and its wording.
   last round, and a quick second click used to skip the report.
 - **Explore**: opens straight into the 3D view with bones. Header: a label
   ("Tap a bone" / "Tap an attachment" / "Tap a bone or attachment"), a
-  **Subjects** dropdown, Random, and ☰ (Reset view / Home). Subjects is a
-  list of checkboxes, one per subject, any mix on; it stays open while
-  toggling, and a click elsewhere closes it. A subject's data and model load
-  the first time it's turned on (its checkbox is disabled meanwhile). The
-  enabled subjects' meshes are clickable. With bones off but another
-  subject on, the bones are a solid backdrop; with nothing on, everything
-  ghosts and Random is disabled. Turning a subject off clears its
-  selection. The info card fits what was clicked (bone: name, group,
+  **Subjects** button, Random, and ☰ (Reset view / Home). Subjects opens a
+  popup in the middle of the screen: one row per subject, each with a
+  button that cycles its mode (`MODES`):
+  - **Off**: not drawn at all (the viewer's `setHidden`).
+  - **Outline**: the translucent ghost used outside the region in games.
+  - **Visible**: solid, not clickable (a backdrop; still blocks clicks).
+  - **Clickable**: solid and clickable.
+
+  Bones start Clickable, everything else Off. The popup stays open while
+  cycling; Done, Escape or a click outside it closes it. A subject's data
+  and model load the first time it leaves Off (its button reads
+  "Loading…" meanwhile). The label names the clickable subjects ("Nothing
+  clickable" if none, and Random is then disabled). A subject leaving
+  Clickable clears its selection. The info card fits what was clicked (bone: name, group,
   Latin, synonyms, side; attachment: name and role, Latin, bone, action,
-  side). Random picks from the enabled subjects (skipping the ossicles,
+  side). Random picks from the clickable subjects (skipping the ossicles,
   hidden inside the temporal bone). How a subject shows in Explore is a
   small table in `ui/explore.js` (`EXPLORE`), so muscles and later
   subjects add an entry there.

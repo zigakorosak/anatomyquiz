@@ -2,6 +2,26 @@
 
 Newest first. What changed and why.
 
+## 2026-10-09: Explore subjects popup with four modes
+
+User request: Subjects opens a popup in the middle of the screen, and the
+button beside each subject cycles Off → Outline → Visible → Clickable.
+
+- `ui/explore.js`: the checkbox dropdown is replaced by a centred popup
+  (Done / Escape / click outside close it). Modes map onto the viewer:
+  Off → hidden, Outline → muted ghost, Visible → backdrop, Clickable →
+  playable. Bones start Clickable, attachments Off.
+- Viewer: `setHidden(ids)`, a set of meshes not drawn at all; patch
+  visibility (`showPatches`) and it share one `_updateVisibility()`.
+  `reset()` clears it.
+- How to play, README and DESIGN updated.
+
+Tested in Firefox: every mode of both subjects gives the expected counts
+(bones Off 0 drawn; Outline 269 ghosts; Visible 269 solid, 0 clickable;
+Clickable 269 clickable; attachments likewise, 728). A click on the femur
+picks it only when bones are Clickable. The popup is centred, fits at
+360 px, and a subject leaving Clickable clears its info card.
+
 ## 2026-10-08: cut faces solid even with something inside (sternum)
 
 User report: with a sagittal cut, the costal cartilage could be seen and

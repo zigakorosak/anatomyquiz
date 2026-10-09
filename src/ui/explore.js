@@ -3,12 +3,13 @@
 // an info card floating over the top of the view. Hover shows a name
 // tooltip; no quiz mechanics.
 //
-// Subjects is a dropdown of toggles (bones on to start): any mix can be on.
-// - Bones on: every bone clickable; card: name, group, Latin, synonyms, side.
-// - Muscle attachments on: every patch clickable; card: muscle and role,
-//   Latin, bone, action, side. With bones off, the bones stay as a solid,
-//   unclickable backdrop for them.
-// - Nothing on: everything ghosts.
+// Subjects opens a popup in the middle of the screen, one row per subject,
+// each with a button cycling its mode (MODES): Off (not drawn), Outline
+// (a translucent ghost, as outside the region in games), Visible (solid,
+// not clickable) and Clickable (solid and clickable). Bones start
+// Clickable, everything else Off.
+// - Bones card: name, group, Latin, synonyms, side.
+// - Muscle attachments card: muscle and role, Latin, bone, action, side.
 
 import { buildQuizItems, displayLatin, displayName, INSERTIONS_MODEL_URL } from "../core/dataset.js";
 import { subjects } from "../core/subjects.js";
@@ -20,6 +21,15 @@ import { createHamburgerMenu } from "./hamburgerMenu.js";
 import { createViewTools } from "./viewTools.js";
 
 const SIDE = { left: "Left", right: "Right" };
+
+// A subject's modes, in the order its button cycles through them.
+const MODES = [
+  { id: "off", label: "Off" },
+  { id: "outline", label: "Outline" },
+  { id: "visible", label: "Visible" },
+  { id: "clickable", label: "Clickable" },
+];
+const nextMode = (id) => MODES[(MODES.findIndex((m) => m.id === id) + 1) % MODES.length].id;
 
 // How each subject appears in Explore. A new subject (muscles, …) adds an
 // entry here as well as in core/subjects.js.
@@ -62,31 +72,44 @@ export function renderExplore(root, navigate) {
     { label: "Explore menu" },
   );
 
-  // Subjects dropdown: one checkbox per subject. Unlike ☰ it stays open
-  // while toggling; a click elsewhere on the screen closes it.
-  const enabled = new Set(["bones"]);
-  const checkboxes = Object.values(subjects).map((s) =>
-    h("input", { type: "checkbox", checked: enabled.has(s.id), dataset: { subject: s.id } }),
+  // Subjects popup: one row per subject with its mode button. Stays open
+  // while cycling modes; Done, Escape or a click outside the panel closes it.
+  const mode = Object.fromEntries(Object.values(subjects).map((s) => [s.id, s.id === "bones" ? "clickable" : "off"]));
+  const modeButtons = Object.values(subjects).map((s) =>
+    h("button.subject-mode", { type: "button", dataset: { subject: s.id } }),
   );
-  const subjectList = h(
-    "div.game-menu-dropdown.subject-list",
-    { hidden: true },
-    Object.values(subjects).map((s, i) => h("label.subject-option", {}, checkboxes[i], h("span", {}, s.label))),
-  );
-  const subjectToggle = h(
-    "button.exit-button.game-menu-toggle",
-    { type: "button", "aria-expanded": "false" },
-    "Subjects",
-  );
-  const subjectMenu = h("div.game-menu.subject-menu", {}, subjectToggle, subjectList);
-  const setListOpen = (open) => {
-    subjectList.hidden = !open;
-    subjectToggle.setAttribute("aria-expanded", String(open));
+  const showMode = (button) => {
+    const m = mode[button.dataset.subject];
+    button.dataset.mode = m;
+    button.textContent = MODES.find((x) => x.id === m).label;
   };
-  subjectToggle.addEventListener("click", () => setListOpen(subjectList.hidden));
-  screen.addEventListener("click", (e) => {
-    if (!subjectMenu.contains(e.target)) setListOpen(false);
+  modeButtons.forEach(showMode);
+  const subjectToggle = h("button.exit-button", { type: "button", "aria-haspopup": "dialog" }, "Subjects");
+  const subjectPopup = h(
+    "div.subject-popup-backdrop",
+    { hidden: true },
+    h(
+      "div.subject-popup",
+      { role: "dialog", "aria-label": "Subjects" },
+      h("div.subject-popup-title", {}, "Subjects"),
+      h(
+        "div.subject-rows",
+        {},
+        Object.values(subjects).map((s, i) => h("div.subject-row", {}, h("span", {}, s.label), modeButtons[i])),
+      ),
+      h("p.subject-popup-hint", {}, "Off · Outline · Visible · Clickable: press to change."),
+      h("button.action-button", { type: "button", onclick: () => setPopupOpen(false) }, "Done"),
+    ),
+  );
+  const setPopupOpen = (open) => (subjectPopup.hidden = !open);
+  subjectToggle.addEventListener("click", () => setPopupOpen(true));
+  subjectPopup.addEventListener("click", (e) => {
+    if (e.target === subjectPopup) setPopupOpen(false);
   });
+  const onKey = (e) => {
+    if (e.key === "Escape" && !subjectPopup.hidden) setPopupOpen(false);
+  };
+  document.addEventListener("keydown", onKey);
 
   const stage = h("div.stage");
   const loading = h("div.stage-loading", {}, "Loading skeleton…");
@@ -94,7 +117,7 @@ export function renderExplore(root, navigate) {
   const tooltip = h("div.tooltip", { hidden: true });
 
   screen.append(
-    h("div.game-header", {}, label, subjectMenu, randomButton, menu),
+    h("div.game-header", {}, label, subjectToggle, randomButton, menu),
     h(
       "div.round-area",
       {},
@@ -108,6 +131,7 @@ export function renderExplore(root, navigate) {
         credits({ overlay: true }),
       ),
     ),
+    subjectPopup,
   );
   root.append(screen);
 
@@ -122,8 +146,9 @@ export function renderExplore(root, navigate) {
   // Per subject, once loaded: its items (tagged with the subject) and a
   // mesh id -> item map.
   const loaded = new Map();
+  const ids = (m) => Object.keys(mode).filter((id) => mode[id] === m && loaded.has(id));
   const itemOf = (meshId) => {
-    for (const [id, l] of loaded) if (enabled.has(id) && l.byMesh.has(meshId)) return l.byMesh.get(meshId);
+    for (const id of ids("clickable")) if (loaded.get(id).byMesh.has(meshId)) return loaded.get(id).byMesh.get(meshId);
     return null;
   };
 
@@ -135,19 +160,21 @@ export function renderExplore(root, navigate) {
     loaded.set(id, { items, byMesh: new Map(items.flatMap((i) => i.meshIds.map((m) => [m, i]))) });
   }
 
-  // Shows the enabled subjects: their meshes clickable, the bones as a solid
-  // backdrop when only other subjects are on, everything ghosted when none.
+  // Draws each subject in its mode: Off hidden, Outline muted (the
+  // default for anything neither playable nor backdrop), Visible as a
+  // solid backdrop, Clickable playable.
   function apply() {
-    const on = [...enabled];
-    viewer.showPatches(enabled.has("attachments"));
-    viewer.setBackdrop(!enabled.has("bones") && on.length ? viewer.meshIds : []);
-    viewer.setPlayable(on.flatMap((id) => EXPLORE[id].meshIds(viewer)));
-    const nouns = on.map((id) => EXPLORE[id].noun);
+    const meshes = (m) => ids(m).flatMap((id) => EXPLORE[id].meshIds(viewer));
+    viewer.showPatches(loaded.has("attachments"));
+    viewer.setHidden(meshes("off"));
+    viewer.setBackdrop(meshes("visible"));
+    viewer.setPlayable(meshes("clickable"));
+    const nouns = ids("clickable").map((id) => EXPLORE[id].noun);
     label.textContent = nouns.length
       ? `Tap ${/^[aeiou]/.test(nouns[0]) ? "an" : "a"} ${nouns.join(" or ")}`
-      : "Nothing selected";
-    randomButton.disabled = !on.length;
-    if (selected && !enabled.has(selected.subject)) select(null);
+      : "Nothing clickable";
+    randomButton.disabled = !nouns.length;
+    if (selected && mode[selected.subject] !== "clickable") select(null);
   }
 
   function showInfo(item) {
@@ -198,20 +225,23 @@ export function renderExplore(root, navigate) {
     showInfo(item);
   }
 
-  checkboxes.forEach((box) =>
-    box.addEventListener("change", async () => {
-      const id = box.dataset.subject;
-      if (!viewer) return void (box.checked = enabled.has(id));
-      if (box.checked) {
-        box.disabled = true; // while its data and model load
+  modeButtons.forEach((button) =>
+    button.addEventListener("click", async () => {
+      const id = button.dataset.subject;
+      if (!viewer || button.disabled) return;
+      const next = nextMode(mode[id]);
+      if (next !== "off" && !loaded.has(id)) {
+        button.disabled = true; // while its data and model load
+        button.textContent = "Loading…";
         try {
           await loadSubject(id);
         } finally {
-          box.disabled = false;
+          button.disabled = false;
         }
         if (left) return;
-        enabled.add(id);
-      } else enabled.delete(id);
+      }
+      mode[id] = next;
+      showMode(button);
       apply();
     }),
   );
@@ -239,7 +269,7 @@ export function renderExplore(root, navigate) {
       tooltip.style.top = `${mouse.y - rect.top + 14}px`;
     });
     randomButton.addEventListener("click", () => {
-      const pool = [...enabled].flatMap((id) => EXPLORE[id].randomPool(loaded.get(id).items));
+      const pool = ids("clickable").flatMap((id) => EXPLORE[id].randomPool(loaded.get(id).items));
       if (!pool.length) return;
       const item = pool[Math.floor(Math.random() * pool.length)];
       select(item);
@@ -253,6 +283,7 @@ export function renderExplore(root, navigate) {
 
   return () => {
     left = true;
+    document.removeEventListener("keydown", onKey);
     viewTools?.dispose();
     stage.removeEventListener("pointermove", onMove);
     viewer?.reset();

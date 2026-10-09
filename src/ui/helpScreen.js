@@ -47,7 +47,7 @@ const SECTIONS = [
     "Elsewhere",
     [
       "☰ during a game: Restart, Back (to your last choice, with everything else kept), or Home.",
-      "Explore: no questions. Use Subjects to choose what's shown (bones, muscle attachments, or both). Hover for names, click (or press Random) for details, including the Latin name and, for muscle attachments, the bone and the muscle's action.",
+      "Explore: no questions. Subjects sets how each subject shows, pressing its button to cycle: Off, Outline (see-through), Visible, or Clickable. Hover for names, click (or press Random) for details, including the Latin name and, for muscle attachments, the bone and the muscle's action.",
       "Settings: keep your camera view between rounds or reset it, and choose whether the camera moves to the answer after each question.",
     ],
   ],
